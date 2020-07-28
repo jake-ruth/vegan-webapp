@@ -1,0 +1,10 @@
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.footer {
+  background-color: $background-color-dark;
+  color: white;
+}

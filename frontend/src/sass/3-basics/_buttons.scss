@@ -1,0 +1,25 @@
+.btn-primary {
+  padding: 9px 25px;
+  background-color: $primary-color;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-primary:hover {
+  background-color: rgba(75, 143, 160, 0.8);
+}
+
+.btn-secondary {
+  padding: 9px 25px;
+  background-color: rgba(81, 143, 127, 1);
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(81, 143, 127, 0.8);
+}

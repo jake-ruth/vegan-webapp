@@ -1,0 +1,18 @@
+//THIS FILE SHOULD ONLY BE IMPORTS FROM SASS FOLDER
+
+//1 - HELPERS
+@import './sass/1-helpers/_variables.scss';
+
+//3 - BASICS
+@import './sass/3-basics/base';
+@import './sass/3-basics/buttons';
+@import './sass/3-basics/links';
+
+//4 - LAYOUT
+@import './sass/4-layout/_siteHeader';
+@import './sass/4-layout/_siteFooter';
+@import './sass/4-layout/recipeCard';
+
+//6 - PAGES
+@import './sass/6-pages/loginPage';
+@import './sass/6-pages/aboutPage';
