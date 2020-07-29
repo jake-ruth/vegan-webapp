@@ -28,18 +28,30 @@ button {
   margin-right: auto;
 }
 
-.nav__links {
-  list-style: none;
-  li {
-    display: inline-block;
-    padding: 0px 20px;
+@media (min-width: 600px) {
+  .nav__links {
+    list-style: none;
+    li {
+      display: inline-block;
+      padding: 0px 20px;
 
-    a {
-      transition: all 0.3s ease 0s;
-    }
+      a {
+        color: rgb(255, 255, 255) !important;
+        transition: all 0.3s ease 0s;
+      }
 
-    a:hover {
-      color: #0088a9;
+      a:hover {
+        color: rgba(255, 255, 255, 0.8) !important;
+      }
     }
+  }
+}
+
+@media (max-width: 600px) {
+  .nav__links {
+    display: none;
+  }
+  button {
+    display: none;
   }
 }

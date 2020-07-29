@@ -5,9 +5,9 @@ import { Footer } from '../../components/Footer';
 
 export const AboutPage = () => {
   return (
-    <div>
+    <div className='about-page'>
       <Navbar />
-      <div className='about-page'>
+      <div>
         <h1>About Us</h1>
         <div className='about-page__content'>
           <p>
@@ -26,7 +26,9 @@ export const AboutPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className='footer-fixed'>
+        <Footer />
+      </div>
     </div>
   );
 };

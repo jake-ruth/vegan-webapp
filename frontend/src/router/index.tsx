@@ -4,6 +4,7 @@ import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/Register';
 import { HomePage } from '../pages/HomePage';
 import { AboutPage } from '../pages/AboutPage';
+import { ViewRecipePage } from '../pages/ViewRecipePage';
 
 export const BaseRouter = () => {
   return (
@@ -13,6 +14,7 @@ export const BaseRouter = () => {
         <Route path='/login' component={LoginPage} />
         <Route path='/register' component={RegisterPage} />
         <Route path='/about' component={AboutPage} />
+        <Route path='/viewRecipe' component={ViewRecipePage} />
       </Switch>
     </Router>
   );

@@ -1,6 +1,7 @@
 html {
   box-sizing: border-box;
   background: white;
+  min-height: 100vh;
 }
 
 .container {
@@ -17,6 +18,8 @@ html {
 }
 
 body {
+  min-height: 100vh;
+  height: auto !important;
   max-width: 100vw;
   font-family: var(--ff-primary);
 }

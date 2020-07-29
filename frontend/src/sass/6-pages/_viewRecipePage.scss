@@ -1,0 +1,31 @@
+.view-recipe {
+  h1,
+  p {
+    text-align: center;
+  }
+}
+
+.view-recipe__header {
+  display: flex;
+  justify-content: center;
+  margin: 2em;
+}
+
+.view-recipe__img {
+  width: 200px;
+  height: 200px;
+  margin: 0.5em;
+  border: solid $primary-color 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.view-recipe__content {
+  display: flex;
+  justify-content: space-evenly;
+
+  li {
+    color: black;
+
+    line-height: 2rem;
+  }
+}

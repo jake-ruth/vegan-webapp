@@ -9,7 +9,8 @@ export const HomePage = () => {
       <Navbar />
       <h1 style={{ textAlign: 'center' }}>Good Afternoon, Jake!</h1>
       <p style={{ textAlign: 'center', fontStyle: 'italic' }}>
-        "Today is a new day. Your food shall be thine choice. Become one with your food." - Jeffery Dhomer
+        "An object for pleasure and not a living breathing human being. It seems to make it easier to do things you shouldn't do."
+        - Jeffery Dahmer
       </p>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', margin: '0 2em' }}>
