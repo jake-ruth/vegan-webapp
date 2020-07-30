@@ -7,4 +7,7 @@ export class ApplicationUser extends BaseEntity {
 
   @Column()
   firstName: string;
+
+  @Column('character varying', { array: true, nullable: true })
+  testArray: string[];
 }

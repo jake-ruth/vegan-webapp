@@ -16,6 +16,12 @@ const makeApp = async () => {
 
   await createConnection();
 
+  const applicationUser = new ApplicationUser();
+  applicationUser.testArray = ['Test1', 'Test2'];
+  applicationUser.firstName = 'Erika';
+
+  ApplicationUserController.createApplicationUser(applicationUser);
+
   console.log(await ApplicationUserController.readAllApplicationUsers());
 };
 
