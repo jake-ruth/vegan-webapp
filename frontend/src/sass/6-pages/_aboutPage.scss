@@ -1,4 +1,4 @@
-@media (min-width: 600px) {
+@media (min-width: 800px) {
   .about-page {
     h1 {
       text-align: center;
@@ -10,14 +10,21 @@
     justify-content: space-around;
   }
 
+  .about-page__description {
+    margin: 2em;
+  }
+
   .about-page__contact {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    height: 300px;
     color: white;
     background-color: $background-color-dark;
     padding: 1em;
-    width: 300px;
-    height: 300px;
-    min-width: 250px;
     margin: 1em;
+    align-items: center;
+    justify-content: center;
 
     h2 {
       text-align: center;
@@ -25,7 +32,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .about-page {
     h1 {
       text-align: center;
@@ -37,15 +44,21 @@
   }
 
   .about-page__content {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .about-page__contact {
+    display: flex;
+    flex-direction: column;
     color: white;
     background-color: $background-color-dark;
     padding: 1em;
-    max-width: 80vw;
     margin: 1em;
+    align-items: center;
+    justify-content: center;
 
     h2 {
       text-align: center;
