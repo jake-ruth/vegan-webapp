@@ -36,7 +36,7 @@ export const AboutPage = () => {
       <Modal visible={showModal} setVisible={setShowModal}>
         <h2>Subscribe to our mailing list!</h2>
         <label>Enter your email:</label>
-        <input type='text' name='email' />
+        <input type='text' />
         <button className='btn-primary' onClick={() => setShowModal(!showModal)}>
           Submit
         </button>
