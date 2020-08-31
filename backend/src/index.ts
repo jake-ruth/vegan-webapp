@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { createConnection, Connection } from 'typeorm';
 import { ApplicationUser } from './entities/ApplicationUser';
 import { ApplicationUserController } from './controllers/applicationUserController';
+import { Recipe } from './entities/Recipe';
 const express = require('express');
 
 const app = express();
@@ -16,13 +17,31 @@ const makeApp = async () => {
 
   await createConnection();
 
-  const applicationUser = new ApplicationUser();
-  applicationUser.testArray = ['Test1', 'Test2'];
-  applicationUser.firstName = 'Erika';
+  //Experiments
+  // const applicationUser = new ApplicationUser();
+  // applicationUser.testArray = ['Test1', 'Test2'];
+  // applicationUser.firstName = 'Jake';
+  // applicationUser.lastName = 'Ruth';
 
-  ApplicationUserController.createApplicationUser(applicationUser);
+  // const user = await ApplicationUserController.createApplicationUser(applicationUser);
+
+  const user = await ApplicationUser.findOne(1);
+
+  // const recipe = new Recipe();
+  // recipe.applicationUser = user!;
+  // recipe.title = 'Vegan Mac and Cheese!';
+  // recipe.description = 'Here is my mac and cheese desc';
+  // recipe.ingredients = ['nooch', 'pasta', 'cashews'];
+  // recipe.instructions = ['create mac', 'add cheese', 'serve and enjoy'];
+
+  // Recipe.save(recipe);
+
+  const recipeTest = await Recipe.find({ where: { applicationUser: user } });
+
+  console.log('RECIPE: ', recipeTest);
 
   console.log(await ApplicationUserController.readAllApplicationUsers());
+  //Experiments
 };
 
 makeApp();

@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from 'typeorm';
+import { Recipe } from './Recipe';
 
 @Entity('ApplicationUser')
 export class ApplicationUser extends BaseEntity {
@@ -8,6 +9,9 @@ export class ApplicationUser extends BaseEntity {
   @Column()
   firstName: string;
 
-  @Column('character varying', { array: true, nullable: true })
-  testArray: string[];
+  @Column()
+  lastName: string;
+
+  @OneToMany(() => Recipe, (recipe) => recipe.applicationUser)
+  recipes: Recipe[];
 }
