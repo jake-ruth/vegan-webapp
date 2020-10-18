@@ -3,7 +3,8 @@ import { Request, Response } from 'express';
 import { ApplicationUserController } from '../controllers/ApplicationUserController';
 import { ApplicationUser } from '../entities/ApplicationUser';
 import bodyParser from 'body-parser';
-const jwt = require('jsonwebtoken');
+import { authenticateToken } from '../middleware/authentication';
+import { RefreshTokenController } from '../controllers/RefreshTokenController';
 
 const express = require('express');
 const router = express.Router();
@@ -40,8 +41,31 @@ router.post('/login', async (req: Request, res: Response) => {
         let accessToken = await ApplicationUserController.generateAccessToken(req.body);
         let refreshToken = await ApplicationUserController.generateRefreshToken(req.body);
 
+        await RefreshTokenController.addRefreshToken(refreshToken);
+
         return res.status(200).json({ accessToken, refreshToken});
     } catch (err){
+        return res.status(500).json({error: err});
+    }
+});
+
+//Logout
+router.delete('/logout', async (req: Request, res: Response) => {
+    try {
+        await ApplicationUserController.logout(req.body.refreshToken);
+        return res.sendStatus(200);
+    } catch(err){
+        return res.status(500).json({error: err});
+    }
+})
+
+
+//Get single user
+router.get('/getApplicationUser/:id', authenticateToken, async (req: Request, res: Response) => {
+    try {
+        const applicationUser = await ApplicationUserController.readOneApplicationUser(Number(req.params.id));     
+        return res.send(applicationUser).status(200);
+    } catch (err) {
         return res.status(500).json({error: err});
     }
 })

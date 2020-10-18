@@ -1,0 +1,32 @@
+###
+POST http://localhost:4000/register
+Content-Type: application/json
+
+{   
+    "email" : "jake@jake",
+    "password" : "jake",
+    "firstName" : "jadk",
+    "lastName" : "rith",
+    "bio" : "TEST BIO"
+}
+
+###
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "email": "jake@jake",
+    "password" : "jake"
+}
+
+###
+DELETE http://localhost:4000/logout
+Content-Type: application/json
+
+{
+    "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impha2VAamFrZSIsInBhc3N3b3JkIjoiamFrZSIsImlhdCI6MTYwMzA1Nzg5NiwiZXhwIjoxNjA1NjQ5ODk2fQ.kjghUphVGlboYbVnoQLf0Aw7ou0G8QL39m_0dGjmolU"
+}
+
+###
+GET http://localhost:4000/getApplicationUser/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impha2VAamFrZSIsInBhc3N3b3JkIjoiamFrZSIsImlhdCI6MTYwMzA1NjU3MCwiZXhwIjoxNjAzMDU4MzcwfQ.Gh2Gcdx2Mp-ZT6fTZRA7MmFjZXJJ8gu-2SdCJGdRdOw

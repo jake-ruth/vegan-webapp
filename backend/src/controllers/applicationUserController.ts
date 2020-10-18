@@ -1,4 +1,5 @@
 import { ApplicationUser } from '../entities/ApplicationUser';
+import { RefreshTokenController } from './RefreshTokenController';
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -24,6 +25,14 @@ export class ApplicationUserController {
     if (await bcrypt.compare(password, applicationUser.password))return applicationUser; 
     
     throw new Error().message = 'Invalid password';
+  }
+
+  static logout = async (refreshToken: string) => {
+    return await RefreshTokenController.deleteRefreshToken(refreshToken);
+  }
+
+  static readOneApplicationUser = async (id: number) => {
+    return await ApplicationUser.findOne(id);
   }
 
   static generateAccessToken = async (user: any) => {
