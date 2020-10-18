@@ -7,10 +7,19 @@ export class ApplicationUser extends BaseEntity {
   id: number;
 
   @Column()
+  email: string;
+
+  @Column()
+  password: string;
+
+  @Column()
   firstName: string;
 
   @Column()
   lastName: string;
+
+  @Column()
+  bio: string;
 
   @OneToMany(() => Recipe, (recipe) => recipe.applicationUser)
   recipes: Recipe[];
