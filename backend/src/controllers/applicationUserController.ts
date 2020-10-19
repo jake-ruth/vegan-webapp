@@ -4,10 +4,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 export class ApplicationUserController {
-  static readAllApplicationUsers = async () => {
-    return await ApplicationUser.find();
-  };
-
   static createApplicationUser = async (applicationUser: ApplicationUser) => {
     applicationUser.password = await bcrypt.hash(applicationUser.password, 10);
 
@@ -33,6 +29,10 @@ export class ApplicationUserController {
 
   static readOneApplicationUser = async (id: number) => {
     return await ApplicationUser.findOne(id);
+  }
+
+  static deleteApplicationUser = async (id: number) => {
+    return await ApplicationUser.delete(id);
   }
 
   static generateAccessToken = async (user: any) => {

@@ -70,4 +70,14 @@ router.get('/getApplicationUser/:id', authenticateToken, async (req: Request, re
     }
 })
 
+//Delete user by id
+router.delete('/deleteApplicationUser', authenticateToken, async (req: Request, res: Response) => {
+    try {
+        await ApplicationUserController.deleteApplicationUser(req.body.id);
+        return res.sendStatus(200);
+    } catch (err) {
+        return res.sendStatus(500).json({error: err});
+    }
+})
+
 module.exports = router;

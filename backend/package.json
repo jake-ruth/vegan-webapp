@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  "jest": {
+    "verbose": true
+  },
   "scripts": {
     "start": "nodemon ./src/index.ts",
     "test": "jest"
@@ -21,9 +24,11 @@
     "typeorm": "^0.2.25"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.12.1",
     "@types/express": "^4.17.7",
     "@types/jest": "^26.0.14",
-    "@types/node": "^14.0.27",
+    "@types/node": "^14.11.10",
+    "babel-jest": "^26.5.2",
     "jest": "^26.5.3",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",
