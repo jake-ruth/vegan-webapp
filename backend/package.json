@@ -2,13 +2,15 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "jest": {
     "verbose": true
   },
   "scripts": {
     "start": "nodemon ./src/index.ts",
-    "test": "jest --coverage"
+    "prod": "node dist/index.js",
+    "test": "jest --coverage",
+    "build": "tsc"
   },
   "author": "Jake Ruth",
   "license": "ISC",
