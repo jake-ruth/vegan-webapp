@@ -3,6 +3,7 @@ import { connect } from 'http2';
 import { createConnection } from 'typeorm';
 import { ApplicationUserController } from './controllers/applicationUserController';
 const cors = require('cors');
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv-flow').config();
@@ -18,6 +19,12 @@ const makeApp = async () => {
   //Healthcheck to see server time up
   app.use('/_healthcheck', (req: Request, res: Response) => {
     return res.status(200).json({ uptime: process.uptime() });
+  });
+
+  //Serve react app
+  app.use(express.static(path.join(__dirname, '../frontend/build')));
+  app.get('*', (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, '../frontend/build'));
   });
 
   await createConnection({
