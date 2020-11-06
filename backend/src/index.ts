@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { createConnection } from 'typeorm';
+import { ApplicationUserController } from './controllers/applicationUserController';
 const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -18,9 +19,10 @@ const makeApp = async () => {
   });
 
   await createConnection();
+
+  ApplicationUserController.readOneApplicationUser(1);
 };
 
 makeApp();
-
 
 app.listen(process.env.PORT, () => console.log(`App listening at http://localhost:${process.env.PORT}`));
