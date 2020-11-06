@@ -24,7 +24,7 @@ const makeApp = async () => {
   //Serve react app
   app.use(express.static(path.join(__dirname, '../../frontend/build/')));
   app.get('*', (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, '../../frontend/build/'));
+    res.sendFile(path.resolve(__dirname, '../../frontend/build', 'index.html'));
   });
 
   await createConnection({
