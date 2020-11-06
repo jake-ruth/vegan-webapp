@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
+import { connect } from 'http2';
 import { createConnection } from 'typeorm';
 import { ApplicationUserController } from './controllers/applicationUserController';
 const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
+require('dotenv-flow').config();
 
 const app = express();
 
@@ -18,11 +20,38 @@ const makeApp = async () => {
     return res.status(200).json({ uptime: process.uptime() });
   });
 
-  await createConnection();
-
-  ApplicationUserController.readOneApplicationUser(1);
+  await createConnection({
+    type: 'postgres',
+    host: process.env.TYPEORM_DB_HOST,
+    port: Number(process.env.TYPEORM_DB_PORT),
+    username: process.env.TYPEORM_DB_USERNAME,
+    password: process.env.TYPEORM_DB_PASSWORD,
+    database: process.env.TYPEORM_DB_NAME,
+    synchronize: true,
+    logging: true,
+    entities: ['src/entities/**/*.ts'],
+    migrations: ['src/migration/**/*.ts'],
+    subscribers: ['src/subscriber/**/*.ts'],
+    ssl: process.env.NODE_ENV === 'development' ? false : true,
+    extra:
+      process.env.NODE_ENV === 'development'
+        ? {}
+        : {
+            ssl: {
+              rejectUnauthorized: false
+            }
+          },
+    cli: {
+      entitiesDir: 'src/entities',
+      migrationsDir: 'src/migration',
+      subscribersDir: 'src/subscriber'
+    }
+  });
 };
 
 makeApp();
+
+console.log('ENVIRONMENT: ', process.env.NODE_ENV);
+console.log('CONNECTED TO DB: ', process.env.TYPEORM_DB_NAME);
 
 app.listen(process.env.PORT, () => console.log(`App listening at http://localhost:${process.env.PORT}`));

@@ -7,9 +7,11 @@
     "verbose": true
   },
   "scripts": {
-    "start": "nodemon ./src/index.ts",
-    "prod": "node dist/index.js",
-    "test": "jest --coverage",
+    "start": "export NODE_ENV=development && nodemon ./src/index.ts",
+    "test": "export NODE_ENV=test && nodemon ./src/index.ts",
+    "prod": "export NODE_ENV=production && nodemon ./src/index.ts",
+    "run-prod": "node dist/index.js",
+    "run-tests": "jest --coverage",
     "build": "tsc"
   },
   "author": "Jake Ruth",
@@ -20,6 +22,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "dotenv-flow": "^3.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.3.0",
