@@ -7,7 +7,7 @@
     "start": "cd backend && npm start",
     "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "npm install"
+    "heroku-postbuild": "npm install && cd backend && npm install"
   },
   "repository": {
     "type": "git",
