@@ -11,8 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const cors = require('cors');
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+require('dotenv-flow').config();
 const app = express();
 //Express middlewares
 app.use(cors());
@@ -23,8 +25,40 @@ const makeApp = () => __awaiter(void 0, void 0, void 0, function* () {
     app.use('/_healthcheck', (req, res) => {
         return res.status(200).json({ uptime: process.uptime() });
     });
-    yield typeorm_1.createConnection();
+    //Serve react app
+    app.use(express.static(path.join(__dirname, '../../frontend/build/')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../../frontend/build', 'index.html'));
+    });
+    yield typeorm_1.createConnection({
+        type: 'postgres',
+        host: process.env.TYPEORM_DB_HOST,
+        port: Number(process.env.TYPEORM_DB_PORT),
+        username: process.env.TYPEORM_DB_USERNAME,
+        password: process.env.TYPEORM_DB_PASSWORD,
+        database: process.env.TYPEORM_DB_NAME,
+        synchronize: true,
+        logging: true,
+        entities: ['src/entities/**/*.ts'],
+        migrations: ['src/migration/**/*.ts'],
+        subscribers: ['src/subscriber/**/*.ts'],
+        ssl: process.env.NODE_ENV === 'development' ? false : true,
+        extra: process.env.NODE_ENV === 'development'
+            ? {}
+            : {
+                ssl: {
+                    rejectUnauthorized: false
+                }
+            },
+        cli: {
+            entitiesDir: 'src/entities',
+            migrationsDir: 'src/migration',
+            subscribersDir: 'src/subscriber'
+        }
+    });
 });
 makeApp();
+console.log('ENVIRONMENT: ', process.env.NODE_ENV);
+console.log('CONNECTED TO DB: ', process.env.TYPEORM_DB_NAME);
 app.listen(process.env.PORT, () => console.log(`App listening at http://localhost:${process.env.PORT}`));
 //# sourceMappingURL=index.js.map
