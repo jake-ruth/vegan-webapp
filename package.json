@@ -6,7 +6,7 @@
   "scripts": {
     "start": "export NODE_ENV=development && concurrently \"cd frontend && npm start\" \"cd backend && npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "npm install && cd frontend && npm install && cd backend && npm install"
+    "heroku-postbuild": "npm install"
   },
   "repository": {
     "type": "git",
