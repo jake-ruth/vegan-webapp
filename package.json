@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd backend && npm start",
+    "start": "node ./backend/dist/index.js",
     "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "npm install && cd backend && npm install"
+    "heroku-postbuild": "npm install && cd backend && npm run build"
   },
   "repository": {
     "type": "git",
