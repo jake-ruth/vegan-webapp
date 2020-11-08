@@ -39,7 +39,7 @@ const makeApp = () => __awaiter(void 0, void 0, void 0, function* () {
         database: process.env.TYPEORM_DB_NAME,
         synchronize: true,
         logging: true,
-        entities: ['src/entities/**/*.ts'],
+        entities: [__dirname + '/entities/**/*.ts'],
         migrations: ['src/migration/**/*.ts'],
         subscribers: ['src/subscriber/**/*.ts'],
         ssl: process.env.NODE_ENV === 'development' ? false : true,
