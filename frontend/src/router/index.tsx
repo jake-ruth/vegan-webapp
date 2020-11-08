@@ -11,7 +11,7 @@ export const BaseRouter = () => {
     <Router>
       <Switch>
         <Route path='/' exact component={HomePage} />
-        <Route path='/login' component={LoginPage} />
+        <Route path='/loginPage' component={LoginPage} />
         <Route path='/register' component={RegisterPage} />
         <Route path='/about' component={AboutPage} />
         <Route path='/viewRecipe' component={ViewRecipePage} />

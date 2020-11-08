@@ -16,7 +16,7 @@ export const Navbar = () => {
           </li>
         </ul>
       </nav>
-      <a className='cta' href='/login'>
+      <a className='cta' href='/loginPage'>
         <button className='btn-primary'>Log In</button>
       </a>
     </header>
