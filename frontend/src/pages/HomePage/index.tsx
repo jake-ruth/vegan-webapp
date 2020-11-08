@@ -2,7 +2,6 @@ import React from 'react';
 import { Navbar } from '../../components/Navbar';
 import { RecipeCard } from '../../components/RecipeCard';
 import { Footer } from '../../components/Footer';
-import axios from 'axios';
 import { ApplicationUserController } from '../../controllers/ApplicationUserController';
 
 export const HomePage = () => {

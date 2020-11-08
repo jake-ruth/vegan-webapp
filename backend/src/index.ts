@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
-import { connect } from 'http2';
 import { createConnection } from 'typeorm';
-import { ApplicationUserController } from './controllers/applicationUserController';
 const cors = require('cors');
 const path = require('path');
 const express = require('express');
@@ -36,7 +34,7 @@ const makeApp = async () => {
     database: process.env.TYPEORM_DB_NAME,
     synchronize: true,
     logging: true,
-    entities: ['src/entities/**/*.ts'],
+    entities: [__dirname + '/entities/**/*.ts'],
     migrations: ['src/migration/**/*.ts'],
     subscribers: ['src/subscriber/**/*.ts'],
     ssl: process.env.NODE_ENV === 'development' ? false : true,
