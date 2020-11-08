@@ -1,6 +1,6 @@
 export {};
 import { Request, Response } from 'express';
-import { ApplicationUserController } from '../controllers/applicationUserController';
+import { ApplicationUserController } from '../controllers/ApplicationUserController';
 import { ApplicationUser } from '../entities/ApplicationUser';
 import bodyParser from 'body-parser';
 import { authenticateToken } from '../middleware/authentication';

@@ -12,11 +12,11 @@ export class Recipe extends BaseEntity {
   @Column()
   description: string;
 
-  @Column('character varying', { array: true, nullable: true })
-  ingredients: string[];
+  @Column()
+  instructions: string;
 
   @Column('character varying', { array: true, nullable: true })
-  instructions: string[];
+  ingredients: string[];
 
   //Be sure to set eager to true to get back the object from a relation column
   @OneToOne((type) => ApplicationUser, { eager: true })
