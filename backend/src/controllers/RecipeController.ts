@@ -4,4 +4,8 @@ export class RecipeController {
   static pageRecipes = async (page: number) => {
     return await Recipe.find({ skip: page * 20, take: 20 });
   };
+
+  static createRecipe = async (recipe: Recipe) => {
+    return await Recipe.save(recipe);
+  };
 }

@@ -1,8 +1,20 @@
 import React from 'react';
 import { Navbar } from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
+import { RecipeController } from '../../controllers/RecipeController';
+import { Recipe } from '../../models/Recipe';
 
-export const ViewRecipePage = () => {
+export const ViewRecipePage = (props: any) => {
+  const [recipe, setRecipe] = React.useState<Recipe | null>(null);
+
+  React.useEffect(() => {
+    RecipeController.getRecipeById(props.match.params.recipeId).then((res) => {
+      console.log('RES: ', res);
+
+      setRecipe(res!.data);
+    });
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -10,10 +22,10 @@ export const ViewRecipePage = () => {
         <div className='view-recipe__header'>
           <img src={`${process.env.PUBLIC_URL}/veggieStirFry.jpg`} alt='stir fry' className='view-recipe__img' />
           <div>
-            <h1>Tempeh Stirfry</h1>
-            <p>Prep Time: 10 minutes</p>
-            <p>Cook Time: 20 minutes</p>
-            <p>Total Time: 30 minutes</p>
+            <h1>{recipe?.title}</h1>
+            <p>Prep Time: {recipe?.prepMinutes} minutes</p>
+            <p>Cook Time: {recipe?.cookMinutes} minutes</p>
+            <p>Total Time: {Number(recipe?.prepMinutes!) + Number(recipe?.cookMinutes!)} minutes</p>
           </div>
         </div>
         <hr />
@@ -21,22 +33,14 @@ export const ViewRecipePage = () => {
           <div className='view-recipe__item'>
             <h2>Ingredients:</h2>
             <ul>
-              <li>Head</li>
-              <li>2 Legs</li>
-              <li>2 Arms</li>
-              <li>Eye sockets</li>
+              {recipe?.ingredients.map((ingredient, index) => {
+                return <li key={index}>{ingredient}</li>;
+              })}
             </ul>
           </div>
           <div className='view-recipe__item'>
             <h2>Instructions:</h2>
-            <ol>
-              <li>Kill First born child.</li>
-              <li>Chop up the body and skin the flesh from the boy</li>
-              <li>Saute very slightly, however not too much</li>
-              <li>Create a small slice in the head, this is important</li>
-              <li>Enjoy! Serves up to 3 people.</li>
-              <li>Saute very slightly, however not too much</li>
-            </ol>
+            <p className='view-recipe__instructions'>{recipe?.instructions}</p>
           </div>
         </div>
       </div>

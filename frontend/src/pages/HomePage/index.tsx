@@ -3,10 +3,16 @@ import { Navbar } from '../../components/Navbar';
 import { RecipeCard } from '../../components/RecipeCard';
 import { Footer } from '../../components/Footer';
 import { ApplicationUserController } from '../../controllers/ApplicationUserController';
+import { RecipeController } from '../../controllers/RecipeController';
+import { Recipe } from '../../models/Recipe';
 
 export const HomePage = () => {
+  const [recipes, setRecipes] = React.useState<Recipe[]>([]);
+
   React.useEffect(() => {
-    ApplicationUserController.getApplicationUser(1).then((user) => console.log(user));
+    RecipeController.pageRecipes(1).then((res: any) => {
+      setRecipes(res.data);
+    });
   }, []);
 
   return (
@@ -33,18 +39,15 @@ export const HomePage = () => {
 
       <div className='container'>
         <h2>New Recipes:</h2>
-        <div className='recipe-card-container'>
+        <div className='recipe-card-container'>{/* <RecipeCard />
           <RecipeCard />
-          <RecipeCard />
-          <RecipeCard />
-        </div>
+          <RecipeCard /> */}</div>
         <hr />
         <h2>All Recipes:</h2>
         <div className='recipe-card-container'>
-          <RecipeCard />
-          <RecipeCard />
-          <RecipeCard />
-          <RecipeCard />
+          {recipes.map((recipe, index) => {
+            return <RecipeCard key={index} recipe={recipe} />;
+          })}
         </div>
       </div>
 
