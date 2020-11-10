@@ -5,6 +5,7 @@ import { RegisterPage } from '../pages/Register';
 import { HomePage } from '../pages/HomePage';
 import { AboutPage } from '../pages/AboutPage';
 import { ViewRecipePage } from '../pages/ViewRecipePage';
+import { CreateRecipe } from '../pages/CreateRecipe';
 
 export const BaseRouter = () => {
   return (
@@ -15,6 +16,7 @@ export const BaseRouter = () => {
         <Route path='/register' component={RegisterPage} />
         <Route path='/about' component={AboutPage} />
         <Route path='/viewRecipe/:recipeId' component={ViewRecipePage} />
+        <Route path='/createRecipe' component={CreateRecipe} />
       </Switch>
     </Router>
   );

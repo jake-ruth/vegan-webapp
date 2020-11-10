@@ -9,6 +9,9 @@ export const Navbar = () => {
       <nav>
         <ul className='nav__links'>
           <li>
+            <a href='/createRecipe'>Create Recipe</a>
+          </li>
+          <li>
             <a href='#'>Recipes</a>
           </li>
           <li>

@@ -2,6 +2,7 @@
 
 //1 - HELPERS
 @import './sass/1-helpers/_variables.scss';
+@import './sass/1-helpers/mixins';
 
 //3 - BASICS
 @import './sass/3-basics/base';
@@ -18,3 +19,4 @@
 @import './sass/6-pages/loginPage';
 @import './sass/6-pages/aboutPage';
 @import './sass/6-pages/viewRecipePage';
+@import './sass/6-pages/createRecipePage';

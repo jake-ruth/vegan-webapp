@@ -18,7 +18,7 @@ export const HomePage = () => {
   return (
     <div>
       <Navbar />
-      <h1 style={{ textAlign: 'center' }}>Good Afternoon, Jake!</h1>
+      {/* <h1 style={{ textAlign: 'center' }}>Good Afternoon, Jake!</h1>
       <p style={{ textAlign: 'center', fontStyle: 'italic' }}>
         "An object for pleasure and not a living breathing human being. It seems to make it easier to do things you shouldn't do."
         - Jeffery Dahmer
@@ -35,10 +35,10 @@ export const HomePage = () => {
           <option>Dinner</option>
           <option>Dessert</option>
         </select>
-      </div>
+      </div> */}
 
       <div className='container'>
-        <h2>New Recipes:</h2>
+        {/* <h2>New Recipes:</h2> */}
         <div className='recipe-card-container'>{/* <RecipeCard />
           <RecipeCard />
           <RecipeCard /> */}</div>
