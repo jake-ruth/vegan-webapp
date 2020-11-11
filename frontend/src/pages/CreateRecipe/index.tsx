@@ -20,22 +20,28 @@ interface IFormInput {
 
 export const CreateRecipe = () => {
   const { handleSubmit, errors, control } = useForm<IFormInput>();
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
-    control,
-    name: 'ingredients'
-  });
+  const { fields, append, remove } = useFieldArray({ control, name: 'ingredients' });
   const history = useHistory();
 
   const onSubmit = async (data: IFormInput) => {
     alert(JSON.stringify(data));
+
+    const getIngredients = () => {
+      let ingredientsArray: string[] = [];
+      data.ingredients.map((ingredient: any) => {
+        ingredientsArray.push(ingredient.value);
+      });
+
+      return ingredientsArray;
+    };
 
     let recipe: Recipe = {
       title: data.title,
       description: data.description,
       cookMinutes: data.cookHours * 60 + data.cookMinutes,
       prepMinutes: Number(data.prepMinutes) + data.prepHours * 60,
-      ingredients: ['1', '2'],
-      instructions: 'My instructions'
+      ingredients: getIngredients(),
+      instructions: data.instructions
     };
 
     try {
@@ -75,6 +81,41 @@ export const CreateRecipe = () => {
           />
           <div className='error'>{errors.description && errors.description.message}</div>
 
+          <Controller
+            as={TextField}
+            control={control}
+            multiline
+            variant='outlined'
+            rows={5}
+            name='instructions'
+            label='Instructions'
+            rules={{ required: 'Instructions Required' }}
+          />
+          <div className='error'>{errors.description && errors.description.message}</div>
+
+          <h3 style={{ fontStyle: 'italic' }}>Ingredients</h3>
+
+          <ul>
+            {fields.map((ingredient, index) => (
+              <li key={index}>
+                <Controller as={TextField} name={`ingredients[${index}].value`} control={control} />
+
+                <Button
+                  variant='contained'
+                  size='small'
+                  style={{ borderRadius: 0 }}
+                  color='secondary'
+                  onClick={() => remove(index)}>
+                  Delete
+                </Button>
+              </li>
+            ))}
+          </ul>
+
+          <Button type='button' onClick={() => append({ value: '' })}>
+            Add Ingredient
+          </Button>
+
           <Divider />
           <h3 style={{ fontStyle: 'italic' }}>Prep Time</h3>
           <div style={{ display: 'flex' }}>
@@ -88,23 +129,9 @@ export const CreateRecipe = () => {
             <Controller as={TextField} control={control} type='number' name='cookMinutes' label='Minutes' defaultValue={0} />
           </div>
 
-          <Controller as={TextField} control={control} name='yield' label='Yield' />
           <br />
-          <ul>
-            {fields.map((ingredient, index) => (
-              <li key={index}>
-                <Controller as={TextField} name={`ingredients[${index}].value`} control={control} />
 
-                <Button variant='outlined' onClick={() => remove(index)}>
-                  Delete
-                </Button>
-              </li>
-            ))}
-          </ul>
-          <Button type='button' onClick={() => append({ value: '' })}>
-            Add Ingredient
-          </Button>
-          <br />
+          <Controller as={TextField} control={control} name='yield' label='Yield' />
 
           <Button type='submit' variant='contained' color='primary' style={{ borderRadius: 0 }}>
             Save Recipe!
