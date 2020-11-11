@@ -12,7 +12,7 @@ router.get('/pageRecipes/:pageNumber', async (req: Request, res: Response) => {
   let pageNumber = Number(req.params.pageNumber);
 
   try {
-    const recipes = await RecipeController.pageRecipes(pageNumber);
+    const recipes = await RecipeController.pageRecipes(pageNumber, 'createdDate');
 
     console.log('REC: ', recipes);
 

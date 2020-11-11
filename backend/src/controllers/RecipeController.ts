@@ -1,8 +1,8 @@
 import { Recipe } from '../entities/Recipe';
 
 export class RecipeController {
-  static pageRecipes = async (page: number) => {
-    return await Recipe.find({ skip: page * 20, take: 20 });
+  static pageRecipes = async (page: number, orderByField: string) => {
+    return await Recipe.find({ order: { createdDate: 'DESC' }, skip: page * 10, take: 10 });
   };
 
   static createRecipe = async (recipe: Recipe) => {

@@ -5,15 +5,17 @@ import { Footer } from '../../components/Footer';
 import { ApplicationUserController } from '../../controllers/ApplicationUserController';
 import { RecipeController } from '../../controllers/RecipeController';
 import { Recipe } from '../../models/Recipe';
+import { Button } from '@material-ui/core';
 
 export const HomePage = () => {
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
+  const [page, setPage] = React.useState<number>(0);
 
   React.useEffect(() => {
-    RecipeController.pageRecipes(2).then((res: any) => {
+    RecipeController.pageRecipes(page).then((res: any) => {
       setRecipes(res.data);
     });
-  }, []);
+  }, [page]);
 
   return (
     <div>
@@ -38,16 +40,13 @@ export const HomePage = () => {
       </div> */}
 
       <div className='container'>
-        {/* <h2>New Recipes:</h2> */}
-        <div className='recipe-card-container'>{/* <RecipeCard />
-          <RecipeCard />
-          <RecipeCard /> */}</div>
-        <hr />
         <h2>All Recipes:</h2>
         <div className='recipe-card-container'>
-          {recipes.map((recipe, index) => {
-            return <RecipeCard key={index} recipe={recipe} />;
-          })}
+          {recipes.map((recipe, index) => (
+            <RecipeCard key={index} recipe={recipe} />
+          ))}
+          <Button onClick={() => page !== 0 && setPage(page - 1)}>Previous Page</Button>
+          <Button onClick={() => setPage(page + 1)}>Next Page</Button>
         </div>
       </div>
 

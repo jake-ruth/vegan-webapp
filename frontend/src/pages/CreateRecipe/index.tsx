@@ -24,8 +24,6 @@ export const CreateRecipe = () => {
   const history = useHistory();
 
   const onSubmit = async (data: IFormInput) => {
-    alert(JSON.stringify(data));
-
     const getIngredients = () => {
       let ingredientsArray: string[] = [];
       data.ingredients.map((ingredient: any) => {
@@ -41,7 +39,8 @@ export const CreateRecipe = () => {
       cookMinutes: data.cookHours * 60 + data.cookMinutes,
       prepMinutes: Number(data.prepMinutes) + data.prepHours * 60,
       ingredients: getIngredients(),
-      instructions: data.instructions
+      instructions: data.instructions,
+      yield: data.yield
     };
 
     try {
