@@ -13,3 +13,9 @@ Run `git push heroku master`
 This should build the frontend and backend and return an enpoint for the app
 
 Check to make sure changes have been transferred
+
+### Make sure you set the environment variables in the heroku cli!
+
+Example:
+
+`heroku config:set TYPEORM_DB_PASSWORD=1234`
