@@ -1,11 +1,25 @@
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import React from 'react';
 import './App.scss';
 import { BaseRouter } from './router';
 
 function App() {
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#303030'
+      },
+      secondary: {
+        main: '#FF5E5B'
+      }
+    }
+  });
+
   return (
-    <header data-testid="app-element">
-      <BaseRouter />
+    <header data-testid='app-element'>
+      <MuiThemeProvider theme={theme}>
+        <BaseRouter />
+      </MuiThemeProvider>
     </header>
   );
 }

@@ -6,17 +6,12 @@
   border-radius: 3px;
   padding: 1em;
 }
-
-.create-recipe input {
-  max-width: 400px;
-}
-
-.create-recipe textarea {
-  max-width: 600px;
-  min-height: 100px;
-  border: solid grey 1px;
-  border-radius: 3px;
-}
+// .create-recipe textarea {
+//   max-width: 600px;
+//   min-height: 100px;
+//   border: solid grey 1px;
+//   border-radius: 3px;
+// }
 
 @include desktop {
 }

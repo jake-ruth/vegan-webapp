@@ -10,7 +10,7 @@ export const HomePage = () => {
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
 
   React.useEffect(() => {
-    RecipeController.pageRecipes(1).then((res: any) => {
+    RecipeController.pageRecipes(2).then((res: any) => {
       setRecipes(res.data);
     });
   }, []);
