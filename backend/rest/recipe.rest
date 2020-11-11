@@ -1,15 +1,15 @@
 ###
-GET http://localhost:4000/pageRecipes/1
+GET http://localhost:4000/pageRecipes/0
 
 ###
-# POST http://localhost:4000/createRecipe
-POST https://vegan-webapp.herokuapp.com/createRecipe
+# POST https://vegan-webapp.herokuapp.com/createRecipe
+POST http://localhost:4000/createRecipe
 Content-Type: application/json
 
 {
     "title": "Jake's Magic Cookies",
     "description" : "this recipe is to die for, the master himself shall teach you to cook it",
-    "instructions": "Step 1: Saute vegetables \n Step 2: Mix in Sauce",
+    "instructions": "instructions here",
     "prepMinutes": 10,
     "cookMinutes": 10,
     "ingredients": [
