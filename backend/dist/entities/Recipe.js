@@ -27,13 +27,29 @@ __decorate([
     __metadata("design:type", String)
 ], Recipe.prototype, "description", void 0);
 __decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Recipe.prototype, "instructions", void 0);
+__decorate([
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
+], Recipe.prototype, "prepMinutes", void 0);
+__decorate([
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
+], Recipe.prototype, "cookMinutes", void 0);
+__decorate([
     typeorm_1.Column('character varying', { array: true, nullable: true }),
     __metadata("design:type", Array)
 ], Recipe.prototype, "ingredients", void 0);
 __decorate([
-    typeorm_1.Column('character varying', { array: true, nullable: true }),
-    __metadata("design:type", Array)
-], Recipe.prototype, "instructions", void 0);
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
+], Recipe.prototype, "yield", void 0);
+__decorate([
+    typeorm_1.CreateDateColumn(),
+    __metadata("design:type", Date)
+], Recipe.prototype, "createdDate", void 0);
 __decorate([
     typeorm_1.OneToOne((type) => ApplicationUser_1.ApplicationUser, { eager: true }),
     typeorm_1.JoinColumn(),

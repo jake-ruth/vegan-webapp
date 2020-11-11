@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const applicationUserController_1 = require("../controllers/applicationUserController");
+const ApplicationUserController_1 = require("../controllers/ApplicationUserController");
 const ApplicationUser_1 = require("../entities/ApplicationUser");
 const body_parser_1 = __importDefault(require("body-parser"));
 const authentication_1 = require("../middleware/authentication");
@@ -30,7 +30,7 @@ router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, functio
     newUser.lastName = body.lastName;
     newUser.bio = body.bio;
     try {
-        yield applicationUserController_1.ApplicationUserController.createApplicationUser(newUser);
+        yield ApplicationUserController_1.ApplicationUserController.createApplicationUser(newUser);
         return res.status(201).json({ message: 'User Created' });
     }
     catch (err) {
@@ -41,9 +41,9 @@ router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, functio
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
     try {
-        yield applicationUserController_1.ApplicationUserController.login(body.email, body.password);
-        let accessToken = yield applicationUserController_1.ApplicationUserController.generateAccessToken(req.body);
-        let refreshToken = yield applicationUserController_1.ApplicationUserController.generateRefreshToken(req.body);
+        yield ApplicationUserController_1.ApplicationUserController.login(body.email, body.password);
+        let accessToken = yield ApplicationUserController_1.ApplicationUserController.generateAccessToken(req.body);
+        let refreshToken = yield ApplicationUserController_1.ApplicationUserController.generateRefreshToken(req.body);
         yield RefreshTokenController_1.RefreshTokenController.addRefreshToken(refreshToken);
         return res.status(200).json({ accessToken, refreshToken });
     }
@@ -54,7 +54,7 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
 //Logout
 router.delete('/logout', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield applicationUserController_1.ApplicationUserController.logout(req.body.refreshToken);
+        yield ApplicationUserController_1.ApplicationUserController.logout(req.body.refreshToken);
         return res.sendStatus(200);
     }
     catch (err) {
@@ -64,7 +64,7 @@ router.delete('/logout', (req, res) => __awaiter(void 0, void 0, void 0, functio
 //Get single user
 router.get('/getApplicationUser/:id', authentication_1.authenticateToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const applicationUser = yield applicationUserController_1.ApplicationUserController.readOneApplicationUser(Number(req.params.id));
+        const applicationUser = yield ApplicationUserController_1.ApplicationUserController.readOneApplicationUser(Number(req.params.id));
         return res.send(applicationUser).status(200);
     }
     catch (err) {
@@ -74,7 +74,7 @@ router.get('/getApplicationUser/:id', authentication_1.authenticateToken, (req, 
 //Delete user by id
 router.delete('/deleteApplicationUser', authentication_1.authenticateToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield applicationUserController_1.ApplicationUserController.deleteApplicationUser(req.body.id);
+        yield ApplicationUserController_1.ApplicationUserController.deleteApplicationUser(req.body.id);
         return res.sendStatus(200);
     }
     catch (err) {

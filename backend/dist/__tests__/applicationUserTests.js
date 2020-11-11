@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const axios = require('axios');
 let user = {
-    email: 'TestEmail@email.com',
+    email: 'testasdf@email.com',
     password: 'test',
     firstName: 'Test',
     lastName: 'TestLastName',
@@ -21,7 +21,6 @@ describe('User Tests', () => {
     let userId = 0;
     it('should create user record in the db', () => __awaiter(this, void 0, void 0, function* () {
         let result = yield axios.post(`${devUrl}/register`, user);
-        console.log("RES: ", result);
         expect(result);
     }));
     it('should log in the user', () => __awaiter(this, void 0, void 0, function* () {
@@ -31,7 +30,7 @@ describe('User Tests', () => {
     it('should delete test user from database', () => __awaiter(this, void 0, void 0, function* () {
         let result = axios.post(`${devUrl}/deleteApplicationUser`, { id: 2 }, {
             headers: {
-                'authorization': 'bearer 1234'
+                authorization: 'bearer 1234'
             }
         });
         expect(result);

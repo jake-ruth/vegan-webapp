@@ -47,4 +47,4 @@ ApplicationUserController.generateAccessToken = (user) => __awaiter(void 0, void
 ApplicationUserController.generateRefreshToken = (user) => {
     return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' });
 };
-//# sourceMappingURL=applicationUserController.js.map
+//# sourceMappingURL=ApplicationUserController.js.map
