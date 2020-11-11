@@ -34,7 +34,7 @@ const makeApp = async () => {
     database: process.env.TYPEORM_DB_NAME,
     synchronize: true,
     logging: true,
-    entities: [__dirname + '/entities/**/*.ts'],
+    entities: [__dirname + '/entities/**{.ts,.js}'],
     migrations: ['src/migration/**/*.ts'],
     subscribers: ['src/subscriber/**/*.ts'],
     ssl: process.env.NODE_ENV === 'development' ? false : true,
