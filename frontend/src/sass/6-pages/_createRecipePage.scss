@@ -5,9 +5,6 @@
   border: solid rgb(221, 221, 221) 1px;
   border-radius: 3px;
   padding: 1em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .create-recipe h3 {
@@ -21,4 +18,18 @@
 }
 
 @include desktop {
+  .create-recipe__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .create-recipe__section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .create-recipe__section textarea {
+    width: 500px;
+  }
 }
