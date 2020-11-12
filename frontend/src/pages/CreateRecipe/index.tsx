@@ -10,7 +10,7 @@ interface IFormInput {
   title: string;
   description: string;
   instructions: string;
-  ingredients: string[];
+  ingredients: any[];
   prepHours: number;
   prepMinutes: number;
   cookHours: number;
@@ -19,7 +19,7 @@ interface IFormInput {
 }
 
 export const CreateRecipe = () => {
-  const { handleSubmit, errors, control } = useForm<IFormInput>();
+  const { handleSubmit, errors, control } = useForm<IFormInput>({ defaultValues: { ingredients: [{ value: '' }] } });
   const { fields, append, remove } = useFieldArray({ control, name: 'ingredients' });
   const history = useHistory();
 
@@ -88,7 +88,7 @@ export const CreateRecipe = () => {
                 control={control}
                 multiline
                 variant='outlined'
-                rows={5}
+                rows={10}
                 style={{ marginTop: 20 }}
                 name='instructions'
                 label='Instructions'
@@ -98,30 +98,6 @@ export const CreateRecipe = () => {
             </div>
 
             <div className='create-recipe__section'>
-              <h3 style={{ fontStyle: 'italic' }}>Ingredients</h3>
-
-              <ul>
-                {fields.map((ingredient, index) => (
-                  <li key={index}>
-                    <Controller as={TextField} name={`ingredients[${index}].value`} control={control} />
-
-                    <Button
-                      variant='contained'
-                      size='small'
-                      style={{ borderRadius: 0 }}
-                      color='secondary'
-                      onClick={() => remove(index)}>
-                      Delete
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-
-              <Button type='button' size='small' onClick={() => append({ value: '' })}>
-                Add Ingredient
-              </Button>
-
-              <Divider />
               <h3 style={{ fontStyle: 'italic' }}>Prep Time</h3>
               <div style={{ display: 'flex' }}>
                 <Controller as={TextField} control={control} type='number' name='prepHours' label='Hours' defaultValue={0} />
@@ -133,6 +109,30 @@ export const CreateRecipe = () => {
                 <Controller as={TextField} control={control} type='number' name='cookHours' label='Hours' defaultValue={0} />
                 <Controller as={TextField} control={control} type='number' name='cookMinutes' label='Minutes' defaultValue={0} />
               </div>
+              <h3 style={{ fontStyle: 'italic' }}>Ingredients</h3>
+
+              {fields.map((ingredient, index) => (
+                <div style={{ display: 'flex' }}>
+                  <Controller as={TextField} fullWidth name={`ingredients[${index}].value`} control={control} />
+                  <Button
+                    variant='contained'
+                    size='small'
+                    style={{ borderRadius: 0 }}
+                    color='secondary'
+                    onClick={() => remove(index)}>
+                    Delete
+                  </Button>
+                </div>
+              ))}
+              <Button
+                type='button'
+                style={{ marginTop: '1em' }}
+                variant='contained'
+                color='primary'
+                size='small'
+                onClick={() => append({ value: '' })}>
+                Add Ingredient
+              </Button>
             </div>
           </div>
 
@@ -140,7 +140,12 @@ export const CreateRecipe = () => {
 
           <Controller as={TextField} control={control} name='yieldAmount' label='Yield' />
 
-          <Button type='submit' variant='contained' color='primary' style={{ borderRadius: 0, maxWidth: 200, marginTop: '1em' }}>
+          <Button
+            disabled
+            type='submit'
+            variant='contained'
+            color='primary'
+            style={{ borderRadius: 0, maxWidth: 200, marginTop: '1em' }}>
             Save Recipe!
           </Button>
         </div>

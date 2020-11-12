@@ -11,6 +11,12 @@ function App() {
       },
       secondary: {
         main: '#FF5E5B'
+      },
+      error: {
+        main: '#FF5E5B'
+      },
+      success: {
+        main: '#20b2aa'
       }
     }
   });
