@@ -6,6 +6,7 @@ import { ApplicationUserController } from '../../controllers/ApplicationUserCont
 import { RecipeController } from '../../controllers/RecipeController';
 import { Recipe } from '../../models/Recipe';
 import { Button } from '@material-ui/core';
+import Pagination from '@material-ui/lab/Pagination';
 
 export const HomePage = () => {
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
@@ -16,6 +17,11 @@ export const HomePage = () => {
       setRecipes(res.data);
     });
   }, [page]);
+
+  const handlePage = (e: any, pageNumber: number) => {
+    console.log(pageNumber);
+    setPage(pageNumber - 1);
+  };
 
   return (
     <div>
@@ -45,8 +51,10 @@ export const HomePage = () => {
           {recipes.map((recipe, index) => (
             <RecipeCard key={index} recipe={recipe} />
           ))}
-          <Button onClick={() => page !== 0 && setPage(page - 1)}>Previous Page</Button>
-          <Button onClick={() => setPage(page + 1)}>Next Page</Button>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '1em' }}>
+          <Pagination count={10} color='primary' shape='rounded' page={page + 1} onChange={handlePage} />
         </div>
       </div>
 

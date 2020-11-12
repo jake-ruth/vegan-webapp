@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar } from '../../components/Navbar';
 import { Controller, useForm, useFieldArray } from 'react-hook-form';
-import { Button, Divider, TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { Recipe } from '../../models/Recipe';
 import { RecipeController } from '../../controllers/RecipeController';
 import { useHistory } from 'react-router-dom';
@@ -67,6 +67,7 @@ export const CreateRecipe = () => {
                 id='title'
                 name='title'
                 label='Title'
+                fullWidth
               />
               <div className='error'>{errors.title && errors.title.message}</div>
 
@@ -74,6 +75,7 @@ export const CreateRecipe = () => {
                 as={TextField}
                 control={control}
                 multiline
+                fullWidth
                 variant='outlined'
                 rows={5}
                 style={{ marginTop: 20 }}
@@ -87,6 +89,7 @@ export const CreateRecipe = () => {
                 as={TextField}
                 control={control}
                 multiline
+                fullWidth
                 variant='outlined'
                 rows={10}
                 style={{ marginTop: 20 }}
@@ -140,12 +143,7 @@ export const CreateRecipe = () => {
 
           <Controller as={TextField} control={control} name='yieldAmount' label='Yield' />
 
-          <Button
-            disabled
-            type='submit'
-            variant='contained'
-            color='primary'
-            style={{ borderRadius: 0, maxWidth: 200, marginTop: '1em' }}>
+          <Button type='submit' variant='contained' color='primary' style={{ borderRadius: 0, maxWidth: 200, marginTop: '1em' }}>
             Save Recipe!
           </Button>
         </div>
