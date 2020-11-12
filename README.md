@@ -4,6 +4,9 @@ This is a full stack Vegan Recipe webapp
 
 Open up bash terminal window, navigate to root project directory
 
+Before building, set the react app environment variable to the production link:
+`REACT_APP_BACKEND_URL=https://vegan-webapp.herokuapp.com`
+
 Run `npm run build` in both frontend and backend folders
 
 Commit changes to git

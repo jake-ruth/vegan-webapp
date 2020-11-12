@@ -6,6 +6,6 @@ export interface Recipe {
   ingredients: string[];
   prepMinutes: number;
   cookMinutes: number;
-  yield: string;
+  yieldAmount: string;
   createdDate?: Date;
 }

@@ -15,7 +15,7 @@ interface IFormInput {
   prepMinutes: number;
   cookHours: number;
   cookMinutes: number;
-  yield: string;
+  yieldAmount: string;
 }
 
 export const CreateRecipe = () => {
@@ -40,7 +40,7 @@ export const CreateRecipe = () => {
       prepMinutes: Number(data.prepMinutes) + data.prepHours * 60,
       ingredients: getIngredients(),
       instructions: data.instructions,
-      yield: data.yield
+      yieldAmount: data.yieldAmount
     };
 
     try {
@@ -130,7 +130,7 @@ export const CreateRecipe = () => {
 
           <br />
 
-          <Controller as={TextField} control={control} name='yield' label='Yield' />
+          <Controller as={TextField} control={control} name='yieldAmount' label='Yield' />
 
           <Button type='submit' variant='contained' color='primary' style={{ borderRadius: 0 }}>
             Save Recipe!

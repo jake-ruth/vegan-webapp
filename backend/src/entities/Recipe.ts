@@ -25,7 +25,7 @@ export class Recipe extends BaseEntity {
   ingredients: string[];
 
   @Column({ nullable: true })
-  yield: string;
+  yieldAmount: string;
 
   @CreateDateColumn()
   createdDate: Date;

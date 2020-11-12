@@ -33,7 +33,7 @@ router.get('/getRecipeById/:id', async (req: Request, res: Response) => {
 router.post('/createRecipe', async (req: Request, res: Response) => {
   let recipe = new Recipe();
 
-  const { title, description, instructions, ingredients, prepMinutes, cookMinutes } = req.body;
+  const { title, description, instructions, ingredients, prepMinutes, cookMinutes, yieldAmount } = req.body;
 
   recipe.title = title;
   recipe.description = description;
@@ -41,6 +41,7 @@ router.post('/createRecipe', async (req: Request, res: Response) => {
   recipe.ingredients = ingredients;
   recipe.prepMinutes = prepMinutes;
   recipe.cookMinutes = cookMinutes;
+  recipe.yieldAmount = yieldAmount;
 
   try {
     await RecipeController.createRecipe(recipe);
