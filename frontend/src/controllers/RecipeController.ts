@@ -4,11 +4,19 @@ import { Recipe } from '../models/Recipe';
 export class RecipeController {
   static pageRecipes = async (pageNumber: number) => {
     try {
-      console.log(process.env.REACT_APP_BACKEND_URL);
-      let recipes = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/pageRecipes/${pageNumber}`);
-      return recipes;
+      let res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/pageRecipes/${pageNumber}`);
+      return res;
     } catch (err) {
       console.log('ERROR: ', err);
+    }
+  };
+
+  static pageRecipesByName = async (pageNumber: number, searchString: string) => {
+    try {
+      let res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/pageRecipesByName/${pageNumber}/${searchString}`);
+      return res;
+    } catch (err) {
+      console.log('ERR: ', err);
     }
   };
 

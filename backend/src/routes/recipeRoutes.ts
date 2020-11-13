@@ -30,6 +30,27 @@ router.get('/getRecipeById/:id', async (req: Request, res: Response) => {
   return res.json(recipe).status(200);
 });
 
+router.get('/searchRecipesByName/:searchString', async (req: Request, res: Response) => {
+  let recipes = await RecipeController.searchRecipesByName(req.params.searchString);
+
+  return res.json(recipes).status(200);
+});
+
+router.get('/pageRecipesByName/:pageNumber/:searchString', async (req: Request, res: Response) => {
+  let pageNumber = Number(req.params.pageNumber);
+  let searchString = req.params.searchString;
+
+  try {
+    const recipes = await RecipeController.pageRecipesByName(pageNumber, searchString);
+
+    return res.json(recipes).status(200);
+  } catch (err) {
+    console.log(err);
+
+    return res.sendStatus(500);
+  }
+});
+
 router.post('/createRecipe', async (req: Request, res: Response) => {
   let recipe = new Recipe();
 
