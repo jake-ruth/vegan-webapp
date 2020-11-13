@@ -2,8 +2,8 @@
 GET http://localhost:4000/pageRecipes/0
 
 ###
-# POST http://localhost:4000/createRecipe÷
-POST https://vegan-webapp.herokuapp.com/createRecipe
+POST http://localhost:4000/createRecipe
+# POST https://vegan-webapp.herokuapp.com/createRecipe
 Content-Type: application/json
 
 {

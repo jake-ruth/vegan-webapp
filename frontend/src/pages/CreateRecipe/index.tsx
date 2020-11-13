@@ -51,11 +51,17 @@ export const CreateRecipe = () => {
     }
   };
 
+  const style = {
+    style: {
+      fontFamily: 'Verdana'
+    }
+  };
+
   return (
     <div>
       <Navbar />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1 style={{ fontStyle: 'italic', textAlign: 'center' }}>Create Recipe</h1>
+        <h1 style={{ textAlign: 'center' }}>Create Recipe</h1>
         <div className='create-recipe'>
           <div className='create-recipe__content'>
             <div className='create-recipe__section'>
