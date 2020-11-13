@@ -15,22 +15,15 @@ export class RecipeController {
   };
 
   static pageRecipesByName = async (page: number, searchString: string): Promise<PageRecipeReturnType> => {
+    let formatted = searchString.replace(/'/g, "''");
+
     const recipes = await Recipe.find({
       order: { createdDate: 'DESC' },
       skip: page * 6,
       take: 6,
-      where: `"title" ILIKE '%${searchString}%'`
+      where: `"title" ILIKE '%${formatted}%'`
     });
-    const totalCount = await Recipe.count({ where: `"title" ILIKE '%${searchString}%'` });
-
-    // const recipes = getConnection()
-    //   .getRepository('Recipe')
-    //   .createQueryBuilder('Recipe')
-    //   .select('*')
-    //   .from(Recipe, 'Recipe')
-    //   .where('LOWER(Recipe.title) LIKE LOWER(:searchString)', { searchString })
-    //   .skip(page * 6)
-    //   .take(6);
+    const totalCount = await Recipe.count({ where: `"title" ILIKE '%${formatted}%'` });
 
     return { recipes, totalCount };
   };

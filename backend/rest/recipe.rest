@@ -5,12 +5,15 @@ GET http://localhost:4000/pageRecipes/0
 GET http://localhost:4000/getRecipesByName/test
 
 ###
+GET http://localhost:4000/pageRecipesByName/0/Jake's Magic
+
+###
 POST http://localhost:4000/createRecipe
 # POST https://vegan-webapp.herokuapp.com/createRecipe
 Content-Type: application/json
 
 {
-    "title": "Jake's Magic Cookies",
+    "title": "Jim Magic Cookies",
     "description" : "this recipe is to die for, the master himself shall teach you to cook it",
     "instructions": "instructions here",
     "prepMinutes": 10,
