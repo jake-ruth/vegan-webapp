@@ -11,8 +11,7 @@ export const HomePage = () => {
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
   const [page, setPage] = React.useState<number>(0);
   const [recipesCount, setRecipesCount] = React.useState<number>(0);
-
-  const [searchString, setSearchString] = React.useState<string>('test');
+  const [searchString, setSearchString] = React.useState<string>('J');
 
   React.useEffect(() => {
     RecipeController.pageRecipesByName(page, searchString).then((res: any) => {
@@ -30,7 +29,7 @@ export const HomePage = () => {
     <div className='home-page'>
       <Navbar />
       <div className='contain'>
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-around', margin: '10px' }}>
           <h2>New Recipes:</h2>
           <div>{recipesCount} recipes found</div>
           <TextField variant='outlined' label='Search for a recipe...' onChange={(e: any) => setSearchString(e.target.value)} />

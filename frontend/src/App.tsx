@@ -20,7 +20,6 @@ function App() {
       }
     },
     typography: {
-      // Use the system font instead of the default Roboto font.
       fontFamily: ['Verdana'].join(',')
     }
   });
