@@ -1,15 +1,32 @@
 import { Rating } from '@material-ui/lab';
 import React from 'react';
 import { Recipe } from '../../models/Recipe';
+import firebase from 'firebase';
+import { SettingsRemoteOutlined } from '@material-ui/icons';
 
 interface Props {
   recipe: Recipe;
 }
 
 export const RecipeCard = (props: Props) => {
+  const [recipeImageUrl, setRecipeImageUrl] = React.useState('');
+
+  React.useEffect(() => {
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+    var storage = firebase.storage();
+
+    console.log('STORE: ', storage);
+    var gsRef = storage.refFromURL('gs://vegan-webapp.appspot.com/surlyCatBeingEjected.jpg');
+
+    gsRef.getDownloadURL().then((url: any) => {
+      console.log(url);
+      setRecipeImageUrl(url);
+    });
+  }, []);
+
   return (
     <a className='recipe-card' href={`/viewRecipe/${props.recipe.id}`}>
-      <img className='recipe-card__image' src={`${process.env.PUBLIC_URL}/veggies.jpg`} />
+      <img className='recipe-card__image' src={recipeImageUrl} />
       <div className='container'>
         <h4>
           <b>{props.recipe.title}</b>

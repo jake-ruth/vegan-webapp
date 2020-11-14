@@ -5,6 +5,8 @@ import { Button, TextField } from '@material-ui/core';
 import { Recipe } from '../../models/Recipe';
 import { RecipeController } from '../../controllers/RecipeController';
 import { useHistory } from 'react-router-dom';
+import { RecipeImage } from './RecipeImage';
+import firebase from 'firebase';
 
 interface IFormInput {
   title: string;
@@ -23,7 +25,40 @@ export const CreateRecipe = () => {
   const { fields, append, remove } = useFieldArray({ control, name: 'ingredients' });
   const history = useHistory();
 
-  const onSubmit = async (data: IFormInput) => {
+  const [recipeImage, setRecipeImage] = React.useState('null');
+  const [recipeImgageFile, setRecipeImageFile] = React.useState<File | null>(null);
+
+  // convert file into base64
+  function getBase64(file: any) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  }
+
+  const setImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
+
+    if (e.target.files !== undefined && e.target.files !== null) {
+      getBase64(e.target.files![0]).then((res) => {
+        console.log('RES: ', res);
+        setRecipeImage(String(res));
+      });
+    }
+  };
+
+  const uploadImage = (imageUuid: string) => {
+    let rootRef = firebase.storage().ref();
+    let fileRef = rootRef.child(imageUuid);
+    let file = recipeImgageFile!;
+
+    fileRef.put(file).then((res) => console.log(res));
+  };
+
+  const onSubmit = async (data: IFormInput, e: any) => {
+    console.log('FILES! ', e.target.files);
     const getIngredients = () => {
       let ingredientsArray: string[] = [];
       data.ingredients.map((ingredient: any) => {
@@ -44,8 +79,11 @@ export const CreateRecipe = () => {
     };
 
     try {
-      await RecipeController.createRecipe(recipe);
-      history.push('/');
+      const res = await RecipeController.createRecipe(recipe);
+      console.log('RES: ', res);
+      uploadImage(res!.data.imageUrlUuid);
+
+      //history.push('/');
     } catch (err) {
       alert(JSON.stringify(err));
     }
@@ -60,7 +98,7 @@ export const CreateRecipe = () => {
   return (
     <div>
       <Navbar />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onChange={(e: any) => setImageFile(e)} onSubmit={handleSubmit(onSubmit)}>
         <h1 style={{ textAlign: 'center' }}>Create Recipe</h1>
         <div className='create-recipe'>
           <div className='create-recipe__content'>
@@ -148,7 +186,8 @@ export const CreateRecipe = () => {
           <br />
 
           <Controller as={TextField} control={control} name='yieldAmount' label='Yield' />
-
+          <input className='file-uploader' type='file' accept='.jpg,.jpeg,.png' />
+          <img src={recipeImage} height={200} width={200} style={{ objectFit: 'cover' }} />
           <Button type='submit' variant='contained' color='primary' style={{ borderRadius: 0, maxWidth: 200, marginTop: '1em' }}>
             Save Recipe!
           </Button>

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinColumn, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinColumn, CreateDateColumn, Generated } from 'typeorm';
 import { ApplicationUser } from './ApplicationUser';
 
 @Entity('Recipe')
@@ -26,6 +26,10 @@ export class Recipe extends BaseEntity {
 
   @Column({ nullable: true })
   yieldAmount: string;
+
+  @Column()
+  @Generated('uuid')
+  imageUrlUuid: string;
 
   @CreateDateColumn()
   createdDate: Date;
