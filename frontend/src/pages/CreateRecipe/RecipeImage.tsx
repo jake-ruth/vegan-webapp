@@ -15,7 +15,7 @@ export const RecipeImage = () => {
   };
   return (
     <form onChange={(e: any) => uploadImage(e)}>
-      <img src='https://vegan-webapp.appspot.com/david4.jpeg' alt='recipe image' className='profile-page__img file-uploader' />
+      <img src='' alt='recipe image' className='profile-page__img file-uploader' />
       <input className='file-uploader' type='file' accept='.jpg,.jpeg,.png' />
     </form>
   );

@@ -8,4 +8,6 @@ export interface Recipe {
   cookMinutes: number;
   yieldAmount: string;
   createdDate?: Date;
+  imageExtension?: string;
+  imageUrlUuid?: string;
 }

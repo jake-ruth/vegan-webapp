@@ -11,14 +11,24 @@ export const HomePage = () => {
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
   const [page, setPage] = React.useState<number>(0);
   const [recipesCount, setRecipesCount] = React.useState<number>(0);
-  const [searchString, setSearchString] = React.useState<string>('J');
+  const [searchString, setSearchString] = React.useState<string>('');
+  const [pageTrigger, setPageTrigger] = React.useState<boolean>(false);
 
   React.useEffect(() => {
+    RecipeController.pageRecipes(page).then((res: any) => {
+      setRecipes(res.data.recipes);
+      setRecipesCount(res.data.totalCount);
+      setPageTrigger(!pageTrigger);
+    });
+  }, [page]);
+
+  const searchForRecipes = () => {
     RecipeController.pageRecipesByName(page, searchString).then((res: any) => {
       setRecipes(res.data.recipes);
       setRecipesCount(res.data.totalCount);
+      setPageTrigger(!pageTrigger);
     });
-  }, [page, searchString]);
+  };
 
   const handlePage = (e: any, pageNumber: number) => {
     console.log(pageNumber);
@@ -33,10 +43,11 @@ export const HomePage = () => {
           <h2>New Recipes:</h2>
           <div>{recipesCount} recipes found</div>
           <TextField variant='outlined' label='Search for a recipe...' onChange={(e: any) => setSearchString(e.target.value)} />
+          <Button onClick={() => searchForRecipes()}>Search!</Button>
         </div>
         <div className='recipe-card-container'>
           {recipes.map((recipe, index) => (
-            <RecipeCard key={index} recipe={recipe} />
+            <RecipeCard pageTrigger={pageTrigger} key={index} recipe={recipe} />
           ))}
         </div>
       </div>

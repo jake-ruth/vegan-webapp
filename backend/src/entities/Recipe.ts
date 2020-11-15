@@ -31,6 +31,9 @@ export class Recipe extends BaseEntity {
   @Generated('uuid')
   imageUrlUuid: string;
 
+  @Column({ nullable: true })
+  imageExtension: string;
+
   @CreateDateColumn()
   createdDate: Date;
 

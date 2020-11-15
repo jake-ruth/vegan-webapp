@@ -54,7 +54,7 @@ router.get('/pageRecipesByName/:pageNumber/:searchString', async (req: Request, 
 router.post('/createRecipe', async (req: Request, res: Response) => {
   let recipe = new Recipe();
 
-  const { title, description, instructions, ingredients, prepMinutes, cookMinutes, yieldAmount } = req.body;
+  const { title, imageExtension, description, instructions, ingredients, prepMinutes, cookMinutes, yieldAmount } = req.body;
 
   recipe.title = title;
   recipe.description = description;
@@ -63,6 +63,7 @@ router.post('/createRecipe', async (req: Request, res: Response) => {
   recipe.prepMinutes = prepMinutes;
   recipe.cookMinutes = cookMinutes;
   recipe.yieldAmount = yieldAmount;
+  recipe.imageExtension = imageExtension;
 
   try {
     await RecipeController.createRecipe(recipe);

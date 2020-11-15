@@ -3,24 +3,35 @@ import { Navbar } from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
 import { RecipeController } from '../../controllers/RecipeController';
 import { Recipe } from '../../models/Recipe';
+import firebase from 'firebase';
 
 export const ViewRecipePage = (props: any) => {
   const [recipe, setRecipe] = React.useState<Recipe | null>(null);
-
+  const [recipeImageUrl, setRecipeImageUrl] = React.useState<string>('');
   React.useEffect(() => {
-    RecipeController.getRecipeById(props.match.params.recipeId).then((res) => {
-      console.log('RES: ', res);
+    RecipeController.getRecipeById(props.match.params.recipeId)
+      .then((res) => {
+        setRecipe(res!.data);
 
-      setRecipe(res!.data);
-    });
+        var storage = firebase.storage();
+
+        const gsRef = storage.refFromURL(`gs://vegan-webapp.appspot.com/${res!.data.imageUrlUuid}.${res!.data.imageExtension}`);
+        gsRef.getDownloadURL().then((url: any) => {
+          console.log(url);
+          setRecipeImageUrl(url);
+        });
+      })
+      .catch((err) => console.log(err));
   }, []);
+
+  if (recipe == null) return null;
 
   return (
     <div>
       <Navbar />
       <div className='view-recipe'>
         <div className='view-recipe__header'>
-          <img src={`${process.env.PUBLIC_URL}/veggieStirFry.jpg`} alt='stir fry' className='view-recipe__img' />
+          <img src={recipeImageUrl} alt='stir fry' className='view-recipe__img' />
           <div>
             <h1>{recipe?.title}</h1>
             <p>Prep Time: {recipe?.prepMinutes} minutes</p>
