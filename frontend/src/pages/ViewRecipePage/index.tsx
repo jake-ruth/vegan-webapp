@@ -8,6 +8,12 @@ import firebase from 'firebase';
 export const ViewRecipePage = (props: any) => {
   const [recipe, setRecipe] = React.useState<Recipe | null>(null);
   const [recipeImageUrl, setRecipeImageUrl] = React.useState<string>('');
+  const [loading, setLoading] = React.useState<boolean>(true);
+
+  React.useEffect(() => {
+    if (recipeImageUrl.length > 0) setLoading(false);
+  }, [recipeImageUrl]);
+
   React.useEffect(() => {
     RecipeController.getRecipeById(props.match.params.recipeId)
       .then((res) => {
@@ -25,13 +31,14 @@ export const ViewRecipePage = (props: any) => {
   }, []);
 
   if (recipe == null) return null;
+  if (loading) return null;
 
   return (
     <div>
       <Navbar />
       <div className='view-recipe'>
         <div className='view-recipe__header'>
-          <img src={recipeImageUrl} alt='stir fry' className='view-recipe__img' />
+          <img src={recipeImageUrl} style={{ objectFit: 'cover' }} alt='recipe image' className='view-recipe__img' />
           <div>
             <h1>{recipe?.title}</h1>
             <p>Prep Time: {recipe?.prepMinutes} minutes</p>
@@ -39,6 +46,7 @@ export const ViewRecipePage = (props: any) => {
             <p>Total Time: {Number(recipe?.prepMinutes!) + Number(recipe?.cookMinutes!)} minutes</p>
           </div>
         </div>
+        <div>{recipe.description}</div>
         <hr />
         <div className='view-recipe__content'>
           <div className='view-recipe__item'>

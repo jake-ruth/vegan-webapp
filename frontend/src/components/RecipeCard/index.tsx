@@ -11,6 +11,7 @@ interface Props {
 
 export const RecipeCard = (props: Props) => {
   const [recipeImageUrl, setRecipeImageUrl] = React.useState('');
+  const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
     console.log('REC:', props.recipe);
@@ -23,8 +24,11 @@ export const RecipeCard = (props: Props) => {
     gsRef.getDownloadURL().then((url: any) => {
       console.log(url);
       setRecipeImageUrl(url);
+      setLoading(false);
     });
   }, [props.pageTrigger]);
+
+  if (loading) return null;
 
   return (
     <a className='recipe-card' href={`/viewRecipe/${props.recipe.id}`}>

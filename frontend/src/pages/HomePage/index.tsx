@@ -13,27 +13,33 @@ export const HomePage = () => {
   const [recipesCount, setRecipesCount] = React.useState<number>(0);
   const [searchString, setSearchString] = React.useState<string>('');
   const [pageTrigger, setPageTrigger] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
     RecipeController.pageRecipes(page).then((res: any) => {
       setRecipes(res.data.recipes);
       setRecipesCount(res.data.totalCount);
       setPageTrigger(!pageTrigger);
+      setLoading(false);
     });
   }, [page]);
 
   const searchForRecipes = () => {
-    RecipeController.pageRecipesByName(page, searchString).then((res: any) => {
-      setRecipes(res.data.recipes);
-      setRecipesCount(res.data.totalCount);
-      setPageTrigger(!pageTrigger);
-    });
+    if (searchString.length > 0) {
+      RecipeController.pageRecipesByName(page, searchString).then((res: any) => {
+        setRecipes(res.data.recipes);
+        setRecipesCount(res.data.totalCount);
+        setPageTrigger(!pageTrigger);
+      });
+    }
   };
 
   const handlePage = (e: any, pageNumber: number) => {
     console.log(pageNumber);
     setPage(pageNumber - 1);
   };
+
+  if (loading) return null;
 
   return (
     <div className='home-page'>
