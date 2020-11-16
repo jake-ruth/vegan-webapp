@@ -16,8 +16,9 @@
   height: 200px;
   margin: 0.5em;
   // object-fit: cover;
-  border: solid $primary-color 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: solid gray 5px;
+  margin-right: 1em;
+  box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
 .view-recipe__content {

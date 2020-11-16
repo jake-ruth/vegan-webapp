@@ -103,8 +103,6 @@ export const CreateRecipe = () => {
           <br />
 
           <Controller as={TextField} control={methods.control} name='yieldAmount' label='Yield' />
-          {/* <input className='file-uploader' type='file' accept='.jpg,.jpeg,.png' /> */}
-          <img src={recipeImage} height={200} width={200} style={{ objectFit: 'cover' }} />
           <CropTest setRecipeImageFile={setRecipeImageFile} />
           <Button type='submit' variant='contained' color='primary' style={{ borderRadius: 0, maxWidth: 200, marginTop: '1em' }}>
             Save Recipe!

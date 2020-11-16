@@ -1,6 +1,8 @@
+import { Button } from '@material-ui/core';
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
+import CameraIcon from '@material-ui/icons/CameraAlt';
 
 export const CropTest = ({ setRecipeImageFile }) => {
   const [upImg, setUpImg] = useState();
@@ -20,7 +22,14 @@ export const CropTest = ({ setRecipeImageFile }) => {
     tmpCanvas.height = newHeight;
 
     const ctx = tmpCanvas.getContext('2d');
-    ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, newWidth, newHeight);
+
+    try {
+      if (canvas.width > 0 && canvas.height > 0) {
+        ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, newWidth, newHeight);
+      }
+    } catch (err) {
+      alert(err);
+    }
 
     return tmpCanvas;
   }
@@ -32,27 +41,15 @@ export const CropTest = ({ setRecipeImageFile }) => {
 
     const canvas = getResizedCanvas(previewCanvas, crop.width, crop.height);
 
-    let blob = canvas.toBlob(
+    canvas.toBlob(
       (blob) => {
-        // const previewUrl = window.URL.createObjectURL(blob);
         let file = new File([blob], 'png', { type: 'image/png' });
-        console.log('BLOB: ', blob);
-        console.log('FILE: ', file);
 
         setRecipeImageFile(file);
-        // const anchor = document.createElement('a');
-        // anchor.download = 'cropPreview.png';
-        // anchor.href = URL.createObjectURL(blob);
-        // anchor.click();
-
-        // window.URL.revokeObjectURL(previewUrl);
       },
       'image/png',
       1
     );
-
-    console.log(blob);
-    // console.log('FILE: ', file);
   }
 
   const onSelectFile = (e) => {
@@ -104,7 +101,12 @@ export const CropTest = ({ setRecipeImageFile }) => {
   return (
     <div className='App'>
       <div>
-        <input type='file' accept='image/*' onChange={onSelectFile} />
+        <input style={{ display: 'none' }} type='file' id='raised-button-file' accept='image/*' onChange={onSelectFile} />
+        <label htmlFor='raised-button-file'>
+          <Button endIcon={<CameraIcon />} style={{ borderRadius: 0, marginTop: 10 }} variant='contained' component='span'>
+            Upload Photo
+          </Button>
+        </label>
       </div>
       <ReactCrop
         src={upImg}
@@ -119,16 +121,11 @@ export const CropTest = ({ setRecipeImageFile }) => {
           // Rounding is important so the canvas width and height matches/is a multiple for sharpness.
           style={{
             width: Math.round(completedCrop?.width ?? 0),
-            height: Math.round(completedCrop?.height ?? 0)
+            height: Math.round(completedCrop?.height ?? 0),
+            display: 'none'
           }}
         />
       </div>
-      <button
-        type='button'
-        disabled={!completedCrop?.width || !completedCrop?.height}
-        onClick={() => generateDownload(previewCanvasRef.current, completedCrop)}>
-        Download cropped image
-      </button>
     </div>
   );
 };
