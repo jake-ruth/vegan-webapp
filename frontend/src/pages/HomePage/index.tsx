@@ -58,7 +58,7 @@ export const HomePage = () => {
         </div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', margin: '1em' }}>
-        <Pagination count={10} color='primary' shape='rounded' page={page + 1} onChange={handlePage} />
+        <Pagination count={Math.round(recipesCount / 6)} color='primary' shape='rounded' page={page + 1} onChange={handlePage} />
       </div>
 
       <Footer />

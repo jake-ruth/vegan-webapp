@@ -61,6 +61,7 @@ export const CreateRecipeContent = () => {
           <Controller as={TextField} control={control} type='number' name='cookHours' label='Hours' defaultValue={0} />
           <Controller as={TextField} control={control} type='number' name='cookMinutes' label='Minutes' defaultValue={0} />
         </div>
+        <Controller as={TextField} control={control} name='yieldAmount' label='Yield' />
         <h3 style={{ fontStyle: 'italic' }}>Ingredients</h3>
 
         {fields.map((ingredient, index) => (
