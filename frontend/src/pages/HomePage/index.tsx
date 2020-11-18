@@ -4,8 +4,8 @@ import { RecipeCard } from '../../components/RecipeCard';
 import { Footer } from '../../components/Footer';
 import { RecipeController } from '../../controllers/RecipeController';
 import { Recipe } from '../../models/Recipe';
-import { Button, TextField } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
+import SearchBar from 'material-ui-search-bar';
 
 export const HomePage = () => {
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
@@ -16,13 +16,18 @@ export const HomePage = () => {
   const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
+    pageAllRecipes();
+  }, [page]);
+
+  const pageAllRecipes = () => {
     RecipeController.pageRecipes(page).then((res: any) => {
+      setLoading(true);
       setRecipes(res.data.recipes);
       setRecipesCount(res.data.totalCount);
       setPageTrigger(!pageTrigger);
       setLoading(false);
     });
-  }, [page]);
+  };
 
   const searchForRecipes = () => {
     if (searchString.length > 0) {
@@ -45,11 +50,20 @@ export const HomePage = () => {
     <div className='home-page'>
       <Navbar />
       <div className='contain'>
-        <div style={{ display: 'flex', justifyContent: 'space-around', margin: '10px' }}>
-          <h2>New Recipes:</h2>
-          <div>{recipesCount} recipes found</div>
-          <TextField variant='outlined' label='Search for a recipe...' onChange={(e: any) => setSearchString(e.target.value)} />
-          <Button onClick={() => searchForRecipes()}>Search!</Button>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px' }}>
+          <div className='home-page__search-bar'>
+            <SearchBar
+              style={{ borderRadius: 3 }}
+              value={searchString}
+              onChange={(newValue) => setSearchString(newValue)}
+              onRequestSearch={() => searchForRecipes()}
+              onCancelSearch={() => {
+                setSearchString('');
+                pageAllRecipes();
+              }}
+              placeholder='Search for a recipe...'
+            />
+          </div>
         </div>
         <div className='recipe-card-container'>
           {recipes.map((recipe, index) => (
@@ -58,7 +72,12 @@ export const HomePage = () => {
         </div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', margin: '1em' }}>
-        <Pagination count={Math.round(recipesCount / 6)} color='primary' shape='rounded' page={page + 1} onChange={handlePage} />
+        <Pagination count={Math.ceil(recipesCount / 8)} color='primary' shape='rounded' page={page + 1} onChange={handlePage} />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '1em' }}>
+        <div>
+          {recipesCount} total {recipesCount === 1 ? 'recipe' : 'recipes'}
+        </div>
       </div>
 
       <Footer />

@@ -45,7 +45,16 @@ __decorate([
 __decorate([
     typeorm_1.Column({ nullable: true }),
     __metadata("design:type", String)
-], Recipe.prototype, "yield", void 0);
+], Recipe.prototype, "yieldAmount", void 0);
+__decorate([
+    typeorm_1.Column(),
+    typeorm_1.Generated('uuid'),
+    __metadata("design:type", String)
+], Recipe.prototype, "imageUrlUuid", void 0);
+__decorate([
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
+], Recipe.prototype, "imageExtension", void 0);
 __decorate([
     typeorm_1.CreateDateColumn(),
     __metadata("design:type", Date)

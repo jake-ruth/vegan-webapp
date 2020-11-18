@@ -8,7 +8,7 @@ interface PageRecipeReturnType {
 
 export class RecipeController {
   static pageRecipes = async (page: number, orderByField: string): Promise<PageRecipeReturnType> => {
-    const recipes = await Recipe.find({ order: { createdDate: 'DESC' }, skip: page * 6, take: 6 });
+    const recipes = await Recipe.find({ order: { createdDate: 'DESC' }, skip: page * 8, take: 8 });
     const totalCount = await Recipe.count();
 
     return { recipes, totalCount };

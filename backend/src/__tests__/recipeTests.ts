@@ -10,6 +10,9 @@ let recipe = {
 };
 
 describe('Recipe Tests', () => {
+  const axios = require('axios');
+  let devUrl = 'http://localhost:4000';
+
   it('should create a recipe', async () => {
     try {
       let result = await axios.post(`${devUrl}/createRecipe`, recipe);
@@ -17,7 +20,17 @@ describe('Recipe Tests', () => {
       console.log('RES: ', result);
       expect(result);
     } catch (err) {
-      console.log('ERR: ', err);
+      fail(err);
+    }
+  });
+
+  it('should read a recipe by id', async () => {
+    try {
+      let result = await axios.get(`${devUrl}/getRecipeById/104`);
+      console.log('RES: ', result);
+      expect(result);
+    } catch (err) {
+      fail(err);
     }
   });
 });

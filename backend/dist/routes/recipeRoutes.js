@@ -34,15 +34,33 @@ router.get('/getRecipeById/:id', (req, res) => __awaiter(void 0, void 0, void 0,
     let recipe = yield Recipe_1.Recipe.findOne(req.params.id);
     return res.json(recipe).status(200);
 }));
+router.get('/searchRecipesByName/:searchString', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let recipes = yield RecipeController_1.RecipeController.searchRecipesByName(req.params.searchString);
+    return res.json(recipes).status(200);
+}));
+router.get('/pageRecipesByName/:pageNumber/:searchString', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let pageNumber = Number(req.params.pageNumber);
+    let searchString = req.params.searchString;
+    try {
+        const recipes = yield RecipeController_1.RecipeController.pageRecipesByName(pageNumber, searchString);
+        return res.json(recipes).status(200);
+    }
+    catch (err) {
+        console.log(err);
+        return res.sendStatus(500);
+    }
+}));
 router.post('/createRecipe', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let recipe = new Recipe_1.Recipe();
-    const { title, description, instructions, ingredients, prepMinutes, cookMinutes } = req.body;
+    const { title, imageExtension, description, instructions, ingredients, prepMinutes, cookMinutes, yieldAmount } = req.body;
     recipe.title = title;
     recipe.description = description;
     recipe.instructions = instructions;
     recipe.ingredients = ingredients;
     recipe.prepMinutes = prepMinutes;
     recipe.cookMinutes = cookMinutes;
+    recipe.yieldAmount = yieldAmount;
+    recipe.imageExtension = imageExtension;
     try {
         yield RecipeController_1.RecipeController.createRecipe(recipe);
         return res.json(recipe).status(201);

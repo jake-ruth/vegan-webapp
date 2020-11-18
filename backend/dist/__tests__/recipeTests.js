@@ -17,6 +17,8 @@ let recipe = {
     ingredients: ['broccoli', 'onion', 'young potato']
 };
 describe('Recipe Tests', () => {
+    const axios = require('axios');
+    let devUrl = 'http://localhost:4000';
     it('should create a recipe', () => __awaiter(this, void 0, void 0, function* () {
         try {
             let result = yield axios.post(`${devUrl}/createRecipe`, recipe);
@@ -24,7 +26,17 @@ describe('Recipe Tests', () => {
             expect(result);
         }
         catch (err) {
-            console.log('ERR: ', err);
+            fail(err);
+        }
+    }));
+    it('should read a recipe by id', () => __awaiter(this, void 0, void 0, function* () {
+        try {
+            let result = yield axios.get(`${devUrl}/getRecipeById/104`);
+            console.log('RES: ', result);
+            expect(result);
+        }
+        catch (err) {
+            fail(err);
         }
     }));
 });

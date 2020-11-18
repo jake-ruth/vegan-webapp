@@ -1,19 +1,16 @@
 // import { ApplicationUser } from "../entities/ApplicationUser";
 
-const axios = require('axios');
-
 let user = {
-  email: 'testasdf@email.com',
+  email: 'jaketest123@email.com',
   password: 'test',
   firstName: 'Test',
   lastName: 'TestLastName',
   bio: 'Test Bio'
 };
 
-let devUrl = 'http://localhost:4000';
-
 describe('User Tests', () => {
-  let userId = 0;
+  const axios = require('axios');
+  let devUrl = 'http://localhost:4000';
 
   it('should create user record in the db', async () => {
     let result = await axios.post(`${devUrl}/register`, user);

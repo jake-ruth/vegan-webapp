@@ -8,17 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const axios = require('axios');
 let user = {
-    email: 'testasdf@email.com',
+    email: 'jaketest123@email.com',
     password: 'test',
     firstName: 'Test',
     lastName: 'TestLastName',
     bio: 'Test Bio'
 };
-let devUrl = 'http://localhost:4000';
 describe('User Tests', () => {
-    let userId = 0;
+    const axios = require('axios');
+    let devUrl = 'http://localhost:4000';
     it('should create user record in the db', () => __awaiter(this, void 0, void 0, function* () {
         let result = yield axios.post(`${devUrl}/register`, user);
         expect(result);
