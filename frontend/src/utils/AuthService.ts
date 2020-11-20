@@ -1,9 +1,9 @@
 import { ApplicationUser } from '../models/ApplicationUser';
 
 export class AuthService {
-  static accessToken: string = 'gardenAccessToken';
-  private static refreshToken: string = 'gardenRefreshToken';
-  private static applicationUser: string = 'gardenApplicationUser';
+  static accessToken: string = 'veganWebappAccessToken';
+  private static refreshToken: string = 'veganWebappRefreshToken';
+  private static applicationUser: string = 'veganWebappApplicationUser';
 
   static isLoggedIn = () => {
     if (localStorage.getItem(AuthService.accessToken)) return true;

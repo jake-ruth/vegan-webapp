@@ -1,32 +1,62 @@
 import React from 'react';
 import axios from 'axios';
+import { Controller, useForm } from 'react-hook-form';
+import { Button, TextField } from '@material-ui/core';
+import { AuthService } from '../../utils/AuthService';
+import { useHistory } from 'react-router-dom';
 
 export const LoginPage = () => {
-  const [email, setEmail] = React.useState<string>('');
-  const [password, setPassword] = React.useState<string>('');
+  interface FormInput {
+    email: string;
+    password: string;
+  }
 
-  const loginUser = (e: any) => {
-    e.preventDefault();
+  const { register, errors, control, handleSubmit } = useForm<FormInput>();
+  const history = useHistory();
 
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, { email, password }).then((res) => console.log(res));
-    // Logic to hit auth
-    // window.location.href = '/';
+  const onSubmit = async (data: FormInput) => {
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, { email: data.email, password: data.password });
+      AuthService.setAccessToken(res.data.accessToken);
+      history.replace('/');
+    } catch (err) {
+      alert(JSON.stringify(err));
+    }
   };
 
   return (
     <div className='login'>
       <img src={`${process.env.PUBLIC_URL}/veggies.jpg`} className='login__img' />
-      <form onSubmit={loginUser} className='login__form container'>
+      <form onSubmit={handleSubmit(onSubmit)} className='login__form container'>
         <h2>Log into Plant Based Plate</h2>
-        <div className='floating-label'>
-          <label>Email</label>
-          <input type='text' name='email' onChange={(e) => setEmail(e.target.value)} />
-        </div>
 
-        <label>Password</label>
-        <input type='text' name='password' onChange={(e) => setPassword(e.target.value)} />
+        <Controller
+          as={TextField}
+          control={control}
+          rules={{ required: 'Email Required' }}
+          type='text'
+          id='email'
+          name='email'
+          label='Email'
+          fullWidth
+        />
+        <div className='error'>{errors.email && errors.email.message}</div>
 
-        <input type='submit' value='Submit' />
+        <Controller
+          as={TextField}
+          control={control}
+          rules={{ required: 'Password Required' }}
+          type='password'
+          id='password'
+          name='password'
+          label='password'
+          fullWidth
+        />
+        <div className='error'>{errors.password && errors.password.message}</div>
+
+        <Button variant='contained' style={{ borderRadius: 0 }} color='primary' type='submit'>
+          Submit
+        </Button>
         <div className='sign-up-link'>
           Don't have an account yet? Sign up <a href='/register'>here</a>
         </div>

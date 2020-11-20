@@ -5,6 +5,7 @@ import { ApplicationUser } from '../entities/ApplicationUser';
 import bodyParser from 'body-parser';
 import { authenticateToken } from '../middleware/authentication';
 import { RefreshTokenController } from '../controllers/RefreshTokenController';
+const jwt = require('jsonwebtoken');
 
 const express = require('express');
 const router = express.Router();
@@ -75,6 +76,28 @@ router.delete('/deleteApplicationUser', authenticateToken, async (req: Request, 
   } catch (err) {
     return res.sendStatus(500).json({ error: err });
   }
+});
+
+//Generate new access token from refresh token
+router.post('/token', async (req: any, res: any) => {
+  const refreshToken = req.body.refreshToken;
+  if (refreshToken === null) return res.sendStatus(401);
+  //Do we have a valid refresh token?
+
+  const refreshTokenFromDb = await RefreshTokenController.readRefreshToken(refreshToken);
+  if (refreshTokenFromDb === null) return res.sendStatus(401);
+
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async (err: any, user: any) => {
+    if (err) return res.sendStatus(401);
+    const tokenData = { email: user.email };
+    const accessToken = await ApplicationUserController.generateAccessToken({ name: user.firstName });
+    res.json({ accessToken: accessToken });
+  });
+});
+
+//Does the token match the requested user ID?
+router.post('/authenticate', authenticateToken, async (req: any, res: any) => {
+  res.json({ authenticated: req.body.userId == req.body.user.id });
 });
 
 module.exports = router;

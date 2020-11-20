@@ -13,6 +13,10 @@
   .login__form {
     max-width: 40vw;
     min-width: 35vw;
+    max-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 }
 

@@ -24,9 +24,17 @@ DELETE http://localhost:4000/logout
 Content-Type: application/json
 
 {
-    "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impha2VAamFrZSIsInBhc3N3b3JkIjoiamFrZSIsImlhdCI6MTYwMzA1Nzg5NiwiZXhwIjoxNjA1NjQ5ODk2fQ.kjghUphVGlboYbVnoQLf0Aw7ou0G8QL39m_0dGjmolU"
+    "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impha2VAamFrZSIsInBhc3N3b3JkIjoiamFrZSIsImlhdCI6MTYwNTgzMzg0NSwiZXhwIjoxNjA4NDI1ODQ1fQ.63fEbGWCzdBTGnH0DR7666Bft9HQFIiszuV7voXQ3jo"
 }
 
 ###
-GET http://localhost:4000/getApplicationUser/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impha2VAamFrZSIsInBhc3N3b3JkIjoiamFrZSIsImlhdCI6MTYwMzA1NjU3MCwiZXhwIjoxNjAzMDU4MzcwfQ.Gh2Gcdx2Mp-ZT6fTZRA7MmFjZXJJ8gu-2SdCJGdRdOw
+GET http://localhost:4000/getApplicationUser/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impha2VAamFrZSIsInBhc3N3b3JkIjoiamFrZSIsImlhdCI6MTYwNTgzMzcwNSwiZXhwIjoxNjA1ODM1NTA1fQ.fLnsimLg4gGkxi7BXjrWmIS7Hv8kFdEyyegUhiIjjIE
+
+###
+POST http://localhost:4000/token
+Content-Type: application/json
+
+{
+    "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impha2VAamFrZSIsInBhc3N3b3JkIjoiamFrZSIsImlhdCI6MTYwNTgzNDA1MSwiZXhwIjoxNjA4NDI2MDUxfQ.i17W2me7Jg-9yzZvRqt-mUBk8d3NHLpwEJf_M87V4go"
+}
