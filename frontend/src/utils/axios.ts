@@ -1,9 +1,8 @@
 import Axios from 'axios';
-// import { BACKEND_URL_TEST } from './constants';
 import { AuthService } from './AuthService';
 
 const axios = Axios.create({
-  baseURL: 'https://vegan-webapp.herokuapp.com/',
+  baseURL: process.env.REACT_APP_BACKEND_URL,
   headers: {
     Authorization: `Bearer ${AuthService.getAccessToken()}`
   }
@@ -17,7 +16,7 @@ axios.interceptors.response.use(
       if (error.response.status === 401) {
         //Try to generate new accessToken from refreshToken, if fails redirect to login
         axios
-          .post(`https://vegan-webapp.herokuapp.com/token`, { token: AuthService.getRefreshToken() })
+          .post(`${process.env.REACT_APP_BACKEND_URL}/token`, { token: AuthService.getRefreshToken() })
           .then((res: any) => {
             console.log('RES: ', res);
             AuthService.setAccessToken(res.data.accessToken);

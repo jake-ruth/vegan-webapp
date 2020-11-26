@@ -7,6 +7,7 @@ import { AboutPage } from '../pages/AboutPage';
 import { ViewRecipePage } from '../pages/ViewRecipePage';
 import { CreateRecipe } from '../pages/CreateRecipe';
 import { AccountPage } from '../pages/AccountPage';
+import { PrivateRoute } from './ProtectedRoute';
 
 export const BaseRouter = () => {
   return (
@@ -17,8 +18,9 @@ export const BaseRouter = () => {
         <Route path='/register' component={RegisterPage} />
         <Route path='/about' component={AboutPage} />
         <Route path='/viewRecipe/:recipeId' component={ViewRecipePage} />
-        <Route path='/createRecipe' component={CreateRecipe} />
         <Route path='/account' component={AccountPage} />
+
+        <PrivateRoute path='/createRecipe' component={CreateRecipe} />
       </Switch>
     </Router>
   );

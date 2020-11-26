@@ -1,19 +1,15 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar';
-import { AuthService } from '../../utils/AuthService';
-import axios from '../../utils/axios';
+import { ApplicationUserController } from '../../controllers/ApplicationUserController';
 
 export const AccountPage = () => {
+  const history = useHistory();
   const logout = async () => {
-    return axios
-      .delete(`${process.env.REACT_APP_BACKEND_URL}/logout`)
-      .then(() => {
-        localStorage.clear();
-      })
-      .catch(() => {
-        localStorage.clear();
-      });
+    await ApplicationUserController.logoutUser();
+    localStorage.clear();
+    history.replace('/loginPage');
   };
 
   return (

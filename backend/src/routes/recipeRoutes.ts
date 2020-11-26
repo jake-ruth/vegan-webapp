@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { RecipeController } from '../controllers/RecipeController';
 import bodyParser from 'body-parser';
 import { Recipe } from '../entities/Recipe';
+import { authenticateToken } from '../middleware/authentication';
 
 const express = require('express');
 const router = express.Router();
@@ -51,7 +52,7 @@ router.get('/pageRecipesByName/:pageNumber/:searchString', async (req: Request, 
   }
 });
 
-router.post('/createRecipe', async (req: Request, res: Response) => {
+router.post('/createRecipe', authenticateToken, async (req: Request, res: Response) => {
   let recipe = new Recipe();
 
   const { title, imageExtension, description, instructions, ingredients, prepMinutes, cookMinutes, yieldAmount } = req.body;
