@@ -1,40 +1,113 @@
 import React from 'react';
+import axios from 'axios';
+import { Controller, useForm } from 'react-hook-form';
+import { useHistory, Link } from 'react-router-dom';
+import { AuthService } from '../../utils/AuthService';
+import { Button, TextField } from '@material-ui/core';
 
 export const RegisterPage = () => {
-  const [email, setEmail] = React.useState<string>('');
-  const [password, setPassword] = React.useState<string>('');
-  const [passwordConfirm, setPasswordConfirm] = React.useState<string>('');
-  const [firstName, setFirstName] = React.useState<string>('');
-  const [lastName, setLastName] = React.useState<string>('');
+  interface FormInput {
+    email: string;
+    password: string;
+    passwordConfirm: string;
+    firstName: string;
+    lastName: string;
+  }
 
-  const registerUser = () => {
-    //auth logic here
+  const { register, errors, control, handleSubmit } = useForm<FormInput>();
+  const history = useHistory();
+
+  const onSubmit = async (data: FormInput) => {
+    const newUser: any = {};
+    newUser.email = data.email;
+    newUser.password = data.password;
+    newUser.firstName = data.firstName;
+    newUser.lastName = data.lastName;
+    newUser.bio = '';
+
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/register`, newUser);
+      AuthService.setAccessToken(res.data.accessToken);
+      history.replace('/');
+    } catch (err) {
+      alert(JSON.stringify(err));
+    }
   };
 
   return (
-    <div className='login'>
-      <img src={`${process.env.PUBLIC_URL}/veggies.jpg`} className='login__img' />
-      <form onSubmit={() => registerUser()} className='login__form'>
+    <div className='register'>
+      <img src={`${process.env.PUBLIC_URL}/veggies.jpg`} className='register__img' />
+      <form onSubmit={handleSubmit(onSubmit)} className='register__form container'>
         <h2>Register Account</h2>
 
-        <label>First Name</label>
-        <input type='text' placeholder='Enter first name...' onChange={(e) => setFirstName(e.target.value)} />
+        <Controller
+          as={TextField}
+          control={control}
+          rules={{ required: 'First Name Required' }}
+          type='text'
+          id='firstName'
+          name='firstName'
+          label='firstName'
+          fullWidth
+        />
+        <div className='error'>{errors.firstName && errors.firstName.message}</div>
 
-        <label>Last Name</label>
-        <input type='text' placeholder='Enter last name...' onChange={(e) => setLastName(e.target.value)} />
+        <Controller
+          as={TextField}
+          control={control}
+          rules={{ required: 'Last Name Required' }}
+          type='text'
+          id='lastName'
+          name='lastName'
+          label='lastName'
+          fullWidth
+        />
+        <div className='error'>{errors.lastName && errors.lastName.message}</div>
 
-        <label>Email</label>
-        <input type='text' placeholder='Enter email...' onChange={(e) => setEmail(e.target.value)} />
+        <Controller
+          as={TextField}
+          control={control}
+          rules={{ required: 'Email Required' }}
+          type='text'
+          id='email'
+          name='email'
+          label='Email'
+          fullWidth
+        />
+        <div className='error'>{errors.email && errors.email.message}</div>
 
-        <label>Password</label>
-        <input type='password' placeholder='Enter password...' onChange={(e) => setPassword(e.target.value)} />
+        <Controller
+          as={TextField}
+          control={control}
+          rules={{ required: 'Password Required' }}
+          type='password'
+          id='password'
+          name='password'
+          label='password'
+          fullWidth
+        />
+        <div className='error'>{errors.password && errors.password.message}</div>
 
-        <label>Confirm Password</label>
-        <input type='password' placeholder='Enter password...' onChange={(e) => setPassword(e.target.value)} />
+        <Controller
+          as={TextField}
+          control={control}
+          rules={{ required: 'Password Confirmation Required' }}
+          type='password'
+          id='passwordConfirm'
+          name='passwordConfirm'
+          label='passwordConfirm'
+          fullWidth
+        />
+        <div className='error'>{errors.passwordConfirm && errors.passwordConfirm.message}</div>
 
-        <input type='submit' value='Submit' />
+        <Button variant='contained' style={{ borderRadius: 0 }} color='primary' type='submit'>
+          Submit
+        </Button>
         <div className='sign-up-link'>
-          Already have an account? Sign in <a href='/login'>here</a>
+          Already have an account? Sign in{' '}
+          <Link to='/loginPage' style={{ color: 'purple' }}>
+            here
+          </Link>
         </div>
       </form>
     </div>

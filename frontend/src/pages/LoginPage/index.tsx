@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Controller, useForm } from 'react-hook-form';
 import { Button, TextField } from '@material-ui/core';
 import { AuthService } from '../../utils/AuthService';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 export const LoginPage = () => {
   interface FormInput {
@@ -58,7 +58,10 @@ export const LoginPage = () => {
           Submit
         </Button>
         <div className='sign-up-link'>
-          Don't have an account yet? Sign up <a href='/register'>here</a>
+          Don't have an account yet? Sign up{' '}
+          <Link to='/register' style={{ color: 'purple' }}>
+            here
+          </Link>
         </div>
       </form>
     </div>
