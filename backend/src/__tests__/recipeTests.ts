@@ -1,36 +1,42 @@
-// import { ApplicationUser } from "../entities/ApplicationUser";
+import { Recipe } from '../entities/Recipe';
+import { createConnection, getConnection } from 'typeorm';
+import { RecipeController } from '../controllers/RecipeController';
 
-let recipe = {
-  title: "Jake's Magic Cookies",
-  description: 'this recipe is to die for, the master himself shall teach you to cook it',
-  instructions: 'Step 1: Saute vegetables Step 2: Mix in Sauce',
-  prepMinutes: 10,
-  cookMinutes: 10,
-  ingredients: ['broccoli', 'onion', 'young potato']
-};
+beforeAll(async () => {
+  await createConnection();
+});
+
+afterAll(async () => {
+  await getConnection().close();
+});
+
+let recipe = new Recipe();
+recipe.title = 'Heyo Recipe';
+recipe.description = 'Test Description';
+recipe.instructions = 'Instructions';
+recipe.prepMinutes = '10';
+recipe.cookMinutes = '10';
+recipe.createdDate = new Date();
+
+let recipeId = 0;
 
 describe('Recipe Tests', () => {
-  const axios = require('axios');
-  let devUrl = 'http://localhost:4000';
-
-  it('should create a recipe', async () => {
+  it('should create recipe in the db', async () => {
     try {
-      let result = await axios.post(`${devUrl}/createRecipe`, recipe);
-
-      console.log('RES: ', result);
-      expect(result);
+      const result = await RecipeController.createRecipe(recipe);
+      recipeId = result.id;
+      expect(result.title).toBe(recipe.title);
     } catch (err) {
-      fail(err);
+      console.log('ERR: ', err);
     }
   });
 
-  it('should read a recipe by id', async () => {
+  it('should delete recipe from db', async () => {
     try {
-      let result = await axios.get(`${devUrl}/getRecipeById/104`);
-      console.log('RES: ', result);
+      const result = await Recipe.delete(recipeId);
       expect(result);
     } catch (err) {
-      fail(err);
+      console.log('ERR: ', err);
     }
   });
 });

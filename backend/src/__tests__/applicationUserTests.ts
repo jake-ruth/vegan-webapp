@@ -1,38 +1,41 @@
-// import { ApplicationUser } from "../entities/ApplicationUser";
+import { createConnection, getConnection } from 'typeorm';
+import { ApplicationUserController } from '../controllers/ApplicationUserController';
+import { ApplicationUser } from '../entities/ApplicationUser';
 
-let user = {
-  email: 'jaketest123@email.com',
-  password: 'test',
-  firstName: 'Test',
-  lastName: 'TestLastName',
-  bio: 'Test Bio'
-};
+beforeAll(async () => {
+  await createConnection();
+});
+
+afterAll(async () => {
+  await getConnection().close();
+});
+
+let appUser = new ApplicationUser();
+appUser.email = 'testemail@email.com';
+appUser.password = 'test';
+appUser.firstName = 'Test';
+appUser.lastName = 'LastName';
+appUser.bio = 'Test bio';
 
 describe('User Tests', () => {
-  const axios = require('axios');
-  let devUrl = 'http://localhost:4000';
-
   it('should create user record in the db', async () => {
-    let result = await axios.post(`${devUrl}/register`, user);
-    expect(result);
+    try {
+      const result = await ApplicationUserController.createApplicationUser(appUser);
+      expect(result.email).toBe(appUser.email);
+    } catch (err) {
+      console.log('ERR: ', err);
+    }
   });
 
   it('should log in the user', async () => {
-    let result = await axios.post(`${devUrl}/login`, { email: user.email, password: user.password });
-
-    expect(result);
+    let result = await ApplicationUserController.login(appUser.email, 'test');
+    expect(result.email).toBe(appUser.email);
   });
 
+  //This is just to clean up, doesn't test a function that's used
   it('should delete test user from database', async () => {
-    let result = axios.post(
-      `${devUrl}/deleteApplicationUser`,
-      { id: 2 },
-      {
-        headers: {
-          authorization: 'bearer 1234'
-        }
-      }
-    );
+    const user = await ApplicationUser.findOne({ where: { email: appUser.email } });
+    let result = await ApplicationUser.delete(user!.id);
 
     expect(result);
   });
