@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { Button, TextField } from '@material-ui/core';
 import { AuthService } from '../../utils/AuthService';
 import { Link, useHistory } from 'react-router-dom';
+import { UserContext } from '../../context';
 
 export const LoginPage = () => {
   interface FormInput {
@@ -11,12 +12,16 @@ export const LoginPage = () => {
     password: string;
   }
 
-  const { register, errors, control, handleSubmit } = useForm<FormInput>();
+  const { errors, control, handleSubmit } = useForm<FormInput>();
   const history = useHistory();
+  const { setUser } = React.useContext(UserContext);
 
   const onSubmit = async (data: FormInput) => {
     try {
       const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, { email: data.email, password: data.password });
+      console.log(res);
+      setUser(res.data.user);
+      AuthService.setUserToStorage(res.data.user);
       AuthService.setAccessToken(res.data.accessToken);
       history.replace('/');
     } catch (err) {

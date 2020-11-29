@@ -6,7 +6,7 @@ import { SettingsRemoteOutlined } from '@material-ui/icons';
 
 interface Props {
   recipe: Recipe;
-  pageTrigger: boolean;
+  pageTrigger?: boolean;
 }
 
 export const RecipeCard = (props: Props) => {
@@ -14,11 +14,8 @@ export const RecipeCard = (props: Props) => {
   const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    console.log('REC:', props.recipe);
     // Get a reference to the storage service, which is used to create references in your storage bucket
     var storage = firebase.storage();
-
-    console.log('STORE: ', storage);
     //var gsRef = storage.refFromURL('gs://vegan-webapp.appspot.com/surlyCatBeingEjected.jpg');
     const gsRef = storage.refFromURL(`gs://vegan-webapp.appspot.com/${props.recipe.imageUrlUuid}.${props.recipe.imageExtension}`);
     gsRef.getDownloadURL().then((url: any) => {

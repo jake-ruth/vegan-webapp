@@ -70,8 +70,8 @@ export const EditRecipe = (props: any) => {
     };
 
     try {
-      const res = await RecipeController.createRecipe(recipe);
-      uploadImage(res!.data.imageUrlUuid);
+      // const res = await RecipeController.createRecipe(recipe);
+      // uploadImage(res!.data.imageUrlUuid);
       history.push('/');
     } catch (err) {
       console.log('ERR: ', err);

@@ -1,3 +1,4 @@
+import { ApplicationUser } from '../entities/ApplicationUser';
 import { Like, getRepository, Repository, getConnection } from 'typeorm';
 import { Recipe } from '../entities/Recipe';
 
@@ -19,8 +20,8 @@ export class RecipeController {
 
     const recipes = await Recipe.find({
       order: { createdDate: 'DESC' },
-      skip: page * 6,
-      take: 6,
+      skip: page * 8,
+      take: 8,
       where: `"title" ILIKE '%${formatted}%'`
     });
     const totalCount = await Recipe.count({ where: `"title" ILIKE '%${formatted}%'` });
@@ -28,7 +29,17 @@ export class RecipeController {
     return { recipes, totalCount };
   };
 
-  static createRecipe = async (recipe: Recipe) => {
+  static getRecipesForUser = async (userUuid: string) => {
+    //Todo: look into why I have to do this instead of just using uuid directly
+    const user = await ApplicationUser.findOne({ where: { uuid: userUuid } });
+
+    return await Recipe.find({ where: { applicationUser: { id: user?.id } } });
+  };
+
+  static createRecipe = async (recipe: Recipe, userUuid: string) => {
+    const fullUser = await ApplicationUser.findOne({ where: { uuid: userUuid } });
+    recipe.applicationUser = fullUser!;
+
     return await Recipe.save(recipe);
   };
 

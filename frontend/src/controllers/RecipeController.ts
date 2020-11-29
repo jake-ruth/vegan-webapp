@@ -31,9 +31,19 @@ export class RecipeController {
     }
   };
 
-  static createRecipe = async (recipe: Recipe) => {
+  static getRecipesForUser = async (userUuid: string) => {
     try {
-      return protectedAxios.post(`${process.env.REACT_APP_BACKEND_URL}/createRecipe`, recipe);
+      let recipe = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getRecipesForUser/${userUuid}`);
+
+      return recipe.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  static createRecipe = async (recipe: Recipe, userUuid: string) => {
+    try {
+      return protectedAxios.post(`${process.env.REACT_APP_BACKEND_URL}/createRecipe`, { recipe, userUuid });
     } catch (err) {
       console.log(err);
     }

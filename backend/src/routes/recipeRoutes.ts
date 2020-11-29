@@ -31,6 +31,12 @@ router.get('/getRecipeById/:id', async (req: Request, res: Response) => {
   return res.json(recipe).status(200);
 });
 
+router.get('/getRecipesForUser/:userUuid', async (req: Request, res: Response) => {
+  const recipes = await RecipeController.getRecipesForUser(req.params.userUuid);
+
+  return res.json(recipes).status(200);
+});
+
 router.get('/searchRecipesByName/:searchString', async (req: Request, res: Response) => {
   let recipes = await RecipeController.searchRecipesByName(req.params.searchString);
 
@@ -55,7 +61,18 @@ router.get('/pageRecipesByName/:pageNumber/:searchString', async (req: Request, 
 router.post('/createRecipe', authenticateToken, async (req: Request, res: Response) => {
   let recipe = new Recipe();
 
-  const { title, imageExtension, description, instructions, ingredients, prepMinutes, cookMinutes, yieldAmount } = req.body;
+  const {
+    title,
+    imageExtension,
+    description,
+    instructions,
+    ingredients,
+    prepMinutes,
+    cookMinutes,
+    yieldAmount
+  } = req.body.recipe;
+
+  const userUuid = req.body.userUuid;
 
   recipe.title = title;
   recipe.description = description;
@@ -67,7 +84,7 @@ router.post('/createRecipe', authenticateToken, async (req: Request, res: Respon
   recipe.imageExtension = imageExtension;
 
   try {
-    await RecipeController.createRecipe(recipe);
+    await RecipeController.createRecipe(recipe, userUuid);
     return res.json(recipe).status(201);
   } catch (err) {
     return console.log(err);

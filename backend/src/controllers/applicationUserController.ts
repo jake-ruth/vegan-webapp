@@ -27,8 +27,8 @@ export class ApplicationUserController {
     return await RefreshTokenController.deleteRefreshToken(refreshToken);
   };
 
-  static readOneApplicationUser = async (id: number) => {
-    return await ApplicationUser.findOne(id);
+  static readOneApplicationUser = async (uuid: string) => {
+    return await ApplicationUser.findOne({ where: { uuid } });
   };
 
   static deleteApplicationUser = async (id: number) => {

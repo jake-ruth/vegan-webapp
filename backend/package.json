@@ -12,7 +12,7 @@
     "test": "export NODE_ENV=test && nodemon ./src/index.ts",
     "prod": "export NODE_ENV=production && nodemon ./src/index.ts",
     "run-prod": "node dist/index.js",
-    "run-tests": "jest --coverage",
+    "run-tests": "jest --coverage --verbose",
     "build": "tsc"
   },
   "author": "Jake Ruth",

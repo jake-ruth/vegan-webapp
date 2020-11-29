@@ -23,7 +23,7 @@ let recipeId = 0;
 describe('Recipe Tests', () => {
   it('should create recipe in the db', async () => {
     try {
-      const result = await RecipeController.createRecipe(recipe);
+      const result = await RecipeController.createRecipe(recipe, 'testUuid');
       recipeId = result.id;
       expect(result.title).toBe(recipe.title);
     } catch (err) {

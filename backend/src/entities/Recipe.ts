@@ -1,4 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinColumn, CreateDateColumn, Generated } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  OneToOne,
+  JoinColumn,
+  CreateDateColumn,
+  Generated,
+  ManyToOne
+} from 'typeorm';
 import { ApplicationUser } from './ApplicationUser';
 
 @Entity('Recipe')
@@ -38,7 +48,7 @@ export class Recipe extends BaseEntity {
   createdDate: Date;
 
   //Be sure to set eager to true to get back the object from a relation column
-  @OneToOne((type) => ApplicationUser, { eager: true })
+  @ManyToOne((type) => ApplicationUser, { eager: true })
   @JoinColumn()
   applicationUser: ApplicationUser;
 }

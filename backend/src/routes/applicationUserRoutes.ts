@@ -35,14 +35,16 @@ router.post('/login', async (req: Request, res: Response) => {
   const body = req.body;
 
   try {
-    await ApplicationUserController.login(body.email, body.password);
+    const user: any = await ApplicationUserController.login(body.email, body.password);
 
     let accessToken = await ApplicationUserController.generateAccessToken(req.body);
     let refreshToken = await ApplicationUserController.generateRefreshToken(req.body);
 
     await RefreshTokenController.addRefreshToken(refreshToken);
 
-    return res.status(200).json({ accessToken, refreshToken });
+    delete user.password;
+
+    return res.status(200).json({ accessToken, refreshToken, user });
   } catch (err) {
     return res.status(500).json({ error: err });
   }
@@ -59,9 +61,9 @@ router.delete('/logout', async (req: Request, res: Response) => {
 });
 
 //Get single user
-router.get('/getApplicationUser/:id', authenticateToken, async (req: Request, res: Response) => {
+router.get('/getApplicationUser/:uuid', authenticateToken, async (req: Request, res: Response) => {
   try {
-    const applicationUser = await ApplicationUserController.readOneApplicationUser(Number(req.params.id));
+    const applicationUser = await ApplicationUserController.readOneApplicationUser(req.params.uuid);
     return res.send(applicationUser).status(200);
   } catch (err) {
     return res.status(500).json({ error: err });

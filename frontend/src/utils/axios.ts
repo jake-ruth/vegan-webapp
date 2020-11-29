@@ -18,9 +18,7 @@ axios.interceptors.response.use(
         axios
           .post(`${process.env.REACT_APP_BACKEND_URL}/token`, { token: AuthService.getRefreshToken() })
           .then((res: any) => {
-            console.log('RES: ', res);
             AuthService.setAccessToken(res.data.accessToken);
-            //window.location.reload();
           })
           .then(() => window.location.reload())
           .catch((err) => {

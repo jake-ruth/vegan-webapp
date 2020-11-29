@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
 import { CreateRecipeContent } from './components/CreateRecipeContent';
 import { CropTest } from './components/CropTest';
+import { UserContext } from '../../context';
 
 interface IFormInput {
   title: string;
@@ -26,6 +27,7 @@ export const CreateRecipe = () => {
 
   const history = useHistory();
   const [recipeImageFile, setRecipeImageFile] = React.useState<File | null>(null);
+  const { user } = React.useContext(UserContext);
 
   const uploadImage = (imageUuid: string) => {
     const fileExtension = recipeImageFile!.name.split('.').pop();
@@ -58,7 +60,7 @@ export const CreateRecipe = () => {
     };
 
     try {
-      const res = await RecipeController.createRecipe(recipe);
+      const res = await RecipeController.createRecipe(recipe, user.uuid);
       uploadImage(res!.data.imageUrlUuid);
       history.push('/');
     } catch (err) {

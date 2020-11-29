@@ -32,6 +32,11 @@ describe('User Tests', () => {
     expect(result.email).toBe(appUser.email);
   });
 
+  it('should read user by uuid', async () => {
+    let result = await ApplicationUserController.readOneApplicationUser(appUser.uuid);
+    expect(result?.email).toBe(appUser.email);
+  });
+
   //This is just to clean up, doesn't test a function that's used
   it('should delete test user from database', async () => {
     const user = await ApplicationUser.findOne({ where: { email: appUser.email } });

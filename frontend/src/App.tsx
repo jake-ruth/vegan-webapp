@@ -3,8 +3,12 @@ import React from 'react';
 import './App.scss';
 import { BaseRouter } from './router';
 import firebase from 'firebase';
+import { UserContext } from './context';
+import { AuthService } from './utils/AuthService';
 
 function App() {
+  const [user, setUser] = React.useState(AuthService.getUserFromStorage());
+
   const theme = createMuiTheme({
     palette: {
       primary: {
@@ -35,12 +39,19 @@ function App() {
     appId: '1:29504851544:web:f3981ecbd3eb6f51c7042d',
     measurementId: 'G-2B8615KNJN'
   };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+
+  React.useEffect(() => {
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    let storedUser = AuthService.getUserFromStorage();
+  }, []);
+
   return (
     <header data-testid='app-element'>
       <MuiThemeProvider theme={theme}>
-        <BaseRouter />
+        <UserContext.Provider value={{ user, setUser }}>
+          <BaseRouter />
+        </UserContext.Provider>
       </MuiThemeProvider>
     </header>
   );
