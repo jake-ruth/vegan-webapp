@@ -28,6 +28,7 @@ export const RegisterPage = () => {
     try {
       const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/register`, newUser);
       AuthService.setAccessToken(res.data.accessToken);
+      AuthService.setRefreshToken(res.data.refreshToken);
       history.replace('/');
     } catch (err) {
       alert(JSON.stringify(err));

@@ -2,8 +2,8 @@ import { ApplicationUser } from '../models/ApplicationUser';
 
 export class AuthService {
   static accessToken: string = 'veganWebappAccessToken';
-  private static refreshToken: string = 'veganWebappRefreshToken';
-  private static applicationUser: string = 'veganWebappApplicationUser';
+  static refreshToken: string = 'veganWebappRefreshToken';
+  static applicationUser: string = 'veganWebappApplicationUser';
 
   static isLoggedIn = () => {
     if (localStorage.getItem(AuthService.accessToken)) return true;

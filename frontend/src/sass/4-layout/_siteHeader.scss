@@ -11,36 +11,31 @@ button {
   text-decoration: none;
 }
 
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 10px;
-  background-color: $background-color-dark;
-}
-
 .logo {
   cursor: pointer;
   margin-right: auto;
 }
 
-@media (min-width: 600px) {
-  .nav__links {
-    list-style: none;
-    li {
-      display: inline-block;
-      padding: 0px 20px;
-
-      a:hover {
-        color: rgba(255, 255, 255, 0.8) !important;
-      }
-    }
+@include desktop {
+  .navbar__mobile {
+    display: none;
   }
 }
 
-@media (max-width: 600px) {
-  .nav__links {
+@include tablet {
+  .navbar__mobile {
     display: none;
+  }
+}
+
+@include mobile {
+  .navbar__full {
+    display: none;
+  }
+
+  .navbar__mobile {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5em;
   }
 }

@@ -36,7 +36,7 @@ export class ApplicationUserController {
   };
 
   static generateAccessToken = async (user: any) => {
-    return await jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30m' });
+    return await jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
   };
 
   static generateRefreshToken = (user: any) => {

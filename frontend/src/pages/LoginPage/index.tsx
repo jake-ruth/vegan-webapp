@@ -23,6 +23,7 @@ export const LoginPage = () => {
       setUser(res.data.user);
       AuthService.setUserToStorage(res.data.user);
       AuthService.setAccessToken(res.data.accessToken);
+      AuthService.setRefreshToken(res.data.refreshToken);
       history.replace('/');
     } catch (err) {
       alert(JSON.stringify(err));

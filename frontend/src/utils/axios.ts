@@ -7,23 +7,24 @@ const axios = Axios.create({
     Authorization: `Bearer ${AuthService.getAccessToken()}`
   }
 });
+
 axios.interceptors.response.use(
   (response) => {
     return response;
   },
   (error) => {
     if (error.response) {
+      console.log(error.response.status);
       if (error.response.status === 401) {
         //Try to generate new accessToken from refreshToken, if fails redirect to login
-        axios
-          .post(`${process.env.REACT_APP_BACKEND_URL}/token`, { token: AuthService.getRefreshToken() })
+        Axios.post(`${process.env.REACT_APP_BACKEND_URL}/token`, { refreshToken: AuthService.getRefreshToken() })
           .then((res: any) => {
             AuthService.setAccessToken(res.data.accessToken);
           })
           .then(() => window.location.reload())
           .catch((err) => {
             console.log('HERE', err);
-            //window.location.href = '/login';
+            // window.location.href = '/loginPage';
           });
       }
     }
