@@ -1,10 +1,10 @@
 import React from 'react';
-import axios from 'axios';
 import { Controller, useForm } from 'react-hook-form';
 import { Button, TextField } from '@material-ui/core';
 import { AuthService } from '../../utils/AuthService';
 import { Link, useHistory } from 'react-router-dom';
 import { UserContext } from '../../context';
+import { AuthController } from '../../controllers/AuthController';
 
 export const LoginPage = () => {
   interface FormInput {
@@ -18,8 +18,9 @@ export const LoginPage = () => {
 
   const onSubmit = async (data: FormInput) => {
     try {
-      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, { email: data.email, password: data.password });
-      console.log(res);
+      const { email, password } = data;
+      const res = await AuthController.login(email, password);
+
       setUser(res.data.user);
       AuthService.setUserToStorage(res.data.user);
       AuthService.setAccessToken(res.data.accessToken);

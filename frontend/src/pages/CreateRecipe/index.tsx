@@ -1,29 +1,18 @@
 import React from 'react';
 import { Navbar } from '../../components/Navbar';
-import { Controller, useForm, FormProvider } from 'react-hook-form';
-import { Button, TextField } from '@material-ui/core';
+import { useForm, FormProvider } from 'react-hook-form';
+import { Button } from '@material-ui/core';
 import { Recipe } from '../../models/Recipe';
 import { RecipeController } from '../../controllers/RecipeController';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
 import { CreateRecipeContent } from './components/CreateRecipeContent';
-import { CropTest } from './components/CropTest';
+import { ImageCropper } from './components/ImageCropper';
 import { UserContext } from '../../context';
-
-interface IFormInput {
-  title: string;
-  description: string;
-  instructions: string;
-  ingredients: any[];
-  prepHours: number;
-  prepMinutes: number;
-  cookHours: number;
-  cookMinutes: number;
-  yieldAmount: string;
-}
+import { RecipeFields } from './utils';
 
 export const CreateRecipe = () => {
-  const methods = useForm<IFormInput>({ defaultValues: { ingredients: [{ value: '' }] } });
+  const methods = useForm<RecipeFields>({ defaultValues: { ingredients: [{ value: '' }] } });
 
   const history = useHistory();
   const [recipeImageFile, setRecipeImageFile] = React.useState<File | null>(null);
@@ -38,7 +27,7 @@ export const CreateRecipe = () => {
     fileRef.put(recipeImageFile!).then((res) => console.log(res));
   };
 
-  const onSubmit = async (data: IFormInput, e: any) => {
+  const onSubmit = async (data: RecipeFields, e: any) => {
     const formatIngredients = () => {
       let ingredientsArray: string[] = [];
       data.ingredients.map((ingredient: any) => {
@@ -78,7 +67,7 @@ export const CreateRecipe = () => {
             <CreateRecipeContent />
           </FormProvider>
           <br />
-          <CropTest setRecipeImageFile={setRecipeImageFile} />
+          <ImageCropper setRecipeImageFile={setRecipeImageFile} />
           <Button type='submit' variant='contained' color='primary' style={{ borderRadius: 0, maxWidth: 200, marginTop: '1em' }}>
             Save Recipe!
           </Button>

@@ -4,7 +4,7 @@ import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 import CameraIcon from '@material-ui/icons/CameraAlt';
 
-export const CropTest = ({ setRecipeImageFile }) => {
+export const ImageCropper = ({ setRecipeImageFile }) => {
   const [upImg, setUpImg] = useState();
   const imgRef = useRef(null);
   const previewCanvasRef = useRef(null);
