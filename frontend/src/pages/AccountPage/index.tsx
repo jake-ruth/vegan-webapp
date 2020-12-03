@@ -8,11 +8,13 @@ import { ApplicationUserController } from '../../controllers/ApplicationUserCont
 import { RecipeController } from '../../controllers/RecipeController';
 import { ApplicationUser } from '../../models/ApplicationUser';
 import { Recipe } from '../../models/Recipe';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export const AccountPage = () => {
   const history = useHistory();
   const { user } = React.useContext(UserContext);
   const [currentUser, setCurrentUser] = React.useState<ApplicationUser>();
+  const [loading, setLoading] = React.useState<boolean>(true);
   const [recipesForUser, setRecipesForUser] = React.useState<Recipe[]>();
 
   React.useEffect(() => {
@@ -34,6 +36,7 @@ export const AccountPage = () => {
   return (
     <div>
       <Navbar />
+      {loading && <CircularProgress size='3rem' />}
       <h2>Good afternoon {currentUser?.firstName}!</h2>
       <h2>Your Recipes:</h2>
       <div className='recipe-card-container'>

@@ -10,4 +10,5 @@ export interface Recipe {
   createdDate?: Date;
   imageExtension?: string;
   imageUrlUuid?: string;
+  applicationUser?: any;
 }

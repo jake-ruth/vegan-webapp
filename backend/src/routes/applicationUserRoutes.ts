@@ -70,16 +70,6 @@ router.get('/getApplicationUser/:uuid', authenticateToken, async (req: Request, 
   }
 });
 
-//Delete user by id
-router.delete('/deleteApplicationUser', authenticateToken, async (req: Request, res: Response) => {
-  try {
-    await ApplicationUserController.deleteApplicationUser(req.body.id);
-    return res.sendStatus(200);
-  } catch (err) {
-    return res.sendStatus(500).json({ error: err });
-  }
-});
-
 //Generate new access token from refresh token
 router.post('/token', async (req: any, res: any) => {
   const refreshToken = req.body.refreshToken;
@@ -95,11 +85,6 @@ router.post('/token', async (req: any, res: any) => {
     const accessToken = await ApplicationUserController.generateAccessToken({ name: user.firstName });
     res.json({ accessToken: accessToken });
   });
-});
-
-//Does the token match the requested user ID?
-router.post('/authenticate', authenticateToken, async (req: any, res: any) => {
-  res.json({ authenticated: req.body.userId == req.body.user.id });
 });
 
 module.exports = router;

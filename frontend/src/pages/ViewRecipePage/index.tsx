@@ -3,42 +3,29 @@ import { Navbar } from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
 import { RecipeController } from '../../controllers/RecipeController';
 import { Recipe } from '../../models/Recipe';
-import firebase from 'firebase';
+import { RecipeImage } from './RecipeImage';
+import { UserContext } from '../../context';
+import { EditRecipeButton } from './EditRecipeButton';
 
 export const ViewRecipePage = (props: any) => {
   const [recipe, setRecipe] = React.useState<Recipe | null>(null);
-  const [recipeImageUrl, setRecipeImageUrl] = React.useState<string>('');
-  const [loading, setLoading] = React.useState<boolean>(true);
-
-  React.useEffect(() => {
-    if (recipeImageUrl.length > 0) setLoading(false);
-  }, [recipeImageUrl]);
+  const { user } = React.useContext(UserContext);
 
   React.useEffect(() => {
     RecipeController.getRecipeById(props.match.params.recipeId)
-      .then((res) => {
-        setRecipe(res!.data);
-
-        var storage = firebase.storage();
-
-        const gsRef = storage.refFromURL(`gs://vegan-webapp.appspot.com/${res!.data.imageUrlUuid}.${res!.data.imageExtension}`);
-        gsRef.getDownloadURL().then((url: any) => {
-          console.log(url);
-          setRecipeImageUrl(url);
-        });
-      })
+      .then((res) => setRecipe(res!.data))
       .catch((err) => console.log(err));
   }, []);
 
   if (recipe == null) return null;
-  if (loading) return null;
 
   return (
     <div>
       <Navbar />
+      {recipe.applicationUser.uuid === user.uuid && <EditRecipeButton recipe={recipe} />}
       <div className='view-recipe'>
         <div className='view-recipe__header'>
-          <img src={recipeImageUrl} style={{ objectFit: 'cover' }} alt='recipe image' className='view-recipe__img' />
+          <RecipeImage recipe={recipe} />
           <div>
             <h1>{recipe?.title}</h1>
             <p>Prep Time: {recipe?.prepMinutes} minutes</p>
