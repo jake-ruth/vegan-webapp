@@ -5,7 +5,7 @@ import QuestionIcon from '@material-ui/icons/HelpOutline';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AuthService } from '../../utils/AuthService';
-import TemporaryDrawer from './Drawer';
+import { LoggedInDrawer, LoggedOutDrawer } from './Drawer';
 
 export const Navbar = () => {
   if (!AuthService.isLoggedIn()) {
@@ -45,7 +45,7 @@ export const Navbar = () => {
             </Link>
           </div>
           <div>
-            <TemporaryDrawer />
+            <LoggedOutDrawer />
           </div>
         </div>
       </AppBar>
@@ -85,7 +85,7 @@ export const Navbar = () => {
             </Link>
           </div>
           <div>
-            <TemporaryDrawer />
+            <LoggedInDrawer />
           </div>
         </div>
       </AppBar>

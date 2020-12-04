@@ -73,16 +73,6 @@ router.get('/getApplicationUser/:uuid', authentication_1.authenticateToken, (req
         return res.status(500).json({ error: err });
     }
 }));
-//Delete user by id
-router.delete('/deleteApplicationUser', authentication_1.authenticateToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield ApplicationUserController_1.ApplicationUserController.deleteApplicationUser(req.body.id);
-        return res.sendStatus(200);
-    }
-    catch (err) {
-        return res.sendStatus(500).json({ error: err });
-    }
-}));
 //Generate new access token from refresh token
 router.post('/token', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const refreshToken = req.body.refreshToken;
@@ -99,10 +89,6 @@ router.post('/token', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const accessToken = yield ApplicationUserController_1.ApplicationUserController.generateAccessToken({ name: user.firstName });
         res.json({ accessToken: accessToken });
     }));
-}));
-//Does the token match the requested user ID?
-router.post('/authenticate', authentication_1.authenticateToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.json({ authenticated: req.body.userId == req.body.user.id });
 }));
 module.exports = router;
 //# sourceMappingURL=applicationUserRoutes.js.map

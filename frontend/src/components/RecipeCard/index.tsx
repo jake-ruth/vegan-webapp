@@ -39,7 +39,7 @@ export const RecipeCard = (props: Props) => {
         </div>
         <p style={{ fontStyle: 'italic' }}>Prep time: {props.recipe.prepMinutes} min.</p>
         <p style={{ fontStyle: 'italic' }}>Cook time: {props.recipe.cookMinutes} min.</p>
-        <Rating name='read-only' value={5} readOnly />
+        {/* <Rating name='read-only' value={5} readOnly /> */}
       </div>
     </a>
   );

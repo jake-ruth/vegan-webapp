@@ -6,6 +6,8 @@ import { Recipe } from '../../models/Recipe';
 import { RecipeImage } from './RecipeImage';
 import { UserContext } from '../../context';
 import { EditRecipeButton } from './EditRecipeButton';
+import { Button, Divider } from '@material-ui/core';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 export const ViewRecipePage = (props: any) => {
   const [recipe, setRecipe] = React.useState<Recipe | null>(null);
@@ -33,12 +35,12 @@ export const ViewRecipePage = (props: any) => {
             <p>Total Time: {Number(recipe?.prepMinutes!) + Number(recipe?.cookMinutes!)} minutes</p>
           </div>
         </div>
-        <div>{recipe.description}</div>
-        <hr />
+        <div className='view-recipe__description'>{recipe.description}</div>
+        <Divider />
         <div className='view-recipe__content'>
-          <div className='view-recipe__item'>
+          <div>
             <h2>Ingredients:</h2>
-            <ul>
+            <ul className='view-recipe__ingredients'>
               {recipe?.ingredients.map((ingredient, index) => {
                 return <li key={index}>{ingredient}</li>;
               })}
@@ -48,6 +50,24 @@ export const ViewRecipePage = (props: any) => {
             <h2>Instructions:</h2>
             <p className='view-recipe__instructions'>{recipe?.instructions}</p>
           </div>
+        </div>
+        <Divider />
+        <div className='view-recipe__toolbar'>
+          <Button
+            color='secondary'
+            variant='contained'
+            style={{ borderRadius: 0, marginRight: '1em' }}
+            onClick={() => window.print()}>
+            Print Recipe
+          </Button>
+          <Button
+            endIcon={<FavoriteIcon />}
+            color='primary'
+            variant='contained'
+            style={{ borderRadius: 0, marginLeft: '1em' }}
+            onClick={() => window.print()}>
+            Add To Favorites
+          </Button>
         </div>
       </div>
       <Footer />

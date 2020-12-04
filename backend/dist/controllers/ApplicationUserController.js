@@ -42,7 +42,7 @@ ApplicationUserController.deleteApplicationUser = (id) => __awaiter(void 0, void
     return yield ApplicationUser_1.ApplicationUser.delete(id);
 });
 ApplicationUserController.generateAccessToken = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
+    return yield jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
 });
 ApplicationUserController.generateRefreshToken = (user) => {
     return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' });

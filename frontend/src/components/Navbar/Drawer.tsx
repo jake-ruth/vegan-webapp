@@ -1,56 +1,67 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import { Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import SearchIcon from '@material-ui/icons/Search';
 import MenuIcon from '@material-ui/icons/Menu';
-import { IconButton } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import HomeIcon from '@material-ui/icons/Home';
 
 const useStyles = makeStyles({
   list: {
-    width: 250
+    width: 300
   },
   fullList: {
     width: 'auto'
   }
 });
 
-export default function TemporaryDrawer() {
+export const LoggedInDrawer = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-
-  const toggleDrawer = (open: any) => (event: any) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setOpen(!open);
-  };
 
   const list = () => (
     <div className={clsx(classes.list)} role='presentation'>
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+        <Link style={{ color: 'black' }} to='/'>
+          <ListItem button>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary='Home' />
           </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+        </Link>
+
+        <Link style={{ color: 'black' }} to='/browse'>
+          <ListItem button>
+            <ListItemIcon>
+              <SearchIcon />
+            </ListItemIcon>
+            <ListItemText primary='Browse' />
           </ListItem>
-        ))}
+        </Link>
+
+        <Link style={{ color: 'black' }} to='/createRecipe'>
+          <ListItem button>
+            <ListItemIcon>
+              <AddIcon />
+            </ListItemIcon>
+            <ListItemText primary='Create Recipe' />
+          </ListItem>
+        </Link>
+
+        <Divider />
+
+        <Link style={{ color: 'black' }} to='/account'>
+          <ListItem button>
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary='Account' />
+          </ListItem>
+        </Link>
       </List>
     </div>
   );
@@ -67,4 +78,57 @@ export default function TemporaryDrawer() {
       </React.Fragment>
     </div>
   );
-}
+};
+
+export const LoggedOutDrawer = () => {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const list = () => (
+    <div className={clsx(classes.list)} role='presentation'>
+      <List>
+        <Link style={{ color: 'black' }} to='/'>
+          <ListItem button>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary='Home' />
+          </ListItem>
+        </Link>
+
+        <Link style={{ color: 'black' }} to='/browse'>
+          <ListItem button>
+            <ListItemIcon>
+              <SearchIcon />
+            </ListItemIcon>
+            <ListItemText primary='Browse' />
+          </ListItem>
+        </Link>
+
+        <Divider />
+
+        <Link style={{ color: 'black' }} to='/loginPage'>
+          <ListItem button>
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary='Log In' />
+          </ListItem>
+        </Link>
+      </List>
+    </div>
+  );
+
+  return (
+    <div>
+      <React.Fragment>
+        <IconButton onClick={() => setOpen(!open)} edge='end' color='inherit' aria-label='menu'>
+          <MenuIcon />
+        </IconButton>
+        <Drawer anchor='right' open={open} onClose={() => setOpen(!open)}>
+          {list()}
+        </Drawer>
+      </React.Fragment>
+    </div>
+  );
+};
