@@ -18,11 +18,18 @@ export const RecipeCard = (props: Props) => {
     var storage = firebase.storage();
     //var gsRef = storage.refFromURL('gs://vegan-webapp.appspot.com/surlyCatBeingEjected.jpg');
     const gsRef = storage.refFromURL(`gs://vegan-webapp.appspot.com/${props.recipe.imageUrlUuid}.${props.recipe.imageExtension}`);
-    gsRef.getDownloadURL().then((url: any) => {
-      console.log(url);
-      setRecipeImageUrl(url);
-      setLoading(false);
-    });
+    gsRef
+      .getDownloadURL()
+      .then((url: any) => {
+        console.log(url);
+        setRecipeImageUrl(url);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setRecipeImageUrl('');
+        setLoading(false);
+      });
   }, [props.pageTrigger]);
 
   if (loading) return null;

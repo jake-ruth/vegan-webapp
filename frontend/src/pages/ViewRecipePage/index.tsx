@@ -4,10 +4,11 @@ import { Footer } from '../../components/Footer';
 import { RecipeController } from '../../controllers/RecipeController';
 import { Recipe } from '../../models/Recipe';
 import { RecipeImage } from './RecipeImage';
-import { UserContext } from '../../context';
+import { RecipeContext, UserContext } from '../../context';
 import { EditRecipeButton } from './EditRecipeButton';
-import { Button, Divider } from '@material-ui/core';
+import { Button, Divider, Typography } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import { DeleteRecipeButton } from './DeleteRecipeButton';
 
 export const ViewRecipePage = (props: any) => {
   const [recipe, setRecipe] = React.useState<Recipe | null>(null);
@@ -22,9 +23,10 @@ export const ViewRecipePage = (props: any) => {
   if (recipe == null) return null;
 
   return (
-    <div>
+    <RecipeContext.Provider value={{ recipe, setRecipe }}>
       <Navbar />
-      {recipe.applicationUser.uuid === user.uuid && <EditRecipeButton recipe={recipe} />}
+      {recipe.applicationUser.uuid === user.uuid && <EditRecipeButton />}
+      {recipe.applicationUser.uuid === user.uuid && <DeleteRecipeButton />}
       <div className='view-recipe'>
         <div className='view-recipe__header'>
           <RecipeImage recipe={recipe} />
@@ -48,10 +50,13 @@ export const ViewRecipePage = (props: any) => {
           </div>
           <div className='view-recipe__item'>
             <h2>Instructions:</h2>
-            <p className='view-recipe__instructions'>{recipe?.instructions}</p>
+            <div className='view-recipe__instructions'>
+              <Typography variant='body1'>{recipe?.instructions}</Typography>
+            </div>
           </div>
         </div>
         <Divider />
+
         <div className='view-recipe__toolbar'>
           <Button
             color='secondary'
@@ -71,6 +76,6 @@ export const ViewRecipePage = (props: any) => {
         </div>
       </div>
       <Footer />
-    </div>
+    </RecipeContext.Provider>
   );
 };

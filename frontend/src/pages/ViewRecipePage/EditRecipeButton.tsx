@@ -3,14 +3,13 @@ import React from 'react';
 import { Recipe } from '../../models/Recipe';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
+import { RecipeContext } from '../../context';
 
-interface Props {
-  recipe: Recipe;
-}
+export const EditRecipeButton = () => {
+  const { recipe } = React.useContext(RecipeContext);
 
-export const EditRecipeButton = (props: Props) => {
   return (
-    <Link to={`/editRecipe/${props.recipe.id}`}>
+    <Link to={`/editRecipe/${recipe!.id}`}>
       <Button
         endIcon={<EditIcon />}
         color='secondary'

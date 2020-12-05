@@ -37,6 +37,9 @@
   box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 1em;
   max-width: 65vw;
+  p {
+    line-height: 4;
+  }
 }
 
 .view-recipe__ingredients {
@@ -44,6 +47,9 @@
   background-color: white;
   padding: 2em;
   box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.2);
+  li {
+    line-height: 3;
+  }
 }
 
 .view-recipe__description {

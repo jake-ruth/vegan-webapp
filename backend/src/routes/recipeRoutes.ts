@@ -58,10 +58,24 @@ router.get('/pageRecipesByName/:pageNumber/:searchString', async (req: Request, 
   }
 });
 
+router.delete('/deleteRecipe/:id', async (req: Request, res: Response) => {
+  let id = Number(req.params.id);
+  try {
+    await RecipeController.deleteRecipe(id);
+
+    return res.json({ message: 'deleted recipe' }).status(200);
+  } catch (err) {
+    console.log(err);
+
+    return res.sendStatus(500);
+  }
+});
+
 router.post('/createRecipe', authenticateToken, async (req: Request, res: Response) => {
   let recipe = new Recipe();
 
   const {
+    id,
     title,
     imageExtension,
     description,
@@ -74,6 +88,7 @@ router.post('/createRecipe', authenticateToken, async (req: Request, res: Respon
 
   const userUuid = req.body.userUuid;
 
+  recipe.id = id;
   recipe.title = title;
   recipe.description = description;
   recipe.instructions = instructions;

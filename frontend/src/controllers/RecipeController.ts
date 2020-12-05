@@ -48,4 +48,12 @@ export class RecipeController {
       console.log(err);
     }
   };
+
+  static deleteRecipe = async (id: number) => {
+    try {
+      return protectedAxios.delete(`${process.env.REACT_APP_BACKEND_URL}/deleteRecipe/${id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 }

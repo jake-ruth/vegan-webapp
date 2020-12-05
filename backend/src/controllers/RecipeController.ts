@@ -43,6 +43,10 @@ export class RecipeController {
     return await Recipe.save(recipe);
   };
 
+  static deleteRecipe = async (id: number) => {
+    return await Recipe.delete(id);
+  };
+
   static searchRecipesByName = async (searchString: string) => {
     return await Recipe.find({ where: { title: Like(`%${searchString}%`) } });
   };

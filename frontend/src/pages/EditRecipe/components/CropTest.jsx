@@ -104,7 +104,7 @@ export const CropTest = ({ setRecipeImageFile }) => {
         <input style={{ display: 'none' }} type='file' id='raised-button-file' accept='image/*' onChange={onSelectFile} />
         <label htmlFor='raised-button-file'>
           <Button endIcon={<CameraIcon />} style={{ borderRadius: 0, marginTop: 10 }} variant='contained' component='span'>
-            Upload Photo
+            Change Photo
           </Button>
         </label>
       </div>

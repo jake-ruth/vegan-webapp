@@ -1,13 +1,8 @@
 import { TextField, Button } from '@material-ui/core';
 import React from 'react';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
-import { Recipe } from '../../../models/Recipe';
 
-interface Props {
-  recipe: Recipe;
-}
-
-export const EditRecipeContent = (props: Props) => {
+export const EditRecipeContent = () => {
   const { control, errors } = useFormContext(); // retrieve all hook methods
   const { fields, append, remove } = useFieldArray({ control, name: 'ingredients' });
   return (
