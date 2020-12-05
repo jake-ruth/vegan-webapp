@@ -5,6 +5,9 @@ import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 export const EditRecipeContent = () => {
   const { control, errors } = useFormContext(); // retrieve all hook methods
   const { fields, append, remove } = useFieldArray({ control, name: 'ingredients' });
+
+  console.log('FE: ', fields);
+
   return (
     <div className='create-recipe__content'>
       <div className='create-recipe__section'>
@@ -66,14 +69,29 @@ export const EditRecipeContent = () => {
         <Controller as={TextField} control={control} name='yieldAmount' label='Yield' />
         <h3 style={{ fontStyle: 'italic' }}>Ingredients</h3>
 
-        {fields.map((ingredient, index) => (
-          <div style={{ display: 'flex' }}>
-            <Controller as={TextField} fullWidth name={`ingredients[${index}].value`} control={control} />
-            <Button variant='contained' size='small' style={{ borderRadius: 0 }} color='secondary' onClick={() => remove(index)}>
-              Delete
-            </Button>
-          </div>
-        ))}
+        {fields.map((ingredient, index) => {
+          console.log(ingredient);
+          return (
+            <div style={{ display: 'flex' }}>
+              <Controller
+                defaultValue={ingredient.value.value} //This is a little odd
+                as={TextField}
+                key={ingredient.id}
+                fullWidth
+                name={`ingredients[${index}].value`}
+                control={control}
+              />
+              <Button
+                variant='contained'
+                size='small'
+                style={{ borderRadius: 0 }}
+                color='secondary'
+                onClick={() => remove(index)}>
+                Delete
+              </Button>
+            </div>
+          );
+        })}
         <Button
           type='button'
           style={{ marginTop: '1em' }}

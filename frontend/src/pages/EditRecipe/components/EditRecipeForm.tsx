@@ -31,7 +31,13 @@ export const EditRecipeForm = (props: Props) => {
 
   const formatRecipe = () => {
     let recipe: any = props.recipe;
-    recipe.ingredients = [{ value: 'test' }];
+    let formattedIngredients: any[] = [];
+    props.recipe.ingredients.map((ingredient: any) => {
+      console.log('ingredient: ', ingredient);
+      formattedIngredients.push({ value: ingredient });
+    });
+
+    recipe.ingredients = formattedIngredients;
     return recipe;
   };
 
@@ -43,6 +49,7 @@ export const EditRecipeForm = (props: Props) => {
         ingredientsArray.push(ingredient.value);
       });
 
+      alert(JSON.stringify(ingredientsArray));
       return ingredientsArray;
     };
 
