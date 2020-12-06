@@ -6,8 +6,6 @@ export const EditRecipeContent = () => {
   const { control, errors } = useFormContext(); // retrieve all hook methods
   const { fields, append, remove } = useFieldArray({ control, name: 'ingredients' });
 
-  console.log('FE: ', fields);
-
   return (
     <div className='create-recipe__content'>
       <div className='create-recipe__section'>

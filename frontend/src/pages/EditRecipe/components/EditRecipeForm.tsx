@@ -1,12 +1,13 @@
 import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-import { Button } from '@material-ui/core';
+import { Button, Snackbar } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { EditRecipeContent } from './EditRecipeContent';
 import { CropTest } from './CropTest';
 import { RecipeController } from '../../../controllers/RecipeController';
 import { Recipe } from '../../../models/Recipe';
 import { UserContext } from '../../../context';
+import { Alert } from '@material-ui/lab';
 
 interface IFormInput {
   id: number;
@@ -26,7 +27,7 @@ interface Props {
 }
 
 export const EditRecipeForm = (props: Props) => {
-  const history = useHistory();
+  const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const { user } = React.useContext(UserContext);
 
   const formatRecipe = () => {
@@ -49,7 +50,7 @@ export const EditRecipeForm = (props: Props) => {
         ingredientsArray.push(ingredient.value);
       });
 
-      alert(JSON.stringify(ingredientsArray));
+      // alert(JSON.stringify(ingredientsArray));
       return ingredientsArray;
     };
 
@@ -68,10 +69,11 @@ export const EditRecipeForm = (props: Props) => {
     try {
       // const res = await RecipeController.createRecipe(recipe);
       const res = await RecipeController.createRecipe(recipe, user.uuid);
+      setShowSnackbar(true);
       // uploadImage(res!.data.imageUrlUuid);
       //   history.push('/');
     } catch (err) {
-      console.log('ERR: ', err);
+      alert(JSON.stringify(err));
     }
   };
 
@@ -91,6 +93,12 @@ export const EditRecipeForm = (props: Props) => {
               style={{ borderRadius: 0, maxWidth: 200, marginTop: '1em' }}>
               Save Recipe!
             </Button>
+
+            <Snackbar open={showSnackbar} autoHideDuration={6000} onClose={() => setShowSnackbar(false)}>
+              <Alert onClose={() => setShowSnackbar(false)} severity='info'>
+                Recipe Saved!
+              </Alert>
+            </Snackbar>
           </FormProvider>
         </div>
       </form>
