@@ -12,7 +12,11 @@
 @import './sass/4-layout/_siteHeader';
 @import './sass/4-layout/_siteFooter';
 @import './sass/4-layout/recipeCard';
+@import './sass/4-layout/recipeCardSmall';
 @import './sass/4-layout/modal';
+
+//5 - MODULES
+@import './sass/5-modules/sidescroll';
 
 //6 - PAGES
 @import './sass/6-pages/loginPage';

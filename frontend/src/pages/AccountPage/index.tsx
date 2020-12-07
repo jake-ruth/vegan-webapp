@@ -9,6 +9,8 @@ import { RecipeController } from '../../controllers/RecipeController';
 import { ApplicationUser } from '../../models/ApplicationUser';
 import { Recipe } from '../../models/Recipe';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { RecipeCardSmall } from '../../components/RecipeCard/RecipeCardSmall';
+import { AccountPageTabs } from './AccountPageTabs';
 
 export const AccountPage = () => {
   const history = useHistory();
@@ -20,6 +22,7 @@ export const AccountPage = () => {
   React.useEffect(() => {
     ApplicationUserController.getApplicationUser(user.uuid).then((userObject) => {
       setCurrentUser(userObject);
+      setLoading(false);
     });
 
     RecipeController.getRecipesForUser(user.uuid).then((recipes) => {
@@ -36,12 +39,20 @@ export const AccountPage = () => {
   return (
     <div>
       <Navbar />
+      <AccountPageTabs />
       {loading && <CircularProgress size='3rem' />}
       <h2>Good afternoon {currentUser?.firstName}!</h2>
       <h2>Your Recipes:</h2>
-      <div className='recipe-card-container'>
+      <div className='scroll-menu'>
         {recipesForUser?.map((recipe, index) => {
           return <RecipeCard recipe={recipe} />;
+        })}
+      </div>
+      <h2>Your Favorite Recipes:</h2>
+      <div className='scroll-menu'>
+        {recipesForUser?.map((recipe, index) => {
+          return <RecipeCard recipe={recipe} />;
+          // return <RecipeCardSmall recipe={recipe} />;
         })}
       </div>
       <div>

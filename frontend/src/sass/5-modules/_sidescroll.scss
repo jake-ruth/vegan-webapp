@@ -1,0 +1,10 @@
+.scroll-menu {
+  background-color: white;
+  overflow: auto;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  display: flex;
+  // max-height: 300px;
+}
