@@ -30,12 +30,6 @@ export const AccountPage = () => {
     });
   }, []);
 
-  const logout = async () => {
-    await ApplicationUserController.logoutUser();
-    localStorage.clear();
-    history.replace('/loginPage');
-  };
-
   return (
     <div>
       <Navbar />
@@ -54,9 +48,6 @@ export const AccountPage = () => {
           return <RecipeCard recipe={recipe} />;
           // return <RecipeCardSmall recipe={recipe} />;
         })}
-      </div>
-      <div>
-        <Button onClick={() => logout()}>Logout</Button>
       </div>
     </div>
   );
