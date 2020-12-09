@@ -1,0 +1,14 @@
+@include desktop {
+  .account-page__settings {
+    max-width: 50%;
+    padding: 2em;
+    background-color: white;
+    border-radius: 3px;
+  }
+}
+
+@include tablet {
+}
+
+@include mobile {
+}

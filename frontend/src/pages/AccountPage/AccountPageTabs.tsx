@@ -8,6 +8,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ReorderIcon from '@material-ui/icons/Reorder';
 import { Box, Typography, AppBar, Tabs, Tab } from '@material-ui/core';
 import { SettingsTab } from './components/SettingsTab';
+import { MyRecipesTab } from './components/MyRecipesTab';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -74,7 +75,7 @@ export const AccountPageTabs = () => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        My Recipes
+        <MyRecipesTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Favorites

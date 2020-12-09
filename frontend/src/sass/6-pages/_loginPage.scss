@@ -48,10 +48,9 @@
 
 @include mobile {
   .login {
-    display: inline-block;
-    // background-image: url(../src/img/veggies.jpg);
-    // background-repeat: no-repeat;
-    // background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .login__img {
     overflow: hidden;
@@ -61,6 +60,14 @@
   }
   .login__form {
     z-index: 2;
+  }
+  .login-button {
+    width: 100%;
+  }
+  .login__fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 

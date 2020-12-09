@@ -1,6 +1,6 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Typography } from '@material-ui/core';
 import { AuthService } from '../../utils/AuthService';
 import { Link, useHistory } from 'react-router-dom';
 import { UserContext } from '../../context';
@@ -15,6 +15,7 @@ export const LoginPage = () => {
   const { errors, control, handleSubmit } = useForm<FormInput>();
   const history = useHistory();
   const { setUser } = React.useContext(UserContext);
+  const [errorString, setErrorString] = React.useState<string>('');
 
   const onSubmit = async (data: FormInput) => {
     try {
@@ -27,7 +28,7 @@ export const LoginPage = () => {
       AuthService.setRefreshToken(res.data.refreshToken);
       history.replace('/');
     } catch (err) {
-      alert(JSON.stringify(err));
+      setErrorString('Incorrect email or password');
     }
   };
 
@@ -35,8 +36,12 @@ export const LoginPage = () => {
     <div className='login'>
       <img src={`${process.env.PUBLIC_URL}/veggies.jpg`} className='login__img' />
       <form onSubmit={handleSubmit(onSubmit)} className='login__form container'>
-        <h2>Log into Plant Based Plate</h2>
-
+        <Typography variant='h5' style={{ textAlign: 'center' }}>
+          Log into Vegan Webapp
+        </Typography>
+        <div className='error' style={{ textAlign: 'center' }}>
+          {errorString}
+        </div>
         <Controller
           as={TextField}
           control={control}
@@ -61,7 +66,7 @@ export const LoginPage = () => {
         />
         <div className='error'>{errors.password && errors.password.message}</div>
 
-        <Button variant='contained' style={{ borderRadius: 0 }} color='primary' type='submit'>
+        <Button className='login-button' variant='contained' style={{ borderRadius: 0 }} color='primary' type='submit'>
           Submit
         </Button>
         <div className='sign-up-link'>
