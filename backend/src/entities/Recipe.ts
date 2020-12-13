@@ -7,9 +7,11 @@ import {
   JoinColumn,
   CreateDateColumn,
   Generated,
-  ManyToOne
+  ManyToOne,
+  OneToMany
 } from 'typeorm';
 import { ApplicationUser } from './ApplicationUser';
+import { Favorite } from './Favorite';
 
 @Entity('Recipe')
 export class Recipe extends BaseEntity {
@@ -51,4 +53,7 @@ export class Recipe extends BaseEntity {
   @ManyToOne((type) => ApplicationUser, { eager: true })
   @JoinColumn()
   applicationUser: ApplicationUser;
+
+  @OneToMany((type) => Favorite, (favorite) => favorite.recipe)
+  favorites: Favorite[];
 }

@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, Generated } from 'typeorm';
+import { Favorite } from './Favorite';
 import { Recipe } from './Recipe';
 
 @Entity('ApplicationUser')
@@ -27,4 +28,7 @@ export class ApplicationUser extends BaseEntity {
 
   @OneToMany(() => Recipe, (recipe) => recipe.applicationUser)
   recipes: Recipe[];
+
+  @OneToMany(() => Favorite, (favorite) => favorite.applicationUser)
+  favorites: Favorite[];
 }

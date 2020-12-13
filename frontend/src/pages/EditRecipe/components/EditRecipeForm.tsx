@@ -1,7 +1,6 @@
 import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Button, Snackbar } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
 import { EditRecipeContent } from './EditRecipeContent';
 import { CropTest } from './CropTest';
 import { RecipeController } from '../../../controllers/RecipeController';
