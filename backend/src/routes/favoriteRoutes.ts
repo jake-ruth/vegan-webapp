@@ -21,4 +21,13 @@ router.post('/addRecipeToFavorites', async (req: Request, res: Response) => {
   }
 });
 
+router.get('/getFavoriteRecipes/:userId', async (req: Request, res: Response) => {
+  try {
+    const response = await FavoriteController.readFavorites(Number(req.params.userId));
+    return res.status(200).json(response);
+  } catch (err) {
+    return res.status(500).json({ error: err });
+  }
+});
+
 module.exports = router;

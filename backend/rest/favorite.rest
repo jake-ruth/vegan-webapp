@@ -4,6 +4,10 @@ POST http://localhost:4000/addRecipeToFavorites
 Content-Type: application/json
 
 {
-    "userId" : "6",
+    "userId" : "8",
     "recipeId" : "127"
 }
+
+
+###
+GET http://localhost:4000/getFavoriteRecipes/6

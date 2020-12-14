@@ -14,4 +14,10 @@ export class FavoriteController {
 
     return await Favorite.save(favorite);
   };
+
+  static readFavorites = async (applicationUserId: number) => {
+    const favorites = await Favorite.find({ where: { applicationUser: { id: applicationUserId } } });
+
+    return favorites;
+  };
 }

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, Generated, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, BaseEntity, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { ApplicationUser } from './ApplicationUser';
 import { Recipe } from './Recipe';
 
@@ -7,11 +7,11 @@ export class Favorite extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne((type) => ApplicationUser)
+  @ManyToOne((type) => ApplicationUser)
   @JoinColumn()
   applicationUser: ApplicationUser;
 
-  @OneToOne((type) => Recipe)
+  @ManyToOne((type) => Recipe, { eager: true, onDelete: 'CASCADE' }) //Need eager to get the full recipe object back
   @JoinColumn()
   recipe: Recipe;
 }
