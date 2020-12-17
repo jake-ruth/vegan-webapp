@@ -19,4 +19,13 @@ export class FavoriteController {
       console.log('ERROR: ', err);
     }
   };
+
+  static deleteFavoriteRecipe = async (id: number) => {
+    try {
+      let res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/deleteFavoriteRecipe/${id}`);
+      return res;
+    } catch (err) {
+      console.log('ERROR: ', err);
+    }
+  };
 }

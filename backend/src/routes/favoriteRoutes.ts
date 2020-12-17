@@ -30,4 +30,13 @@ router.get('/getFavoriteRecipes/:userId', async (req: Request, res: Response) =>
   }
 });
 
+router.delete('/deleteFavoriteRecipe/:id', async (req: Request, res: Response) => {
+  try {
+    const response = await FavoriteController.deleteFavorite(Number(req.params.id));
+    return res.status(200).json(response);
+  } catch (err) {
+    return res.status(500).json({ error: err });
+  }
+});
+
 module.exports = router;

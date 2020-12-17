@@ -2,15 +2,10 @@ import React from 'react';
 import firebase from 'firebase';
 
 export const RecipeImage = () => {
-  const [recipeImageUrl, setRecipeImageUrl] = React.useState('');
-
   const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
-
     let rootRef = firebase.storage().ref();
     let fileRef = rootRef.child(e.target.files![0].name);
     let file = e.target.files![0];
-
     fileRef.put(file).then((res) => console.log(res));
   };
   return (

@@ -34,7 +34,7 @@ export const DeleteRecipeModal = (props: Props) => {
   const history = useHistory();
 
   const deleteRecipe = async () => {
-    let res = await RecipeController.deleteRecipe(Number(recipe!.id));
+    await RecipeController.deleteRecipe(Number(recipe!.id));
     history.push('/');
   };
 

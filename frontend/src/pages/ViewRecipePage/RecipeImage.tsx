@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import React from 'react';
+import { FirebaseController } from '../../controllers/FirebaseController';
 import { Recipe } from '../../models/Recipe';
 
 interface Props {
@@ -7,21 +8,15 @@ interface Props {
 }
 
 export const RecipeImage = (props: Props) => {
+  const { recipe } = props;
   const [recipeImageUrl, setRecipeImageUrl] = React.useState<string>('');
   const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    var storage = firebase.storage();
-
-    const gsRef = storage.refFromURL(`gs://vegan-webapp.appspot.com/${props.recipe.imageUrlUuid}.${props.recipe.imageExtension}`);
-    gsRef
-      .getDownloadURL()
-      .then((url: any) => {
-        console.log(url);
-        setRecipeImageUrl(url);
-      })
+    FirebaseController.getImageUrl(recipe.imageUrlUuid!, recipe.imageExtension!)
+      .then((url: any) => setRecipeImageUrl(url))
       .then(() => setLoading(false));
-  }, [props.recipe]);
+  }, [recipe]);
 
   if (loading) return null;
 

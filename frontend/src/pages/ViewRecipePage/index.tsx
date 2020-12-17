@@ -6,12 +6,12 @@ import { Recipe } from '../../models/Recipe';
 import { RecipeImage } from './RecipeImage';
 import { RecipeContext, UserContext } from '../../context';
 import { EditRecipeButton } from './EditRecipeButton';
-import { Button, Divider, Snackbar, Typography } from '@material-ui/core';
+import { Button, Divider, Typography } from '@material-ui/core';
 import { DeleteRecipeButton } from './DeleteRecipeButton';
 import { FavoriteButton } from './components/FavoriteButton';
 
 export const ViewRecipePage = (props: any) => {
-  const [recipe, setRecipe] = React.useState<Recipe | null>(null);
+  const [recipe, setRecipe] = React.useState<Recipe>();
   const { user } = React.useContext(UserContext);
 
   React.useEffect(() => {

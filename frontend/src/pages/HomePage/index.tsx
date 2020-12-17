@@ -49,28 +49,28 @@ export const HomePage = () => {
   return (
     <div className='home-page'>
       <Navbar />
-      <div className='contain'>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px' }}>
-          <div className='home-page__search-bar'>
-            <SearchBar
-              style={{ borderRadius: 3 }}
-              value={searchString}
-              onChange={(newValue) => setSearchString(newValue)}
-              onRequestSearch={() => searchForRecipes()}
-              onCancelSearch={() => {
-                setSearchString('');
-                pageAllRecipes();
-              }}
-              placeholder='Search for a recipe...'
-            />
-          </div>
-        </div>
-        <div className='recipe-card-container'>
-          {recipes.map((recipe, index) => (
-            <RecipeCard pageTrigger={pageTrigger} key={index} recipe={recipe} />
-          ))}
+
+      <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px' }}>
+        <div className='home-page__search-bar'>
+          <SearchBar
+            style={{ borderRadius: 3 }}
+            value={searchString}
+            onChange={(newValue) => setSearchString(newValue)}
+            onRequestSearch={() => searchForRecipes()}
+            onCancelSearch={() => {
+              setSearchString('');
+              pageAllRecipes();
+            }}
+            placeholder='Search for a recipe...'
+          />
         </div>
       </div>
+      <div className='recipe-card-container'>
+        {recipes.map((recipe, index) => (
+          <RecipeCard pageTrigger={pageTrigger} key={index} recipe={recipe} />
+        ))}
+      </div>
+
       <div style={{ display: 'flex', justifyContent: 'center', margin: '1em' }}>
         <Pagination count={Math.ceil(recipesCount / 8)} color='primary' shape='rounded' page={page + 1} onChange={handlePage} />
       </div>
@@ -79,7 +79,6 @@ export const HomePage = () => {
           {recipesCount} total {recipesCount === 1 ? 'recipe' : 'recipes'}
         </div>
       </div>
-
       <Footer />
     </div>
   );

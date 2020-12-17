@@ -8,17 +8,17 @@ type UserContextProps = {
   setUser: any;
 };
 
+type RecipeContextProps = {
+  recipe: Recipe | undefined;
+  setRecipe: any;
+};
+
 export const UserContext = React.createContext<UserContextProps>({
   user: AuthService.getUserFromStorage(),
   setUser: null
 });
 
-type RecipeContextProps = {
-  recipe: Recipe | null;
-  setRecipe: any;
-};
-
 export const RecipeContext = React.createContext<RecipeContextProps>({
-  recipe: null,
+  recipe: undefined,
   setRecipe: null
 });

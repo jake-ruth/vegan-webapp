@@ -20,4 +20,8 @@ export class FavoriteController {
 
     return favorites;
   };
+
+  static deleteFavorite = async (id: number) => {
+    return await Favorite.delete(id);
+  };
 }

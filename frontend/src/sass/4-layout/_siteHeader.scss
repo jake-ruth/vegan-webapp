@@ -11,11 +11,6 @@ button {
   text-decoration: none;
 }
 
-.logo {
-  cursor: pointer;
-  margin-right: auto;
-}
-
 @include desktop {
   .navbar__mobile {
     display: none;
