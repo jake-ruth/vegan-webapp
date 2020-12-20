@@ -30,6 +30,10 @@ export const CreateRecipe = () => {
   const onSubmit = async (data: RecipeFields, e: any) => {
     alert(JSON.stringify(data));
 
+    let linesArray = data.instructions.split(/\n/);
+
+    alert(JSON.stringify(linesArray));
+
     const formatIngredients = () => {
       let ingredientsArray: string[] = [];
       data.ingredients.map((ingredient: any) => {

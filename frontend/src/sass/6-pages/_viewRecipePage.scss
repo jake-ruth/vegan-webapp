@@ -23,6 +23,7 @@
 
 .view-recipe__content {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
 
   li {
@@ -60,4 +61,12 @@
   margin: 2em;
   display: flex;
   justify-content: flex-end;
+}
+
+//MUI Override
+.MuiTimelineItem-missingOppositeContent:before {
+  display: flex !important;
+  flex-direction: column;
+  content: '';
+  padding: 6px 16px;
 }

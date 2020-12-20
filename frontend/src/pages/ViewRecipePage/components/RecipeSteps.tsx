@@ -8,34 +8,45 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 
 export function RecipeSteps() {
   return (
-    <Timeline align='left' style={{ float: 'left', marginRight: 300 }}>
-      <TimelineItem style={{ color: 'black' }}>
-        <TimelineSeparator>
-          <TimelineDot />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Step 1 is to create the recipe here we go hello</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Code</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Sleep</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-        </TimelineSeparator>
-        <TimelineContent>Repeat</TimelineContent>
-      </TimelineItem>
-    </Timeline>
+    // <Timeline align='left' style={{ float: 'left', marginRight: 300 }}>
+    //   <TimelineItem style={{ color: 'black' }}>
+    //     <TimelineSeparator>
+    //       <TimelineDot />
+    //       <TimelineConnector />
+    //     </TimelineSeparator>
+    //     <TimelineContent>Step 1 is to create the recipe here we go hello</TimelineContent>
+    //   </TimelineItem>
+    //   <TimelineItem>
+    //     <TimelineSeparator>
+    //       <TimelineDot />
+    //       <TimelineConnector />
+    //     </TimelineSeparator>
+    //     <TimelineContent>Code</TimelineContent>
+    //   </TimelineItem>
+    //   <TimelineItem>
+    //     <TimelineSeparator>
+    //       <TimelineDot />
+    //       <TimelineConnector />
+    //     </TimelineSeparator>
+    //     <TimelineContent>Sleep</TimelineContent>
+    //   </TimelineItem>
+    //   <TimelineItem>
+    //     <TimelineSeparator>
+    //       <TimelineDot />
+    //     </TimelineSeparator>
+    //     <TimelineContent>Repeat</TimelineContent>
+    //   </TimelineItem>
+    // </Timeline>
+    <div className='wrapper'>
+      <ul className='StepProgress'>
+        <li className='StepProgress-item current'>
+          <strong>Award an entry</strong>
+          Got more entries that you love? Buy more entries anytime! Just hover on your favorite entry and click the Buy button
+        </li>
+        <li className='StepProgress-item current'>
+          <strong>Post a contest</strong>
+        </li>
+      </ul>
+    </div>
   );
 }
