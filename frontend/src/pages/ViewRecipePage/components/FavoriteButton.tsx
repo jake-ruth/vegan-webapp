@@ -53,7 +53,7 @@ export const FavoriteButton = () => {
       </Button>
 
       <Snackbar open={addedToFavorites} autoHideDuration={6000} onClose={() => setAddedToFavorites(false)}>
-        <Alert onClose={() => setAddedToFavorites(false)} severity='info'>
+        <Alert onClose={() => setAddedToFavorites(false)} severity='success'>
           Added to Favorites!
         </Alert>
       </Snackbar>

@@ -25,6 +25,15 @@ export const RecipeCard = (props: Props) => {
       });
   }, [props.pageTrigger]);
 
+  const formatTime = (totalMinutes: number) => {
+    var hours = Math.floor(totalMinutes / 60);
+    var minutes = totalMinutes % 60;
+
+    if (hours === 0) return `${minutes} min.`;
+    if (minutes === 0) return `${hours} hr`;
+    else return `${hours} hr, ${minutes} min.`;
+  };
+
   if (loading) return null;
 
   return (
@@ -37,8 +46,8 @@ export const RecipeCard = (props: Props) => {
         <div className='recipe-card__description'>
           <p>{recipe.description}</p>
         </div>
-        <p style={{ fontStyle: 'italic' }}>Prep time: {recipe.prepMinutes} min.</p>
-        <p style={{ fontStyle: 'italic' }}>Cook time: {recipe.cookMinutes} min.</p>
+        <p style={{ fontStyle: 'italic' }}>Prep time: {formatTime(recipe.prepMinutes)}</p>
+        <p style={{ fontStyle: 'italic' }}>Cook time: {formatTime(recipe.cookMinutes)}</p>
       </div>
     </a>
   );

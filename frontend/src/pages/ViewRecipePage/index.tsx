@@ -9,6 +9,7 @@ import { EditRecipeButton } from './EditRecipeButton';
 import { Button, Divider, Typography } from '@material-ui/core';
 import { DeleteRecipeButton } from './DeleteRecipeButton';
 import { FavoriteButton } from './components/FavoriteButton';
+import { RecipeSteps } from './components/RecipeSteps';
 
 export const ViewRecipePage = (props: any) => {
   const [recipe, setRecipe] = React.useState<Recipe>();
@@ -19,6 +20,14 @@ export const ViewRecipePage = (props: any) => {
       .then((res) => setRecipe(res!.data))
       .catch((err) => console.log(err));
   }, []);
+
+  const formatTime = (totalMinutes: number) => {
+    var hours = Math.floor(totalMinutes / 60);
+    var minutes = totalMinutes % 60;
+
+    if (hours === 0) return `${minutes} min.`;
+    else return `${hours} hours, ${minutes} min.`;
+  };
 
   if (recipe == null) return null;
 
@@ -32,15 +41,15 @@ export const ViewRecipePage = (props: any) => {
           <RecipeImage recipe={recipe} />
           <div>
             <h1>{recipe?.title}</h1>
-            <p>Prep Time: {recipe?.prepMinutes} minutes</p>
-            <p>Cook Time: {recipe?.cookMinutes} minutes</p>
-            <p>Total Time: {Number(recipe?.prepMinutes!) + Number(recipe?.cookMinutes!)} minutes</p>
+            <p>Prep Time: {formatTime(recipe?.prepMinutes)}</p>
+            <p>Cook Time: {formatTime(recipe?.cookMinutes)}</p>
+            <p>Total Time: {formatTime(Number(recipe?.prepMinutes!) + Number(recipe?.cookMinutes!))}</p>
           </div>
         </div>
         <div className='view-recipe__description'>{recipe.description}</div>
         <Divider />
         <div className='view-recipe__content'>
-          <div>
+          <div style={{ marginLeft: 100 }}>
             <h2>Ingredients:</h2>
             <ul className='view-recipe__ingredients'>
               {recipe?.ingredients.map((ingredient, index) => {
@@ -48,14 +57,18 @@ export const ViewRecipePage = (props: any) => {
               })}
             </ul>
           </div>
-          <div className='view-recipe__item'>
+          <div>
+            <h2>Instructions</h2>
+
+            <RecipeSteps />
+          </div>
+          {/* <div className='view-recipe__item'>
             <h2>Instructions:</h2>
             <div className='view-recipe__instructions'>
               <Typography variant='body1'>{recipe?.instructions}</Typography>
             </div>
-          </div>
+          </div> */}
         </div>
-        <Divider />
 
         <div className='view-recipe__toolbar'>
           <Button
