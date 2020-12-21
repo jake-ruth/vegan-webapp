@@ -67,29 +67,18 @@ export const EditRecipeContent = () => {
         <Controller as={TextField} control={control} name='yieldAmount' label='Yield' />
         <h3 style={{ fontStyle: 'italic' }}>Ingredients</h3>
 
-        {fields.map((ingredient, index) => {
-          console.log(ingredient);
-          return (
-            <div style={{ display: 'flex' }}>
-              <Controller
-                defaultValue={ingredient.value.value} //This is a little odd
-                as={TextField}
-                key={ingredient.id}
-                fullWidth
-                name={`ingredients[${index}].value`}
-                control={control}
-              />
-              <Button
-                variant='contained'
-                size='small'
-                style={{ borderRadius: 0 }}
-                color='secondary'
-                onClick={() => remove(index)}>
-                Delete
-              </Button>
-            </div>
-          );
-        })}
+        <Controller
+          as={TextField}
+          control={control}
+          multiline
+          fullWidth
+          variant='outlined'
+          rows={10}
+          style={{ marginTop: 20 }}
+          name='ingredients'
+          label='Ingredients'
+          rules={{ required: 'Ingredients Required' }}
+        />
         <Button
           type='button'
           style={{ marginTop: '1em' }}

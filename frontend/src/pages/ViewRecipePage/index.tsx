@@ -9,7 +9,6 @@ import { EditRecipeButton } from './EditRecipeButton';
 import { Button, Divider, Typography } from '@material-ui/core';
 import { DeleteRecipeButton } from './DeleteRecipeButton';
 import { FavoriteButton } from './components/FavoriteButton';
-import { RecipeSteps } from './components/RecipeSteps';
 
 export const ViewRecipePage = (props: any) => {
   const [recipe, setRecipe] = React.useState<Recipe>();
@@ -49,25 +48,30 @@ export const ViewRecipePage = (props: any) => {
         <div className='view-recipe__description'>{recipe.description}</div>
         <Divider />
         <div className='view-recipe__content'>
-          <div style={{ marginLeft: 100 }}>
+          <div>
             <h2>Ingredients:</h2>
-            <ul className='view-recipe__ingredients'>
+            <ul className='ingredients'>
               {recipe?.ingredients.map((ingredient, index) => {
-                return <li key={index}>{ingredient}</li>;
+                return (
+                  <li key={index} className='ingredients-item current'>
+                    {ingredient}
+                  </li>
+                );
               })}
             </ul>
           </div>
           <div>
             <h2>Instructions</h2>
-
-            <RecipeSteps />
+            <ul className='instructions'>
+              {recipe?.instructions.map((instruction, index) => {
+                return (
+                  <li key={index} className='instructions-item current'>
+                    {instruction}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-          {/* <div className='view-recipe__item'>
-            <h2>Instructions:</h2>
-            <div className='view-recipe__instructions'>
-              <Typography variant='body1'>{recipe?.instructions}</Typography>
-            </div>
-          </div> */}
         </div>
 
         <div className='view-recipe__toolbar'>

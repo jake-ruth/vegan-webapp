@@ -12,7 +12,7 @@ import { UserContext } from '../../context';
 import { RecipeFields } from './utils';
 
 export const CreateRecipe = () => {
-  const methods = useForm<RecipeFields>({ defaultValues: { ingredients: [{ value: '' }] } });
+  const methods = useForm<RecipeFields>();
 
   const history = useHistory();
   const [recipeImageFile, setRecipeImageFile] = React.useState<File | null>(null);
@@ -27,29 +27,21 @@ export const CreateRecipe = () => {
     fileRef.put(recipeImageFile!).then((res) => console.log(res));
   };
 
-  const onSubmit = async (data: RecipeFields, e: any) => {
+  const formatLinesToArray = (string: string): string[] => {
+    let linesArray: string[] = string.split(/\n/);
+    return linesArray;
+  };
+
+  const onSubmit = async (data: RecipeFields) => {
     alert(JSON.stringify(data));
-
-    let linesArray = data.instructions.split(/\n/);
-
-    alert(JSON.stringify(linesArray));
-
-    const formatIngredients = () => {
-      let ingredientsArray: string[] = [];
-      data.ingredients.map((ingredient: any) => {
-        ingredientsArray.push(ingredient.value);
-      });
-
-      return ingredientsArray;
-    };
 
     let recipe: Recipe = {
       title: data.title,
       description: data.description,
       cookMinutes: Number(data.cookMinutes) + data.cookHours * 60,
       prepMinutes: Number(data.prepMinutes) + data.prepHours * 60,
-      ingredients: formatIngredients(),
-      instructions: data.instructions,
+      ingredients: formatLinesToArray(data.ingredients),
+      instructions: formatLinesToArray(data.instructions),
       yieldAmount: data.yieldAmount,
       imageExtension: recipeImageFile!.name.split('.').pop()
     };

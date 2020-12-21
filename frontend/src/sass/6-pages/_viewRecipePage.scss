@@ -1,3 +1,29 @@
+@include desktop {
+  .view-recipe__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 2em;
+
+    li {
+      color: black;
+
+      line-height: 2rem;
+    }
+  }
+
+  .view-recipe__instructions {
+    background-color: white;
+    border: solid gray 1px;
+    padding: 1em;
+    width: 40vw;
+    max-width: 40%;
+    p {
+      line-height: 4;
+    }
+  }
+}
+
 .view-recipe {
   h1,
   p {
@@ -21,28 +47,6 @@
   box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
-.view-recipe__content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-
-  li {
-    color: black;
-
-    line-height: 2rem;
-  }
-}
-
-.view-recipe__instructions {
-  background-color: white;
-  border: solid gray 1px;
-  padding: 1em;
-  width: 40vw;
-  p {
-    line-height: 4;
-  }
-}
-
 .view-recipe__ingredients {
   background-color: white;
   border: solid gray 1px;
@@ -61,12 +65,4 @@
   margin: 2em;
   display: flex;
   justify-content: flex-end;
-}
-
-//MUI Override
-.MuiTimelineItem-missingOppositeContent:before {
-  display: flex !important;
-  flex-direction: column;
-  content: '';
-  padding: 6px 16px;
 }

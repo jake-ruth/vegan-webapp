@@ -24,17 +24,17 @@ export class Recipe extends BaseEntity {
   @Column()
   description: string;
 
-  @Column()
-  instructions: string;
+  @Column('character varying', { array: true, nullable: true })
+  instructions: string[];
+
+  @Column('character varying', { array: true, nullable: true })
+  ingredients: string[];
 
   @Column({ nullable: true })
   prepMinutes: string;
 
   @Column({ nullable: true })
   cookMinutes: string;
-
-  @Column('character varying', { array: true, nullable: true })
-  ingredients: string[];
 
   @Column({ nullable: true })
   yieldAmount: string;

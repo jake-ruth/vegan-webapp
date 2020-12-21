@@ -2,7 +2,7 @@ export interface RecipeFields {
   title: string;
   description: string;
   instructions: string;
-  ingredients: any[];
+  ingredients: string;
   prepHours: number;
   prepMinutes: number;
   cookHours: number;

@@ -13,7 +13,7 @@ interface IFormInput {
   title: string;
   description: string;
   instructions: string;
-  ingredients: any[];
+  ingredients: string;
   prepHours: number;
   prepMinutes: number;
   cookHours: number;
@@ -41,26 +41,21 @@ export const EditRecipeForm = (props: Props) => {
     return recipe;
   };
 
+  const formatLinesToArray = (string: string) => {
+    let linesArray: string[] = string.split(/\n/);
+    return linesArray;
+  };
+
   const methods = useForm<IFormInput>({ defaultValues: formatRecipe() });
   const onSubmit = async (data: IFormInput, e: any) => {
-    const formatIngredients = () => {
-      let ingredientsArray: string[] = [];
-      data.ingredients.map((ingredient: any) => {
-        ingredientsArray.push(ingredient.value);
-      });
-
-      // alert(JSON.stringify(ingredientsArray));
-      return ingredientsArray;
-    };
-
     let recipe: Recipe = {
       id: Number(data.id), //needs this
       title: data.title,
       description: data.description,
       cookMinutes: Number(data.cookMinutes) + data.cookHours * 60,
       prepMinutes: Number(data.prepMinutes) + data.prepHours * 60,
-      ingredients: formatIngredients(),
-      instructions: data.instructions,
+      ingredients: formatLinesToArray(data.ingredients),
+      instructions: formatLinesToArray(data.instructions),
       yieldAmount: data.yieldAmount,
       imageExtension: props.recipe.imageExtension // Will change
     };
