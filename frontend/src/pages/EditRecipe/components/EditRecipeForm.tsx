@@ -30,23 +30,42 @@ export const EditRecipeForm = (props: Props) => {
   const { user } = React.useContext(UserContext);
 
   const formatRecipe = () => {
-    let recipe: any = props.recipe;
-    let formattedIngredients: any[] = [];
-    props.recipe.ingredients.map((ingredient: any) => {
-      console.log('ingredient: ', ingredient);
-      formattedIngredients.push({ value: ingredient });
-    });
-
-    recipe.ingredients = formattedIngredients;
-    return recipe;
+    let newRecipe: any = props.recipe;
+    return newRecipe;
   };
 
   const formatLinesToArray = (string: string) => {
-    let linesArray: string[] = string.split(/\n/);
+    let initialArray: string[] = string.split(/\n/);
+    let linesArray: string[] = [];
+
+    initialArray.map((item: string) => {
+      //check if only whitespace
+      if (!item.replace(/\s/g, '').length) return;
+      return linesArray.push(item);
+    });
     return linesArray;
   };
 
   const methods = useForm<IFormInput>({ defaultValues: formatRecipe() });
+
+  React.useEffect(() => {
+    let ingredients: any = methods.getValues('ingredients');
+    let instructions: any = methods.getValues('instructions');
+    let formatted = '';
+    let formattedInstructions = '';
+
+    ingredients.map((ingredient: any) => {
+      return (formatted = formatted + ingredient + '\n');
+    });
+
+    instructions.map((instruction: any) => {
+      return (formattedInstructions = formattedInstructions + instruction + '\n\n');
+    });
+
+    methods.setValue('ingredients', formatted);
+    methods.setValue('instructions', formattedInstructions);
+  }, []);
+
   const onSubmit = async (data: IFormInput, e: any) => {
     let recipe: Recipe = {
       id: Number(data.id), //needs this

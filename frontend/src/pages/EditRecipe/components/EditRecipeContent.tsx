@@ -4,7 +4,6 @@ import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 
 export const EditRecipeContent = () => {
   const { control, errors } = useFormContext(); // retrieve all hook methods
-  const { fields, append, remove } = useFieldArray({ control, name: 'ingredients' });
 
   return (
     <div className='create-recipe__content'>
@@ -43,10 +42,10 @@ export const EditRecipeContent = () => {
           multiline
           fullWidth
           variant='outlined'
-          rows={10}
+          rows={20}
           style={{ marginTop: 20 }}
           name='instructions'
-          label='Instructions'
+          label='Instructions (write each on separate line)'
           rules={{ required: 'Instructions Required' }}
         />
         <div className='error'>{errors.description && errors.description.message}</div>
@@ -64,7 +63,6 @@ export const EditRecipeContent = () => {
           <Controller as={TextField} control={control} type='number' name='cookHours' label='Hours' defaultValue={0} />
           <Controller as={TextField} control={control} type='number' name='cookMinutes' label='Minutes' defaultValue={0} />
         </div>
-        <Controller as={TextField} control={control} name='yieldAmount' label='Yield' />
         <h3 style={{ fontStyle: 'italic' }}>Ingredients</h3>
 
         <Controller
@@ -73,21 +71,13 @@ export const EditRecipeContent = () => {
           multiline
           fullWidth
           variant='outlined'
-          rows={10}
+          rows={14}
           style={{ marginTop: 20 }}
           name='ingredients'
-          label='Ingredients'
+          label='Ingredients (write each on separate line)'
           rules={{ required: 'Ingredients Required' }}
         />
-        <Button
-          type='button'
-          style={{ marginTop: '1em' }}
-          variant='contained'
-          color='primary'
-          size='small'
-          onClick={() => append({ value: '' })}>
-          Add Ingredient
-        </Button>
+        <Controller as={TextField} control={control} name='yieldAmount' label='Yield' />
       </div>
     </div>
   );
