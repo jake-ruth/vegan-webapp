@@ -66,7 +66,7 @@ export const EditRecipeForm = (props: Props) => {
     methods.setValue('instructions', formattedInstructions);
   }, []);
 
-  const onSubmit = async (data: IFormInput, e: any) => {
+  const onSubmit = async (data: IFormInput) => {
     let recipe: Recipe = {
       id: Number(data.id), //needs this
       title: data.title,
@@ -81,7 +81,7 @@ export const EditRecipeForm = (props: Props) => {
 
     try {
       // const res = await RecipeController.createRecipe(recipe);
-      const res = await RecipeController.createRecipe(recipe, user.uuid);
+      await RecipeController.createRecipe(recipe, user.uuid);
       setShowSnackbar(true);
       // uploadImage(res!.data.imageUrlUuid);
       //   history.push('/');

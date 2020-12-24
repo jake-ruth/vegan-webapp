@@ -10,6 +10,7 @@ import { Box, Typography, AppBar, Tabs, Tab } from '@material-ui/core';
 import { SettingsTab } from './components/SettingsTab';
 import { MyRecipesTab } from './components/MyRecipesTab';
 import { FavoriteRecipesTab } from './components/FavoriteRecipesTab';
+import { CollectionsTab } from './components/CollectionsTab';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -71,17 +72,21 @@ export const AccountPageTabs = () => {
           textColor='primary'
           aria-label='scrollable force tabs example'>
           <Tab label='My Recipes' icon={<ReorderIcon />} {...a11yProps(0)} />
-          <Tab label='Favorites' icon={<FavoriteIcon />} {...a11yProps(1)} />
-          <Tab label='Settings' icon={<SettingsIcon />} {...a11yProps(2)} />
+          <Tab label='Collections' icon={<SettingsIcon />} {...a11yProps(1)} />
+          <Tab label='Favorites' icon={<FavoriteIcon />} {...a11yProps(2)} />
+          <Tab label='Settings' icon={<SettingsIcon />} {...a11yProps(3)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         <MyRecipesTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <FavoriteRecipesTab />
+        <CollectionsTab />
       </TabPanel>
       <TabPanel value={value} index={2}>
+        <FavoriteRecipesTab />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
         <SettingsTab />
       </TabPanel>
     </div>

@@ -11,10 +11,10 @@ export class CollectionController {
     }
   };
 
-  static getFavoriteRecipes = async (userId: number) => {
+  static getCollections = async (userId: number) => {
     try {
-      let res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getFavoriteRecipes/${userId}`);
-      return res;
+      let res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getCollections/${userId}`);
+      return res.data;
     } catch (err) {
       console.log('ERROR: ', err);
     }
