@@ -6,6 +6,7 @@ import { RecipeController } from '../../controllers/RecipeController';
 import { Recipe } from '../../models/Recipe';
 import Pagination from '@material-ui/lab/Pagination';
 import SearchBar from 'material-ui-search-bar';
+import { CircularProgress } from '@material-ui/core';
 
 export const HomePage = () => {
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
@@ -15,9 +16,7 @@ export const HomePage = () => {
   const [pageTrigger, setPageTrigger] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
 
-  React.useEffect(() => {
-    pageAllRecipes();
-  }, [page]);
+  React.useEffect(() => pageAllRecipes(), [page]);
 
   const pageAllRecipes = () => {
     RecipeController.pageRecipes(page).then((res: any) => {
@@ -39,12 +38,9 @@ export const HomePage = () => {
     }
   };
 
-  const handlePage = (e: any, pageNumber: number) => {
-    console.log(pageNumber);
-    setPage(pageNumber - 1);
-  };
+  const handlePage = (e: any, pageNumber: number) => setPage(pageNumber - 1);
 
-  if (loading) return null;
+  if (loading) return <CircularProgress />;
 
   return (
     <div className='home-page'>

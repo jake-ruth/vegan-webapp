@@ -6,9 +6,10 @@ import { Recipe } from '../../models/Recipe';
 import { RecipeImage } from './RecipeImage';
 import { RecipeContext, UserContext } from '../../context';
 import { EditRecipeButton } from './EditRecipeButton';
-import { Button, Divider, Typography } from '@material-ui/core';
+import { Button, Divider } from '@material-ui/core';
 import { DeleteRecipeButton } from './DeleteRecipeButton';
 import { FavoriteButton } from './components/FavoriteButton';
+import { AddToCollectionButton } from './components/AddToCollectionButton';
 
 export const ViewRecipePage = (props: any) => {
   const [recipe, setRecipe] = React.useState<Recipe>();
@@ -75,6 +76,7 @@ export const ViewRecipePage = (props: any) => {
         </div>
 
         <div className='view-recipe__toolbar'>
+          <AddToCollectionButton />
           <Button
             color='secondary'
             variant='contained'

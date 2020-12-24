@@ -55,7 +55,7 @@ export const EditRecipeForm = (props: Props) => {
     let formattedInstructions = '';
 
     ingredients.map((ingredient: any) => {
-      return (formatted = formatted + ingredient + '\n');
+      return (formatted = formatted + ingredient + '\n\n');
     });
 
     instructions.map((instruction: any) => {
