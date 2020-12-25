@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, BaseEntity, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, BaseEntity, JoinColumn, ManyToOne } from 'typeorm';
 import { ApplicationUser } from './ApplicationUser';
 import { Recipe } from './Recipe';
 

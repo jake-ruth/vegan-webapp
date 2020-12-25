@@ -21,9 +21,10 @@ export const MyRecipesTab = () => {
       .then(() => setLoading(false));
   }, []);
 
+  if (recipesForUser?.length === 0) return <div>You have not created any recipes yet</div>;
+
   return (
     <div>
-      {loading && <CircularProgress size='3rem' />}
       <Typography variant='h3'>My Recipes</Typography>
       <div className='scroll-menu'>
         {recipesForUser?.map((recipe, index) => {

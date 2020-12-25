@@ -33,9 +33,11 @@ export const CollectionsTab = () => {
         </Button>
       </div>
 
-      {collections?.map((collection) => {
-        return <CollectionCard collection={collection} />;
-      })}
+      <div className='collections-container'>
+        {collections?.map((collection) => {
+          return <CollectionCard collection={collection} />;
+        })}
+      </div>
 
       <AddCollectionModal setShow={setShowAddCollection} show={showAddCollection} />
     </div>

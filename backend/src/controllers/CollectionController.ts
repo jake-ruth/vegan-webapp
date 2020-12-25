@@ -1,4 +1,3 @@
-import { Recipe } from '../entities/Recipe';
 import { ApplicationUser } from '../entities/ApplicationUser';
 import { Favorite } from '../entities/Favorite';
 import { Collection } from '../entities/Collection';
