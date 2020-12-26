@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import SettingsIcon from '@material-ui/icons/Settings';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import ListIcon from '@material-ui/icons/List';
 
 import ReorderIcon from '@material-ui/icons/Reorder';
 import { Box, Typography, AppBar, Tabs, Tab } from '@material-ui/core';
@@ -72,7 +73,7 @@ export const AccountPageTabs = () => {
           textColor='primary'
           aria-label='scrollable force tabs example'>
           <Tab label='My Recipes' icon={<ReorderIcon />} {...a11yProps(0)} />
-          <Tab label='Collections' icon={<SettingsIcon />} {...a11yProps(1)} />
+          <Tab label='Collections' icon={<ListIcon />} {...a11yProps(1)} />
           <Tab label='Favorites' icon={<FavoriteIcon />} {...a11yProps(2)} />
           <Tab label='Settings' icon={<SettingsIcon />} {...a11yProps(3)} />
         </Tabs>

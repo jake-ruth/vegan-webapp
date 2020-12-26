@@ -1,5 +1,4 @@
 import { ApplicationUser } from '../entities/ApplicationUser';
-import { Favorite } from '../entities/Favorite';
 import { Collection } from '../entities/Collection';
 
 export class CollectionController {
@@ -20,7 +19,7 @@ export class CollectionController {
     return collections;
   };
 
-  static deleteFavorite = async (id: number) => {
-    return await Favorite.delete(id);
+  static deleteCollection = async (id: number) => {
+    return await Collection.delete(id);
   };
 }

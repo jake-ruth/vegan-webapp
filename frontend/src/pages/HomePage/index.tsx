@@ -6,7 +6,6 @@ import { RecipeController } from '../../controllers/RecipeController';
 import { Recipe } from '../../models/Recipe';
 import Pagination from '@material-ui/lab/Pagination';
 import SearchBar from 'material-ui-search-bar';
-import { CircularProgress } from '@material-ui/core';
 
 export const HomePage = () => {
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
@@ -14,17 +13,14 @@ export const HomePage = () => {
   const [recipesCount, setRecipesCount] = React.useState<number>(0);
   const [searchString, setSearchString] = React.useState<string>('');
   const [pageTrigger, setPageTrigger] = React.useState<boolean>(false);
-  const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => pageAllRecipes(), [page]);
 
   const pageAllRecipes = () => {
     RecipeController.pageRecipes(page).then((res: any) => {
-      setLoading(true);
       setRecipes(res.data.recipes);
       setRecipesCount(res.data.totalCount);
       setPageTrigger(!pageTrigger);
-      setLoading(false);
     });
   };
 
@@ -39,8 +35,6 @@ export const HomePage = () => {
   };
 
   const handlePage = (e: any, pageNumber: number) => setPage(pageNumber - 1);
-
-  if (loading) return <CircularProgress />;
 
   return (
     <div className='home-page'>
@@ -61,6 +55,7 @@ export const HomePage = () => {
           />
         </div>
       </div>
+
       <div className='recipe-card-container'>
         {recipes.map((recipe, index) => (
           <RecipeCard pageTrigger={pageTrigger} key={index} recipe={recipe} />
@@ -75,6 +70,7 @@ export const HomePage = () => {
           {recipesCount} total {recipesCount === 1 ? 'recipe' : 'recipes'}
         </div>
       </div>
+
       <Footer />
     </div>
   );

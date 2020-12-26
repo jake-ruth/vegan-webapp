@@ -11,7 +11,7 @@ afterAll(async () => {
 });
 
 let appUser = new ApplicationUser();
-appUser.email = 'testemail@email.com';
+appUser.email = `test${Math.floor(Math.random() * 1000000)}@test.com`;
 appUser.password = 'test';
 appUser.firstName = 'Test';
 appUser.lastName = 'LastName';
