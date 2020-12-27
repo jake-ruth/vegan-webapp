@@ -2,12 +2,12 @@ import { Entity, PrimaryGeneratedColumn, BaseEntity, OneToOne, JoinColumn, ManyT
 import { Collection } from './Collection';
 import { Recipe } from './Recipe';
 
-@Entity('Favorite')
-export class Favorite extends BaseEntity {
+@Entity('CollectionRecipe')
+export class CollectionRecipe extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne((type) => Collection)
+  @ManyToOne((type) => Collection)
   @JoinColumn()
   collection: Collection;
 

@@ -3,7 +3,6 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
-  OneToOne,
   JoinColumn,
   CreateDateColumn,
   Generated,
@@ -11,6 +10,7 @@ import {
   OneToMany
 } from 'typeorm';
 import { ApplicationUser } from './ApplicationUser';
+import { CollectionRecipe } from './CollectionRecipe';
 import { Favorite } from './Favorite';
 
 @Entity('Recipe')
@@ -56,4 +56,7 @@ export class Recipe extends BaseEntity {
 
   @OneToMany((type) => Favorite, (favorite) => favorite.recipe)
   favorites: Favorite[];
+
+  @OneToMany((type) => CollectionRecipe, (collectionRecipe) => collectionRecipe.recipe)
+  collectionRecipes: CollectionRecipe[];
 }

@@ -20,6 +20,15 @@ export class CollectionController {
     }
   };
 
+  static addRecipeToCollection = async (recipeId: number, collectionId: number) => {
+    try {
+      let res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/addRecipeTocollection/`, { recipeId, collectionId });
+      return res.data;
+    } catch (err) {
+      console.log('ERROR: ', err);
+    }
+  };
+
   static deleteFavoriteRecipe = async (id: number) => {
     try {
       let res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/deleteFavoriteRecipe/${id}`);

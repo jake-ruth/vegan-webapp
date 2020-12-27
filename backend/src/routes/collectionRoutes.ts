@@ -19,6 +19,17 @@ router.post('/createCollection', async (req: Request, res: Response) => {
   }
 });
 
+router.post('/addRecipeToCollection', async (req: Request, res: Response) => {
+  const body = req.body;
+
+  try {
+    const response = await CollectionController.addRecipeToCollection(body.recipeId, body.collectionId);
+    return res.status(200).json(response);
+  } catch (err) {
+    return res.status(500).json({ error: err });
+  }
+});
+
 router.get('/getCollections/:userId', async (req: Request, res: Response) => {
   try {
     const response = await CollectionController.readCollections(Number(req.params.userId));

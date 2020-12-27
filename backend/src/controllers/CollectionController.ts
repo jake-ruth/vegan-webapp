@@ -1,3 +1,5 @@
+import { CollectionRecipe } from '../entities/CollectionRecipe';
+import { Recipe } from '../entities/Recipe';
 import { ApplicationUser } from '../entities/ApplicationUser';
 import { Collection } from '../entities/Collection';
 
@@ -21,5 +23,15 @@ export class CollectionController {
 
   static deleteCollection = async (id: number) => {
     return await Collection.delete(id);
+  };
+
+  static addRecipeToCollection = async (recipeId: number, collectionId: number) => {
+    let collectionRecipe = new CollectionRecipe();
+    let recipe = await Recipe.findOne(recipeId);
+    const collection = await Collection.findOne(collectionId);
+    if (recipe) collectionRecipe.recipe = recipe;
+    if (collection) collectionRecipe.collection = collection;
+
+    return await CollectionRecipe.save(collectionRecipe);
   };
 }

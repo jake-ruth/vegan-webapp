@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, BaseEntity, OneToOne, JoinColumn, ManyToOne, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, BaseEntity, OneToOne, JoinColumn, ManyToOne, Column, ManyToMany } from 'typeorm';
 import { ApplicationUser } from './ApplicationUser';
+import { CollectionRecipe } from './CollectionRecipe';
 
 @Entity('Collection')
 export class Collection extends BaseEntity {
@@ -12,4 +13,7 @@ export class Collection extends BaseEntity {
   @ManyToOne((type) => ApplicationUser)
   @JoinColumn()
   applicationUser: ApplicationUser;
+
+  @ManyToMany((type) => CollectionRecipe, (collectionRecipe) => collectionRecipe.collection)
+  collectionRecipes: CollectionRecipe[];
 }
