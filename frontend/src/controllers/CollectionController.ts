@@ -20,9 +20,13 @@ export class CollectionController {
     }
   };
 
-  static addRecipeToCollection = async (recipeId: number, collectionId: number) => {
+  static addRecipeToCollection = async (recipeId: number, collectionId: number, userId: number) => {
     try {
-      let res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/addRecipeTocollection/`, { recipeId, collectionId });
+      let res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/addRecipeTocollection/`, {
+        recipeId,
+        collectionId,
+        userId
+      });
       return res.data;
     } catch (err) {
       console.log('ERROR: ', err);

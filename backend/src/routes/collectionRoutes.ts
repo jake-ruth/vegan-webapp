@@ -23,7 +23,7 @@ router.post('/addRecipeToCollection', async (req: Request, res: Response) => {
   const body = req.body;
 
   try {
-    const response = await CollectionController.addRecipeToCollection(body.recipeId, body.collectionId);
+    const response = await CollectionController.addRecipeToCollection(body.recipeId, body.collectionId, body.userId);
     return res.status(200).json(response);
   } catch (err) {
     return res.status(500).json({ error: err });

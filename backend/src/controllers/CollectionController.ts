@@ -25,12 +25,15 @@ export class CollectionController {
     return await Collection.delete(id);
   };
 
-  static addRecipeToCollection = async (recipeId: number, collectionId: number) => {
+  static addRecipeToCollection = async (recipeId: number, collectionId: number, userId: number) => {
     let collectionRecipe = new CollectionRecipe();
     let recipe = await Recipe.findOne(recipeId);
     const collection = await Collection.findOne(collectionId);
+    const user = await ApplicationUser.findOne(userId);
+
     if (recipe) collectionRecipe.recipe = recipe;
     if (collection) collectionRecipe.collection = collection;
+    if (user) collectionRecipe.applicationUser = user;
 
     return await CollectionRecipe.save(collectionRecipe);
   };

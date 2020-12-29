@@ -1,9 +1,11 @@
 import React from 'react';
 import { RecipeContext, UserContext } from '../../../context';
-import { Backdrop, Button, Checkbox, Fade, FormControlLabel, List, ListItem, makeStyles, Modal } from '@material-ui/core';
+import { Backdrop, Button, Checkbox, Fade, FormControlLabel, makeStyles, Modal } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { Collection } from '../../../models/Collection';
 import { CollectionController } from '../../../controllers/CollectionController';
+import { CollectionRecipeController } from '../../../controllers/CollectionRecipeController';
+import { CollectionRecipe } from '../../../models/CollectionRecipe';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -26,13 +28,43 @@ export const AddToCollectionButton = () => {
   const { recipe } = React.useContext(RecipeContext);
   const [showCollections, setShowCollections] = React.useState<boolean>(false);
   const [collections, setCollections] = React.useState<Collection[]>();
+  const [collectionRecipes, setCollectionRecipes] = React.useState<CollectionRecipe[]>();
 
   React.useEffect(() => {
     CollectionController.getCollections(user.id!).then((collections) => setCollections(collections));
+    CollectionRecipeController.getCollectionRecipes(user.id!).then((collectionRecipes) => {
+      console.log('COLLL', collectionRecipes);
+      setCollectionRecipes(collectionRecipes);
+    });
   }, [showCollections]);
 
   const addRecipeToCollection = async (collectionId: number) => {
-    await CollectionController.addRecipeToCollection(recipe?.id!, collectionId);
+    let filtered = collectionRecipes?.filter((collectionRecipe) => {
+      return collectionRecipe.recipe.id === recipe!.id && collectionRecipe.collection.id === collectionId;
+    });
+
+    if (filtered) {
+      console.log('FILLLL: ', filtered);
+      if (filtered.length) {
+        await CollectionRecipeController.deleteCollectionRecipe(filtered[0].id);
+        setShowCollections(false);
+        setShowCollections(true);
+      } else {
+        await CollectionController.addRecipeToCollection(recipe?.id!, collectionId, user.id!);
+        setShowCollections(false);
+        setShowCollections(true);
+      }
+    }
+  };
+
+  const checkIfRecipeInCollection = (collection: Collection) => {
+    let filtered = collectionRecipes?.filter((collectionRecipe) => {
+      return collectionRecipe.recipe.id === recipe!.id && collectionRecipe.collection.id === collection.id;
+    });
+    if (filtered) {
+      if (filtered.length) return true;
+    }
+    return false;
   };
 
   return (
@@ -66,7 +98,7 @@ export const AddToCollectionButton = () => {
                   <FormControlLabel
                     onClick={() => addRecipeToCollection(collection.id!)}
                     value='top'
-                    control={<Checkbox color='primary' />}
+                    control={<Checkbox color='primary' checked={checkIfRecipeInCollection(collection)} />}
                     label={collection.title}
                     labelPlacement='end'
                   />
