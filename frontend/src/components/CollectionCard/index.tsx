@@ -1,5 +1,6 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Collection } from '../../models/Collection';
 
 interface Props {
@@ -7,8 +8,12 @@ interface Props {
 }
 
 export const CollectionCard = (props: Props) => {
+  const history = useHistory();
+
   return (
-    <div className='collection-card'>
+    <div
+      className='collection-card'
+      onClick={() => history.push(`/viewCollection/${props.collection.title}/${props.collection.id}`)}>
       <div className='collection-card__img-container'>
         {/* <img src={`${process.env.PUBLIC_URL}/veggies.jpg`} className='collection-card__img' />
         <img src={`${process.env.PUBLIC_URL}/veggies.jpg`} className='collection-card__img' />

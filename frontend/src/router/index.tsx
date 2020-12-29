@@ -9,6 +9,7 @@ import { CreateRecipe } from '../pages/CreateRecipe';
 import { AccountPage } from '../pages/AccountPage';
 import { PrivateRoute } from './ProtectedRoute';
 import { EditRecipe } from '../pages/EditRecipe';
+import { CollectionRecipesPage } from '../pages/CollectionPage';
 
 export const BaseRouter = () => {
   return (
@@ -23,6 +24,7 @@ export const BaseRouter = () => {
 
         <PrivateRoute path='/createRecipe' component={CreateRecipe} />
         <PrivateRoute path='/editRecipe/:recipeId' component={EditRecipe} />
+        <PrivateRoute path='/viewCollection/:title/:collectionId' component={CollectionRecipesPage} />
       </Switch>
     </Router>
   );

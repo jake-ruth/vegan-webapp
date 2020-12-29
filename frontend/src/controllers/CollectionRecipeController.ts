@@ -11,6 +11,15 @@ export class CollectionRecipeController {
     }
   };
 
+  static getCollectionRecipesByCollection = async (collectionId: number) => {
+    try {
+      let res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getCollectionRecipesByCollection/${collectionId}`);
+      return res.data;
+    } catch (err) {
+      console.log('ERROR: ', err);
+    }
+  };
+
   static deleteCollectionRecipe = async (id: number) => {
     try {
       let res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/deleteCollectionRecipe/${id}`);
