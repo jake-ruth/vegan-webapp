@@ -1,11 +1,12 @@
 import React from 'react';
 import { RecipeContext, UserContext } from '../../../context';
-import { Backdrop, Button, Checkbox, Fade, FormControlLabel, makeStyles, Modal } from '@material-ui/core';
+import { Backdrop, Button, Checkbox, Fade, FormControlLabel, makeStyles, Modal, Divider } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { Collection } from '../../../models/Collection';
 import { CollectionController } from '../../../controllers/CollectionController';
 import { CollectionRecipeController } from '../../../controllers/CollectionRecipeController';
 import { CollectionRecipe } from '../../../models/CollectionRecipe';
+import { CreateNewCollectionForm } from './CreateNewCollectionForm';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -27,15 +28,15 @@ export const AddToCollectionButton = () => {
   const { user } = React.useContext(UserContext);
   const { recipe } = React.useContext(RecipeContext);
   const [showCollections, setShowCollections] = React.useState<boolean>(false);
+  const [createNewCollection, setCreateNewCollection] = React.useState<boolean>(false);
   const [collections, setCollections] = React.useState<Collection[]>();
   const [collectionRecipes, setCollectionRecipes] = React.useState<CollectionRecipe[]>();
 
   React.useEffect(() => {
     CollectionController.getCollections(user.id!).then((collections) => setCollections(collections));
-    CollectionRecipeController.getCollectionRecipes(user.id!).then((collectionRecipes) => {
-      console.log('COLLL', collectionRecipes);
-      setCollectionRecipes(collectionRecipes);
-    });
+    CollectionRecipeController.getCollectionRecipes(user.id!).then((collectionRecipes) =>
+      setCollectionRecipes(collectionRecipes)
+    );
   }, [showCollections]);
 
   const addRecipeToCollection = async (collectionId: number) => {
@@ -44,7 +45,6 @@ export const AddToCollectionButton = () => {
     });
 
     if (filtered) {
-      console.log('FILLLL: ', filtered);
       if (filtered.length) {
         await CollectionRecipeController.deleteCollectionRecipe(filtered[0].id);
         setShowCollections(false);
@@ -74,7 +74,7 @@ export const AddToCollectionButton = () => {
         endIcon={<AddIcon />}
         color='primary'
         variant='contained'
-        style={{ borderRadius: 0, marginLeft: '1em' }}>
+        style={{ borderRadius: 0, marginRight: '1em' }}>
         Add to Collection
       </Button>
 
@@ -86,9 +86,7 @@ export const AddToCollectionButton = () => {
         onClose={() => setShowCollections(false)}
         closeAfterTransition
         BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500
-        }}>
+        BackdropProps={{ timeout: 500 }}>
         <Fade in={showCollections}>
           <div className={classes.paper}>
             <h2 id='transition-modal-title'>Add Recipe to Collection</h2>
@@ -105,6 +103,19 @@ export const AddToCollectionButton = () => {
                 );
               })}
             </div>
+            <Divider />
+
+            {createNewCollection ? (
+              <CreateNewCollectionForm />
+            ) : (
+              <Button
+                onClick={() => setCreateNewCollection(true)}
+                style={{ marginTop: '1em', borderRadius: 0 }}
+                variant='contained'
+                startIcon={<AddIcon />}>
+                New Collection
+              </Button>
+            )}
           </div>
         </Fade>
       </Modal>
