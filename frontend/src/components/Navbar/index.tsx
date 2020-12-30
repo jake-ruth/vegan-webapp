@@ -16,6 +16,7 @@ export const Navbar = () => {
             <div>
               <Link to='/'>
                 <Typography variant='h6'>Plant Based Plates</Typography>
+                {/* <img src={`${process.env.PUBLIC_URL}/images/veggiesLogo.png`} width={50} height={50} /> */}
               </Link>
             </div>
 
@@ -56,8 +57,9 @@ export const Navbar = () => {
         <div className='navbar__full'>
           <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
-              <Link to='/'>
+              <Link to='/' style={{ display: 'flex' }}>
                 <Typography variant='h6'>Plant Based Plates</Typography>
+                {/* <img src={`${process.env.PUBLIC_URL}/images/veggiesLogo.png`} width={35} height={35} style={{ marginLeft: 20 }} /> */}
               </Link>
             </div>
             <div>

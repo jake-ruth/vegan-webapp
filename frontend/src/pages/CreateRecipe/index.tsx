@@ -1,31 +1,23 @@
 import React from 'react';
 import { Navbar } from '../../components/Navbar';
 import { useForm, FormProvider } from 'react-hook-form';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { Recipe } from '../../models/Recipe';
 import { RecipeController } from '../../controllers/RecipeController';
 import { useHistory } from 'react-router-dom';
-import firebase from 'firebase';
 import { CreateRecipeContent } from './components/CreateRecipeContent';
 import { ImageCropper } from './components/ImageCropper';
 import { UserContext } from '../../context';
-import { RecipeFields } from './utils';
+import { defaultRecipe, RecipeFields } from './utils';
+import { FirebaseController } from '../../controllers/FirebaseController';
 
 export const CreateRecipe = () => {
-  const methods = useForm<RecipeFields>();
+  const { user } = React.useContext(UserContext);
+  const [recipeImageFile, setRecipeImageFile] = React.useState<File>();
+  const [error, setError] = React.useState<string>('');
 
   const history = useHistory();
-  const [recipeImageFile, setRecipeImageFile] = React.useState<File | null>(null);
-  const { user } = React.useContext(UserContext);
-
-  const uploadImage = (imageUuid: string) => {
-    const fileExtension = recipeImageFile!.name.split('.').pop();
-
-    let rootRef = firebase.storage().ref();
-    let fileRef = rootRef.child(`${imageUuid}.${fileExtension}`);
-
-    fileRef.put(recipeImageFile!).then((res) => console.log(res));
-  };
+  const methods = useForm<RecipeFields>({ defaultValues: defaultRecipe });
 
   const formatLinesToArray = (string: string): string[] => {
     let linesArray: string[] = string.split(/\n/);
@@ -33,7 +25,7 @@ export const CreateRecipe = () => {
   };
 
   const onSubmit = async (data: RecipeFields) => {
-    alert(JSON.stringify(data));
+    if (!recipeImageFile) return setError('Please upload an image');
 
     let recipe: Recipe = {
       title: data.title,
@@ -48,10 +40,10 @@ export const CreateRecipe = () => {
 
     try {
       const res = await RecipeController.createRecipe(recipe, user.uuid);
-      uploadImage(res!.data.imageUrlUuid);
+      FirebaseController.uploadRecipeImage(res!.data.imageUrlUuid, recipeImageFile!);
       history.push('/');
     } catch (err) {
-      console.log('ERR: ', err);
+      setError(JSON.stringify(err));
     }
   };
 
@@ -59,13 +51,20 @@ export const CreateRecipe = () => {
     <div>
       <Navbar />
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <h1 style={{ textAlign: 'center' }}>Create Recipe</h1>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Typography variant='h4' style={{ textAlign: 'center', margin: '0.5em' }}>
+            Create Recipe
+          </Typography>
+          <img style={{ marginTop: 10 }} src={`${process.env.PUBLIC_URL}/images/vegetables.png`} width={55} height={55} />
+        </div>
         <div className='create-recipe'>
           <FormProvider {...methods}>
             <CreateRecipeContent />
           </FormProvider>
           <br />
           <ImageCropper setRecipeImageFile={setRecipeImageFile} />
+
+          {error.length > 0 && <div className='error'>Error creating recipe: {error}</div>}
           <Button type='submit' variant='contained' color='primary' style={{ borderRadius: 0, maxWidth: 200, marginTop: '1em' }}>
             Save Recipe!
           </Button>

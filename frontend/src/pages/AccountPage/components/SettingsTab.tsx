@@ -23,7 +23,7 @@ export const SettingsTab = () => {
 
   return (
     <div>
-      <Typography variant='h3'>Settings</Typography>
+      <Typography variant='h4'>Settings</Typography>
       <div className='account-page__settings'>
         <form onSubmit={methods.handleSubmit(updateProfile)}>
           <Controller

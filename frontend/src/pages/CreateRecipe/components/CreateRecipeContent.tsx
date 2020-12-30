@@ -7,8 +7,10 @@ export const CreateRecipeContent = () => {
   return (
     <div className='create-recipe__content'>
       <div className='create-recipe__section'>
+        <div className='error'>{errors.title && errors.title.message}</div>
         <Controller
           as={TextField}
+          style={{ marginBottom: 15, marginTop: 0 }}
           control={control}
           rules={{ required: 'Title Required' }}
           type='text'
@@ -17,35 +19,34 @@ export const CreateRecipeContent = () => {
           label='Title'
           fullWidth
         />
-        <div className='error'>{errors.title && errors.title.message}</div>
 
+        <div className='error'>{errors.description && errors.description.message}</div>
         <Controller
           as={TextField}
+          style={{ marginBottom: 15, marginTop: 5 }}
           control={control}
           multiline
           fullWidth
           variant='outlined'
           rows={5}
-          style={{ marginTop: 20 }}
           name='description'
           label='Description'
           rules={{ required: 'Description Required' }}
         />
-        <div className='error'>{errors.description && errors.description.message}</div>
 
+        <div className='error'>{errors.instructions && errors.instructions.message}</div>
         <Controller
           as={TextField}
+          style={{ marginTop: 5 }}
           control={control}
           multiline
           fullWidth
           variant='outlined'
-          rows={10}
-          style={{ marginTop: 20 }}
+          rows={13}
           name='instructions'
-          label='Instructions'
+          label='Instructions (put each step on new line)'
           rules={{ required: 'Instructions Required' }}
         />
-        <div className='error'>{errors.description && errors.description.message}</div>
       </div>
 
       <div className='create-recipe__section'>
@@ -60,7 +61,8 @@ export const CreateRecipeContent = () => {
           <Controller as={TextField} control={control} type='number' name='cookHours' label='Hours' defaultValue={0} />
           <Controller as={TextField} control={control} type='number' name='cookMinutes' label='Minutes' defaultValue={0} />
         </div>
-        <Controller as={TextField} control={control} name='yieldAmount' label='Yield' />
+        <Controller as={TextField} control={control} name='yieldAmount' label='Yield' style={{ marginBottom: 11 }} />
+        <div className='error'>{errors.ingredients && errors.ingredients.message}</div>
         <Controller
           as={TextField}
           control={control}
@@ -68,7 +70,7 @@ export const CreateRecipeContent = () => {
           fullWidth
           variant='outlined'
           rows={10}
-          style={{ marginTop: 20 }}
+          style={{ marginTop: 5 }}
           name='ingredients'
           label='Ingredients'
           rules={{ required: 'Ingredients Required' }}

@@ -18,15 +18,16 @@ export const CollectionsTab = () => {
 
   return (
     <div>
-      <Typography variant='h3'>My Collections</Typography>
+      <Typography variant='h4'>My Collections</Typography>
       <div className='collections-container'>
         {collections?.map((collection) => {
           return <CollectionCard collection={collection} />;
         })}
         <div className='add-collection-card'>
           <Button
+            size='large'
             fullWidth
-            style={{ borderRadius: 0 }}
+            style={{ borderRadius: 0, backgroundColor: 'white' }}
             variant='contained'
             color='default'
             title='Add Collection'

@@ -15,7 +15,7 @@ export const FavoriteRecipesTab = () => {
   if (!favoriteRecipes?.length)
     return (
       <div>
-        <Typography variant='h3'>Favorite Recipes</Typography>
+        <Typography variant='h4'>Favorite Recipes</Typography>
         <div>
           You do not have any favorites saved -{' '}
           <a href='/' style={{ color: 'black', textDecoration: 'underline' }}>
@@ -27,7 +27,7 @@ export const FavoriteRecipesTab = () => {
 
   return (
     <div>
-      <Typography variant='h3'>Favorite Recipes</Typography>
+      <Typography variant='h4'>Favorite Recipes</Typography>
       <div className='scroll-menu'>
         {favoriteRecipes?.map((favorite, index) => {
           return <RecipeCard recipe={favorite.recipe} />;
