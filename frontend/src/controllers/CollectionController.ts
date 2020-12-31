@@ -1,10 +1,9 @@
-import axios from 'axios';
 import protectedAxios from '../utils/axios';
 
 export class CollectionController {
   static createCollection = async (title: string, userId: number) => {
     try {
-      let res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/createCollection/`, { title, userId });
+      let res = await protectedAxios.post(`${process.env.REACT_APP_BACKEND_URL}/createCollection/`, { title, userId });
       return res;
     } catch (err) {
       console.log('ERROR: ', err);
@@ -13,7 +12,7 @@ export class CollectionController {
 
   static getCollections = async (userId: number) => {
     try {
-      let res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getCollections/${userId}`);
+      let res = await protectedAxios.get(`${process.env.REACT_APP_BACKEND_URL}/getCollections/${userId}`);
       return res.data;
     } catch (err) {
       console.log('ERROR: ', err);
@@ -22,7 +21,7 @@ export class CollectionController {
 
   static addRecipeToCollection = async (recipeId: number, collectionId: number, userId: number) => {
     try {
-      let res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/addRecipeTocollection/`, {
+      let res = await protectedAxios.post(`${process.env.REACT_APP_BACKEND_URL}/addRecipeTocollection/`, {
         recipeId,
         collectionId,
         userId
@@ -33,9 +32,9 @@ export class CollectionController {
     }
   };
 
-  static deleteFavoriteRecipe = async (id: number) => {
+  static deleteCollection = async (id: number) => {
     try {
-      let res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/deleteFavoriteRecipe/${id}`);
+      let res = await protectedAxios.delete(`${process.env.REACT_APP_BACKEND_URL}/deleteCollection/${id}`);
       return res;
     } catch (err) {
       console.log('ERROR: ', err);

@@ -1,8 +1,6 @@
 export {};
 import { Request, Response } from 'express';
-import { RecipeController } from '../controllers/RecipeController';
 import bodyParser from 'body-parser';
-import { Recipe } from '../entities/Recipe';
 import { authenticateToken } from '../middleware/authentication';
 import { FavoriteController } from '../controllers/FavoriteController';
 
@@ -10,7 +8,7 @@ const express = require('express');
 const router = express.Router();
 router.use(bodyParser.json());
 
-router.post('/addRecipeToFavorites', async (req: Request, res: Response) => {
+router.post('/addRecipeToFavorites', authenticateToken, async (req: Request, res: Response) => {
   const body = req.body;
 
   try {
@@ -21,7 +19,7 @@ router.post('/addRecipeToFavorites', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/getFavoriteRecipes/:userId', async (req: Request, res: Response) => {
+router.get('/getFavoriteRecipes/:userId', authenticateToken, async (req: Request, res: Response) => {
   try {
     const response = await FavoriteController.readFavorites(Number(req.params.userId));
     return res.status(200).json(response);
@@ -30,7 +28,7 @@ router.get('/getFavoriteRecipes/:userId', async (req: Request, res: Response) =>
   }
 });
 
-router.delete('/deleteFavoriteRecipe/:id', async (req: Request, res: Response) => {
+router.delete('/deleteFavoriteRecipe/:id', authenticateToken, async (req: Request, res: Response) => {
   try {
     const response = await FavoriteController.deleteFavorite(Number(req.params.id));
     return res.status(200).json(response);

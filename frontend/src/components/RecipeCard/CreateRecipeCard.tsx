@@ -9,8 +9,19 @@ export const CreateRecipeCard = () => {
       <Link to='/createRecipe'>
         <div
           className='container'
-          style={{ color: 'black', textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <Typography variant='h5'>Create Recipe</Typography> <AddCircleIcon />
+          style={{
+            color: 'black',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+          <Typography style={{ margin: 15 }} variant='h5'>
+            Create Recipe
+          </Typography>
+
+          <AddCircleIcon />
         </div>
       </Link>
     </div>

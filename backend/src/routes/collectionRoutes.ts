@@ -8,7 +8,7 @@ const express = require('express');
 const router = express.Router();
 router.use(bodyParser.json());
 
-router.post('/createCollection', async (req: Request, res: Response) => {
+router.post('/createCollection', authenticateToken, async (req: Request, res: Response) => {
   const body = req.body;
 
   try {
@@ -19,7 +19,7 @@ router.post('/createCollection', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/addRecipeToCollection', async (req: Request, res: Response) => {
+router.post('/addRecipeToCollection', authenticateToken, async (req: Request, res: Response) => {
   const body = req.body;
 
   try {
@@ -30,7 +30,7 @@ router.post('/addRecipeToCollection', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/getCollections/:userId', async (req: Request, res: Response) => {
+router.get('/getCollections/:userId', authenticateToken, async (req: Request, res: Response) => {
   try {
     const response = await CollectionController.readCollections(Number(req.params.userId));
     return res.status(200).json(response);
