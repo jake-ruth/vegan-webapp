@@ -18,10 +18,10 @@ export class Recipe extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   title: string;
 
-  @Column()
+  @Column({ nullable: false })
   description: string;
 
   @Column('character varying', { array: true, nullable: true })

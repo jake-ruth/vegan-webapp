@@ -7,7 +7,7 @@ export class Collection extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   title: string;
 
   @ManyToOne((type) => ApplicationUser)
